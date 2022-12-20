@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="~/css/bootswatch.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BatteryPeykCustomers.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Battery Peyk VIP</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">BatteryPeyk VIP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,17 +22,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Customers/Index">Customers</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                        @if (User != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/Privacy">BatteryPeyk</a>
+                        </li>}
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">m 
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -38,7 +43,7 @@
 
     <footer class="border-top footer text-light bg-primary">
         <div class="container">
-            &copy; 2022 - <a href="https://BatteryPeyk.com">Battery Peyk</a> VIP customer care center - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - <a href="https://BatteryPeyk.com">Battery Peyk</a> VIP customer care center
         </div>
     </footer>
 

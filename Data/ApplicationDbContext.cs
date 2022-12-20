@@ -1,14 +1,17 @@
 ﻿using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace BatteryPeykCustomers.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext:IdentityDbContext
     {
-        public DbSet<Customer> Customer { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<User> User{ get; set; }
+
     }
 }

@@ -1,0 +1,17 @@
+﻿1- Database Setup
+	- EntityFramework.Core
+	- Add-Migration
+	- Update-database
+
+2- Bootswatch
+3- Toastr
+4- partail view
+5- Datatables.net
+6- dropdown IEnumerable<SelectListItem>
+	.GetAll().Select(i=> new SelectListItem()
+	{
+	Text= i.Name,
+	Valude=I.Id.ToString()
+	}
+	)
+7- uploadimage <form method="post" enctype="multipart/form-data">

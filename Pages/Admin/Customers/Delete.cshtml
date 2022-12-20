@@ -1,17 +1,13 @@
 ﻿@page
-@model IndexModel
+@model BatteryPeykCustomers.Pages.Admin.Customers.DeleteModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Delete";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>To <a href="https://BatteryPeyk.com">BatteryPeyk</a> VIP customer care center</p>
-</div>
+<h1>Delete</h1>
 
-
-<h1>Details</h1>
-
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Customer</h4>
     <hr />
@@ -59,8 +55,10 @@
             @Html.DisplayFor(model => model.Customer.Comments)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Customer?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Customer.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
 </div>
