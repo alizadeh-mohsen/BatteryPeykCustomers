@@ -11,7 +11,5 @@ namespace BatteryPeykCustomers.Data
         {
         }
         public DbSet<Customer> Customer { get; set; }
-        public DbSet<User> User{ get; set; }
-
     }
 }

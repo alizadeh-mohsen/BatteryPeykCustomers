@@ -21,17 +21,21 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public IActionResult OnGet()
         {
+            Customer = new Customer
+            {
+                PurchaseDate = DateTime.Today,
+                GuarantyStartDate = DateTime.Today,
+            };
             return Page();
         }
 
         [BindProperty]
-        public Customer Customer { get; set; }
+        public Customer Customer { get; set; } = default!;
         
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+          if (!ModelState.IsValid || _context.Customer == null || Customer == null)
             {
                 return Page();
             }

@@ -23,14 +23,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty]
         public Customer Customer { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Phone == id);
             if (customer == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(Customer.Id))
+                if (!CustomerExists(Customer.Phone))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             return RedirectToPage("./Index");
         }
 
-        private bool CustomerExists(int id)
+        private bool CustomerExists(string id)
         {
-          return _context.Customer.Any(e => e.Id == id);
+          return (_context.Customer?.Any(e => e.Phone == id)).GetValueOrDefault();
         }
     }
 }

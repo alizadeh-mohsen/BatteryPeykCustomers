@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
- [Authorize]
     public class IndexModel : PageModel
     {
         private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;

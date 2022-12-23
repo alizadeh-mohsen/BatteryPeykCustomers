@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BatteryPeykCustomers.Pages
 {
@@ -19,23 +20,30 @@ namespace BatteryPeykCustomers.Pages
 
         public Customer Customer { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string m)
         {
-            if (id == null || _context.Customer == null)
-            {
-                return RedirectToPage("/NotFound");
-            }
+            try {
+                if (m == null)
+                {
+                    return RedirectToPage("/NotFound");
+                }
 
-            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return RedirectToPage("/NotFound");
+                var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == m);
+                if (customer == null)
+                {
+                    return RedirectToPage("/NotFound");
+                }
+                else
+                {
+                    Customer = customer;
+                }
+                return Page();
             }
-            else
+            catch(Exception ex)
             {
-                Customer = customer;
+                throw;
             }
-            return Page();
-        }
+            
+            }
     }
 }
