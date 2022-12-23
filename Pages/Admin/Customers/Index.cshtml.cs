@@ -19,13 +19,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             _context = context;
         }
 
-        public IList<Customer> Customer { get;set; } = default!;
+        public Customer Customer { get; set; }
+        public IList<Customer> Customers { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Customer != null)
             {
-                Customer = await _context.Customer.ToListAsync();
+                Customers = await _context.Customer.ToListAsync();
             }
         }
     }

@@ -21,21 +21,26 @@ namespace BatteryPeykCustomers.Data
                 {
                     _db.Database.Migrate();
                 }
+
+                var user = _userManager.FindByNameAsync("Qwerty").GetAwaiter().GetResult();
+                if (user == null)
+                {
+                    var result = _userManager.CreateAsync(new IdentityUser
+                    {
+                        UserName = "Qwerty",
+                        Email = "Soltan@batterypeyk.com",
+                        EmailConfirmed = true,
+                    }, "Qwerty@1").GetAwaiter().GetResult();
+                    if (result != null)
+                    {
+                        _db.Database.Migrate();
+                    }
+                }
             }
             catch (Exception)
             {
 
                 throw;
-            }
-            var user = _userManager.FindByNameAsync("alis").GetAwaiter().GetResult();
-            if (user == null)
-            {
-                _userManager.CreateAsync(new IdentityUser
-                {
-                    UserName = "alis",
-                    Email= "alis@b.com",
-                    EmailConfirmed= true,
-                }, "Admin@123").GetAwaiter().GetResult();
             }
         }
     }

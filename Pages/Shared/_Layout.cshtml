@@ -22,13 +22,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Admin/Customers/Index">Customers</a>
+                            <a class="nav-link text-light" href="https://batterypeyk.com">BatteryPeyk.com</a>
                         </li>
                         @if (User != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-page="/Privacy">BatteryPeyk</a>
-                        </li>}
+                                <a class="nav-link text-light" asp-area="" asp-page="/Admin/Customers/Index">Customers</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
