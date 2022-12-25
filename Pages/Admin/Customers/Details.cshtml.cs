@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Helpers;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -38,6 +39,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 Customer = customer;
             }
             return Page();
+        }
+
+        public string ToPersianDate(DateTime? date)
+        {
+            return DateHelper.ToPersianDate(date);
         }
     }
 }
