@@ -6,12 +6,21 @@
 }
 
 <partial name="_Notification" />
-<h1>Index</h1>
+<h1>Create</h1>
 
+
+    <hr />
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-info" asp-page="Create"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;Create New</a>
 </p>
 
+<form>
+    <p>
+        Name: <input type="text" asp-for="SearchNameString" />
+        Phone: <input type="text" asp-for="SearchPhoneString" />
+        <button type="submit" class="btn btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -19,28 +28,13 @@
                 Name
             </th>
             <th>
-                Address
-            </th>
-            <th>
                 Battery
-            </th>
-            <th>
-                Car
             </th>
             <th>
                 Phone
             </th>
             <th>
                 PurchaseDate
-            </th>
-            <th>
-                GuarantyStartDate
-            </th>
-            <th>
-                Life Expectancy
-            </th>
-            <th>
-                Comments
             </th>
             <th></th>
         </tr>
@@ -53,34 +47,19 @@
                     @item.Name
                 </td>
                 <td>
-                    @item.Address
-                </td>
-                <td>
-                    @item.Car
-                </td>
-                <td>
                     @item.Battery
                 </td>
                 <td>
                     @item.Phone
                 </td>
+                <td>
+                    @Model.ToPersianDate(@item.PurchaseDate)
+                </td>
 
                 <td>
-                    @item.PurchaseDate
-                </td>
-                <td>
-                    @item.GuarantyStartDate
-                </td> 
-                <td>
-                    @item.LifeExpectancy
-                </td>
-                <td>
-                    @item.Comments
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Phone">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Phone">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Phone">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Phone" class="text-warning"><i class="bi bi-pencil-square" style="font-size: 1.2rem"></i></a> |
+                    <a asp-page="./Details" asp-route-id="@item.Phone"><i class="bi bi-info-square" style="font-size: 1.2rem"></i></a> |
+                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Phone"><i class="bi bi-trash-fill" style="font-size: 1.2rem"></i></a>
                 </td>
             </tr>
         }

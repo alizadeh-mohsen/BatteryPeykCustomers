@@ -8,9 +8,14 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Customer</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Link
+        </dt>
+        <dd class="col-sm-10">
+            <span>http://Batterypey-vip.ir/index?m=@Model.Customer.Phone</span>
+        </dd>
         <dt class="col-sm-2">
             Name
         </dt>
@@ -21,47 +26,47 @@
             Address
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.Address
+            @Model.Customer.Address
         </dd>
         <dt class="col-sm-2">
             Car
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.Car
+            @Model.Customer.Car
         </dd>
         <dt class="col-sm-2">
             Battery
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.Battery
+            @Model.Customer.Battery
         </dd>
         <dt class="col-sm-2">
             PurchaseDate
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.PurchaseDate
+            @Model.Customer.PurchaseDate
         </dd>
         <dt class="col-sm-2">
             GuarantyStartDate
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.GuarantyStartDate
+            @Model.Customer.GuarantyStartDate
         </dd>
         <dt class="col-sm-2">
             Life Expectancy
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.LifeExpectancy
+            @Model.Customer.LifeExpectancy
         </dd>
         <dt class="col-sm-2">
             Comments
         </dt>
         <dd class="col-sm-10">
-             @Model.Customer.Comments
+            @Model.Customer.Comments
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Customer?.Phone">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a class="btn btn-info" asp-page="./Edit" asp-route-id="@Model.Customer?.Phone">Edit</a>
+    <a class="btn btn-success" asp-page="./Index">Back to List</a>
 </div>

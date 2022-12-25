@@ -6,11 +6,9 @@
 }
 
 <h1>Create</h1>
-
-<h4>Customer</h4>
 <hr />
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -50,7 +48,7 @@
             </div>  
             <div class="form-group">
                 <label asp-for="Customer.LifeExpectancy" class="control-label"></label>
-                <input asp-for="Customer.LifeExpectancy" type="date" class="form-control" />
+                <input asp-for="Customer.LifeExpectancy" class="form-control" />
                 <span asp-validation-for="Customer.LifeExpectancy" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -59,15 +57,14 @@
                 <span asp-validation-for="Customer.Comments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-info mt-2" />
+                <a asp-page="Index" class="btn btn-success mt-2">Back to List</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{
