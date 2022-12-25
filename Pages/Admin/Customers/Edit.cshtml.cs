@@ -31,6 +31,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             }
 
             var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Phone == id);
+
             if (customer == null)
             {
                 return NotFound();
@@ -39,8 +40,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -53,8 +52,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Updated Successfully";
+
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!CustomerExists(Customer.Phone))
                 {
@@ -62,8 +63,20 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    return Page();
                 }
+            }
+            catch (DbUpdateException uex)
+            {
+                if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
+                    ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return Page();
             }
 
             return RedirectToPage("./Index");

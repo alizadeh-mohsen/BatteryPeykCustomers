@@ -55,6 +55,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 Customer = customer;
                 _context.Customer.Remove(Customer);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Deleted Successfully";
+
             }
 
             return RedirectToPage("./Index");

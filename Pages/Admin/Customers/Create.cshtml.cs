@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -31,19 +33,32 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         [BindProperty]
         public Customer Customer { get; set; } = default!;
-        
+
 
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Customer == null || Customer == null)
+            if (!ModelState.IsValid || _context.Customer == null || Customer == null)
             {
                 return Page();
             }
-
-            _context.Customer.Add(Customer);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Customer.Add(Customer);
+                await _context.SaveChangesAsync();
+                TempData["success"] = "Created Successfully";
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException uex)
+            {
+                if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
+                    ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return Page();
+            }
         }
     }
 }

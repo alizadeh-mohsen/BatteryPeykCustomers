@@ -5,7 +5,7 @@ namespace BatteryPeykCustomers.Model
     public class Customer
     {
         [Key]
-        [MaxLength(20)] 
+        [MaxLength(20)]
         public string Phone { get; set; }
 
         [Required]
@@ -14,6 +14,10 @@ namespace BatteryPeykCustomers.Model
 
         [Required]
         public string Address { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Car { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -26,6 +30,9 @@ namespace BatteryPeykCustomers.Model
         [Required]
         [Display(Name = "Guaranty Start Date")]
         public DateTime GuarantyStartDate { get; set; } = DateTime.Today;
+
+        [Required]
+        public int LifeExpectancy { get; set; }
 
         public string? Comments { get; set; }
     }

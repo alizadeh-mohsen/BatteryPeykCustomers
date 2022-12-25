@@ -12,40 +12,52 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.Name)
+            Name
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Name)
+            @Model. @Model.Customer.Name
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.Address)
+            Address
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Address)
+             @Model.Customer.Address
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.Battery)
+            Car
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Battery)
+             @Model.Customer.Car
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.PurchaseDate)
+            Battery
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.PurchaseDate)
+             @Model.Customer.Battery
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.GuarantyStartDate)
+            PurchaseDate
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.GuarantyStartDate)
+             @Model.Customer.PurchaseDate
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.Comments)
+            GuarantyStartDate
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Comments)
+             @Model.Customer.GuarantyStartDate
+        </dd>
+        <dt class="col-sm-2">
+            Life Expectancy
+        </dt>
+        <dd class="col-sm-10">
+             @Model.Customer.LifeExpectancy
+        </dd>
+        <dt class="col-sm-2">
+            Comments
+        </dt>
+        <dd class="col-sm-10">
+             @Model.Customer.Comments
         </dd>
     </dl>
 </div>

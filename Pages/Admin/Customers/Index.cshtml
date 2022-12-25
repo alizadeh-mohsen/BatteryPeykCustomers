@@ -5,6 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
+<partial name="_Notification" />
 <h1>Index</h1>
 
 <p>
@@ -15,25 +16,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Address)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Battery)
+                Battery
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Phone)
+                Car
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].PurchaseDate)
+                Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].GuarantyStartDate)
+                PurchaseDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Comments)
+                GuarantyStartDate
+            </th>
+            <th>
+                Life Expectancy
+            </th>
+            <th>
+                Comments
             </th>
             <th></th>
         </tr>
@@ -43,26 +50,32 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @item.Name
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    @item.Address
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Battery)
+                    @item.Car
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
+                    @item.Battery
+                </td>
+                <td>
+                    @item.Phone
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    @item.PurchaseDate
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GuarantyStartDate)
+                    @item.GuarantyStartDate
+                </td> 
+                <td>
+                    @item.LifeExpectancy
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Comments)
+                    @item.Comments
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.Phone">Edit</a> |

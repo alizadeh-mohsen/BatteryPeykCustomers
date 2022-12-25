@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Customer.Phone" />
             <div class="form-group">
                 <label asp-for="Customer.Name" class="control-label"></label>
@@ -23,6 +23,11 @@
                 <label asp-for="Customer.Address" class="control-label"></label>
                 <input asp-for="Customer.Address" class="form-control" />
                 <span asp-validation-for="Customer.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Customer.Car" class="control-label"></label>
+                <input asp-for="Customer.Car" class="form-control" />
+                <span asp-validation-for="Customer.Car" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Customer.Battery" class="control-label"></label>
@@ -38,6 +43,11 @@
                 <label asp-for="Customer.GuarantyStartDate" class="control-label"></label>
                 <input asp-for="Customer.GuarantyStartDate" class="form-control" />
                 <span asp-validation-for="Customer.GuarantyStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Customer.LifeExpectancy" class="control-label"></label>
+                <input asp-for="Customer.LifeExpectancy" class="form-control" />
+                <span asp-validation-for="Customer.LifeExpectancy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Customer.Comments" class="control-label"></label>
