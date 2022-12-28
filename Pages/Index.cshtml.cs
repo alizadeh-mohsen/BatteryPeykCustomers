@@ -3,9 +3,6 @@ using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using System.Linq.Expressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BatteryPeykCustomers.Pages
 {

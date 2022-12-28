@@ -1,5 +1,4 @@
-﻿using BatteryPeykCustomers.Model;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace BatteryPeykCustomers.Helpers
 {
