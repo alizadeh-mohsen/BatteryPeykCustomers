@@ -8,6 +8,7 @@ namespace BatteryPeykCustomers.Model
         public int Id{ get; set; }
 
         [MaxLength(20)]
+        [Required]
         public string Phone { get; set; }
 
         [Required]

@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{currentpage:int?}"
 @model BatteryPeykCustomers.Pages.Admin.Customers.IndexModel
 
 @{
@@ -9,7 +9,7 @@
 <h1>Create</h1>
 
 
-    <hr />
+<hr />
 <p>
     <a class="btn btn-info" asp-page="Create"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;Create New</a>
 </p>
@@ -21,7 +21,7 @@
         <button type="submit" class="btn btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
     </p>
 </form>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -57,11 +57,32 @@
                 </td>
 
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-warning "><i class="bi bi-pencil-square" ></i> Edit</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-warning "><i class="bi bi-pencil-square"></i> Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-info-square"></i> Details</a> |
-                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id"style="text-decoration:none"><i class="bi bi-trash-fill"></i> Delete</a>
+                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-trash-fill"></i> Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@if (Model.Count > 10)
+{
+    <div>
+        <ul class="pagination">
+            <li class=" page-item @(!Model.ShowFirst? "disabled":"")">
+                <a asp-page="./Index" asp-route-CurrentPage="1" class="page-link bg-info"><i class="bi bi-skip-backward-fill" style="@(!Model.ShowFirst? "color:gray":"")"></i></a>
+            </li>
+
+            <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+                <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link bg-info"><i class="bi bi-skip-start-fill" style="@(!Model.ShowPrevious? "color:gray":"")"></i></a>
+            </li>
+            <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+                <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link bg-info"><i class="bi bi-skip-end-fill" style="@(!Model.ShowNext? "color:gray":"")"></i></a>
+            </li>
+
+            <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+                <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-info"><i class="bi bi-skip-forward-fill" style="@(!Model.ShowLast? "color:gray":"")"></i></a>
+            </li>
+        </ul>
+    </div>
+}
