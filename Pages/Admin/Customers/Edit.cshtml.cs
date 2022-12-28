@@ -23,14 +23,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty]
         public Customer Customer { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Phone == id);
+            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
 
             if (customer == null)
             {
@@ -47,6 +47,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 return Page();
             }
 
+            if (!Customer.Phone.StartsWith("0"))
+            {
+                ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
+                return Page();
+            }
+
             _context.Attach(Customer).State = EntityState.Modified;
 
             try
@@ -57,7 +63,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                if (!CustomerExists(Customer.Phone))
+                if (!CustomerExists(Customer.Id))
                 {
                     return NotFound();
                 }
@@ -82,9 +88,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             return RedirectToPage("./Index");
         }
 
-        private bool CustomerExists(string id)
+        private bool CustomerExists(int id)
         {
-          return (_context.Customer?.Any(e => e.Phone == id)).GetValueOrDefault();
+          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

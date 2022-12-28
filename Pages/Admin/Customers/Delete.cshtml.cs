@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Helpers;
 
@@ -13,9 +8,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
     public class DeleteModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
 
-        public DeleteModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
+        public DeleteModel(Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,14 +18,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty]
       public Customer Customer { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Phone == id);
+            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
 
             if (customer == null)
             {
@@ -43,7 +38,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null || _context.Customer == null)
             {

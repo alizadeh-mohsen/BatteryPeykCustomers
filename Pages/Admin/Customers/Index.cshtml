@@ -57,9 +57,9 @@
                 </td>
 
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Phone" class="text-warning"><i class="bi bi-pencil-square" style="font-size: 1.2rem"></i></a> |
-                    <a asp-page="./Details" asp-route-id="@item.Phone"><i class="bi bi-info-square" style="font-size: 1.2rem"></i></a> |
-                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Phone"><i class="bi bi-trash-fill" style="font-size: 1.2rem"></i></a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-warning "><i class="bi bi-pencil-square" ></i> Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-info-square"></i> Details</a> |
+                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id"style="text-decoration:none"><i class="bi bi-trash-fill"></i> Delete</a>
                 </td>
             </tr>
         }

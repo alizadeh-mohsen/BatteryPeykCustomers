@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BatteryPeykCustomers.Migrations
 {
     /// <inheritdoc />
-    public partial class initi : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,7 +62,7 @@ namespace BatteryPeykCustomers.Migrations
                     Car = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     Battery = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    GuarantyStartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
                     LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
                     Comments = table.Column<string>(type: "TEXT", nullable: true)
                 },

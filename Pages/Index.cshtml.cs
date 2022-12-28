@@ -56,6 +56,10 @@ namespace BatteryPeykCustomers.Pages
         public int CalcLife()
         {
             return DateHelper.CalcLife(Customer.PurchaseDate);
+        }  
+        public string CalcGuarantyExpireDate()
+        {
+            return DateHelper.CalcGuarantyExpireDate(Customer.PurchaseDate,Customer.Guaranty);
         }
     }
 }

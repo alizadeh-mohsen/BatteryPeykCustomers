@@ -28,12 +28,11 @@ namespace BatteryPeykCustomers.Model
         public DateTime PurchaseDate { get; set; } = DateTime.Today;
 
         [Required]
-        [Display(Name = "Guaranty Start Date")]
-        public DateTime GuarantyStartDate { get; set; } = DateTime.Today;
+        public int Guaranty{ get; set; }
 
         [Required]
         [Display(Name = "Life Expectancy")]
-        public int? LifeExpectancy { get; set; }
+        public int LifeExpectancy { get; set; }
 
         public string? Comments { get; set; }
     }

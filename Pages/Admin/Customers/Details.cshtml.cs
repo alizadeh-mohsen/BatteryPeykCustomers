@@ -22,14 +22,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
       public Customer Customer { get; set; } = default!; 
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Phone == id);
+            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();

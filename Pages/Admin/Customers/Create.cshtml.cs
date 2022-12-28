@@ -25,8 +25,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         {
             Customer = new Customer
             {
-                PurchaseDate = DateTime.Today,
-                GuarantyStartDate = DateTime.Today,
+                PurchaseDate = DateTime.Today
+
             };
             return Page();
         }
@@ -37,28 +37,30 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync()
         {
+            
             if (!ModelState.IsValid || _context.Customer == null || Customer == null)
             {
                 return Page();
             }
-            try
+
+            if (!Customer.Phone.StartsWith("0"))
             {
-                _context.Customer.Add(Customer);
-                await _context.SaveChangesAsync();
-                TempData["success"] = "Created Successfully";
-                return RedirectToPage("./Index");
-            }
-            catch (DbUpdateException uex)
-            {
-                if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
-                    ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
+                ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
                 return Page();
             }
-            catch (Exception ex)
+
+            var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == Customer.Phone);
+            if (existingCustomer != null)
             {
-                ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                ModelState.AddModelError("Customer.Phone", "Mobile phone exists");
                 return Page();
             }
+            
+            _context.Customer.Add(Customer);
+            await _context.SaveChangesAsync();
+            TempData["success"] = "Created Successfully";
+            return RedirectToPage("./Index");
+
         }
     }
 }

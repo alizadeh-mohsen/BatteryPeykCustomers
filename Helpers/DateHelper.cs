@@ -25,6 +25,11 @@ namespace BatteryPeykCustomers.Helpers
             return purchaseDate == null
                 ? 0
                 : ((DateTime.Today.Year - purchaseDate.Year) * 12) + DateTime.Today.Month - purchaseDate.Month;
+        } 
+        public static string CalcGuarantyExpireDate(DateTime purchaseDate, int guaranty)
+        {
+            DateTime guarantyExpireDate= purchaseDate.AddMonths(guaranty);
+            return ToPersianDate(guarantyExpireDate);
         }
     }
 }
