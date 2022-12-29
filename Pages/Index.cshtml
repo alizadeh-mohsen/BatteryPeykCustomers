@@ -5,78 +5,96 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>To <a href="https://BatteryPeyk.com">BatteryPeyk</a> VIP customer panel</p>
+    <h5 style="direction:rtl">
+        به پنل
+
+        مشتریان VIP <a href="https: &nbsp;//BatteryPeyk.com">باتری پیک</a>
+        خوش آمدید
+    </h5>
 </div>
 
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            Name
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Customer.Name
-        </dd>
-        <dt class="col-sm-2">
-            Phone
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Customer.Phone
-        </dd>
-        <dt class="col-sm-2">
-            Address
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Customer.Address
-        </dd>
-        <dt class="col-sm-2">
-            Car
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Customer.Car
-        </dd>
-        <dt class="col-sm-2">
-            Battery
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Customer.Battery
-        </dd>
-        <dt class="col-sm-2">
-            Purchase Date
-        </dt>
-        <dd class="col-sm-10">
-            @Model.ToPersianDate(@Model.Customer.PurchaseDate)
-        </dd>
-        <dt class="col-sm-2">
-            Guaranty remained
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                var expireDate = Model.CalcGuarantyExpireDate();
-                <span class="(expireDate > DateTime.Today?" text-danger":"text-dark")"> @expireDate</span>
-            }
 
-        </dd>
-        <dt class="col-sm-2">
-            Battery condition
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                var monthsPassed = Model.CalcLife();
-                @if (monthsPassed < Model.Customer.LifeExpectancy / 2)
-                {
-                    <span class="text-success">OK</span>
-                }
-                else if ((Model.Customer.LifeExpectancy / 2) < monthsPassed && monthsPassed < Model.Customer.LifeExpectancy - 3)
-                {
-                    <span class="text-warning">OK</span>
-                }
-                else
-                {
-                    <span class="text-danger">Replace</span>
-                }
-            }
-        </dd>
-    </dl>
+
+<div class="container mt-5 border-1" dir="rtl">
+
+    <div class="row">
+        <div class="col">
+            <p>
+                <strong>
+                    نام: &nbsp; &nbsp;
+                </strong>
+
+                @Model.Customer.Name
+            </p>
+
+            <p>
+                <strong>
+                    شماره موبایل: &nbsp;
+
+                </strong>
+                @Model.Customer.Phone
+
+            <p>
+                <strong>
+                    آدرس: &nbsp;
+
+                </strong>
+                    @Model.Customer.Address
+
+            <p>
+                <strong>
+                    ماشین: &nbsp;
+
+                </strong>
+                        @Model.Customer.Car
+
+            <p>
+                <strong>
+                    باتری: &nbsp;
+
+                </strong>
+                            @Model.Customer.Battery
+
+            <p>
+                <strong>
+                    تاریخ خرید: &nbsp;
+
+                </strong>
+                                @Model.ToPersianDate(@Model.Customer.PurchaseDate)
+
+            <p>
+                <strong>
+                    تاریخ اتمام گارانتی: &nbsp;
+
+                </strong>
+                                    @{
+                                        var expireDate = Model.CalcGuarantyExpireDate();
+                    <span class="(expireDate > DateTime.Today?" text-danger": &nbsp;"text-dark")"> @expireDate</span>
+                                    }
+
+
+            <p>
+                <strong>
+                    وضعیت باتری: &nbsp;
+
+                </strong>
+                                        @{
+                                            var monthsPassed = Model.CalcLife();
+                                            @if (monthsPassed < Model.Customer.LifeExpectancy / 2)
+                                            {
+                        <span class="text-success">OK</span>
+                                            }
+                                            else if ((Model.Customer.LifeExpectancy / 2) < monthsPassed && monthsPassed < Model.Customer.LifeExpectancy - 2)
+                                            {
+                        <span class="text-warning">OK (احتیاط)</span>
+                                            }
+                                            else
+                                            {
+                        <span class="text-danger"> در اولین فرصت تعویض شود</span>
+                                            }
+                                        }
+
+        </div>
+    </div>
 </div>

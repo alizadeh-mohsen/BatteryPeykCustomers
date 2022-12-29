@@ -6,27 +6,28 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Login to your VIP panel</h1>
-
-<p class="text-danger">Invalid phone number. Please, enter your phone number and try again.</p>
+<div dir="rtl">
+<h5 class="text-center" >ورود به پنل مشتریان VIP باتری پیک</h5>
 
 <div class="row">
     <div class="col-lg-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserPhone.PhoneNumber" class="control-label"></label>
-                <input asp-for="UserPhone.PhoneNumber" class="form-control" placeholder="09123456789" />
+                <label asp-for="UserPhone.PhoneNumber" class="control-label">شماره موبایل</label> 
+                <input asp-for="UserPhone.PhoneNumber" class="form-control" style="text-align:left" placeholder="09123456789" />
                 <span asp-validation-for="UserPhone.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary mt-2" />
+                <input type="submit" value="ورود" class="btn btn-primary mt-2" />
             </div>
         </form>
+<p class="text-danger">شماره موبایل وارد شده معتبر نیست و یا ثبت نشده. درصورتیکه شماره را درست وارد نکرده اید آن را تصحیح کرده و مجددا تلاش کنید</p>
+
     </div>
+
 </div>
-
-
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

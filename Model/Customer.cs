@@ -26,7 +26,7 @@ namespace BatteryPeykCustomers.Model
 
         [Required]
         [Display(Name = "Purchase Date")]
-        public DateTime PurchaseDate { get; set; } = DateTime.Today;
+        public DateTime PurchaseDate { get; set; }
 
         [Required]
         public int Guaranty{ get; set; }

@@ -7,9 +7,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
     public class EditModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly Data.ApplicationDbContext _context;
 
-        public EditModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
+        public EditModel(Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -36,50 +36,57 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            if (!Customer.Phone.StartsWith("0"))
-            {
-                ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
-                return Page();
-            }
-
-            _context.Attach(Customer).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-                TempData["success"] = "Updated Successfully";
-
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                if (!CustomerExists(Customer.Id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return Page();
                 }
-                else
+
+                if (!Customer.Phone.StartsWith("0"))
+                {
+                    ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
+                    return Page();
+                }
+
+                _context.Attach(Customer).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    TempData["success"] = "Updated Successfully";
+
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    if (!CustomerExists(Customer.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                        return Page();
+                    }
+                }
+                catch (DbUpdateException uex)
+                {
+                    if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
+                        ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
+                    return Page();
+                }
+                catch (Exception ex)
                 {
                     ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
                     return Page();
                 }
-            }
-            catch (DbUpdateException uex)
-            {
-                if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
-                    ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
-                return Page();
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
-                return Page();
-            }
 
-            return RedirectToPage("./Index");
+                return RedirectToPage("./Index");
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         private bool CustomerExists(int id)

@@ -8,7 +8,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
     public class IndexModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly ICustomerService _customerService;
 
         [BindProperty(SupportsGet = true)]
@@ -34,6 +34,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         [BindProperty(SupportsGet = true)]
         public string? SearchPhoneString { get; set; }
+        
+        [BindProperty(SupportsGet = true)]
+        public string? SearchBatteryString { get; set; }
 
         public IList<Customer> Customers { get; set; } = default!;
 
@@ -48,6 +51,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (!string.IsNullOrEmpty(SearchPhoneString))
                     query = query.Where(c => c.Phone.Contains(SearchPhoneString.Trim()));
+                
+                if (!string.IsNullOrEmpty(SearchBatteryString))
+                    query = query.Where(c => c.Battery.ToLower().Contains(SearchBatteryString.ToLower().Trim()));
 
                 Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);
                 Count = await _customerService.GetCount(query);

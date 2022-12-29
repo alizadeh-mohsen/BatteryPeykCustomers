@@ -30,30 +30,34 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync()
         {
-            
-            if (!ModelState.IsValid || _context.Customer == null || Customer == null)
+            try
             {
-                return Page();
-            }
+                if (!ModelState.IsValid || _context.Customer == null || Customer == null)
+                {
+                    return Page();
+                }
 
-            if (!Customer.Phone.StartsWith("0"))
-            {
-                ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
-                return Page();
-            }
+                if (!Customer.Phone.StartsWith("0"))
+                {
+                    ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
+                    return Page();
+                }
 
-            var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == Customer.Phone);
-            if (existingCustomer != null)
-            {
-                ModelState.AddModelError("Customer.Phone", "Mobile phone exists");
-                return Page();
+                var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == Customer.Phone);
+                if (existingCustomer != null)
+                {
+                    ModelState.AddModelError("Customer.Phone", "Mobile phone exists");
+                    return Page();
+                }
+                
+                _context.Customer.Add(Customer);
+                await _context.SaveChangesAsync();
+                TempData["success"] = "Created Successfully";
+                return RedirectToPage("./Index");
             }
-            
-            _context.Customer.Add(Customer);
-            await _context.SaveChangesAsync();
-            TempData["success"] = "Created Successfully";
-            return RedirectToPage("./Index");
-
+            catch(Exception ex) {
+                throw;
+            }
         }
     }
 }

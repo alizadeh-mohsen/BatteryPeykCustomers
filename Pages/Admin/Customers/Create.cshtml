@@ -37,6 +37,11 @@
                 <span asp-validation-for="Customer.Battery" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Customer.PurchaseDate" class="control-label"></label>
+                <input asp-for="Customer.PurchaseDate" type="date" class="form-control" />
+                <span asp-validation-for="Customer.PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Customer.Guaranty" class="control-label"></label>
                 <input asp-for="Customer.Guaranty" class="form-control" />
                 <span asp-validation-for="Customer.Guaranty" class="text-danger"></span>

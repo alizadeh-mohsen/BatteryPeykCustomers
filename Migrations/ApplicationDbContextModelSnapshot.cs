@@ -38,12 +38,10 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Guaranty")
-                        .IsRequired()
+                    b.Property<int>("Guaranty")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("LifeExpectancy")
-                        .IsRequired()
+                    b.Property<int>("LifeExpectancy")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")

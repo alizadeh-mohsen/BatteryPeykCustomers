@@ -30,6 +30,7 @@ if (!app.Environment.IsDevelopment())
     {
         exceptionHandlerApp.Run(async context =>
         {
+
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = Text.Plain;
             var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerFeature>();
@@ -44,7 +45,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-SeedDatabase();
+//SeedDatabase();
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221228090946_init")]
-    partial class init
+    [Migration("20221229084558_ini")]
+    partial class ini
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,12 +41,10 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Guaranty")
-                        .IsRequired()
+                    b.Property<int>("Guaranty")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("LifeExpectancy")
-                        .IsRequired()
+                    b.Property<int>("LifeExpectancy")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
