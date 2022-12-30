@@ -14,17 +14,33 @@
     <a class="btn btn-info" asp-page="Create"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;Create New</a>
 </p>
 
-<form>
-    <p>
-        Name: <input type="text" asp-for="SearchNameString" />
-        Phone: <input type="text" asp-for="SearchPhoneString" />
-        Battery: <input type="text" asp-for="SearchBatteryString" />
-        <button type="submit" class="btn btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
-    </p>
-</form>
+<div class="row">
+    <div class="col-sm-4">
+        <form>
+
+            <div class="form-floating">
+                <input type="text" class="form-control mb-1" asp-for="SearchNameString" id="name" placeholder="Name" />
+                <label for="name">Name</label>
+            </div>    <div class="form-floating">
+                <input type="text" class="form-control mb-1" asp-for="SearchPhoneString" id="phone" placeholder="Phone" />
+                <label for="phone">Phone</label>
+            </div>    <div class="form-floating">
+                <input type="text" class="form-control mb-1" asp-for="SearchBatteryString" id="battery" placeholder="Battery" />
+                <label for="battery">Battery</label>
+            </div>
+
+            <button type="submit" class="btn btn-info mt-2"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+            <button type="reset" class="btn btn-info mt-2"><i class="bi bi-eraser"></i>&nbsp;&nbsp;Reset</button>
+
+        </form>
+    </div>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>
+                Id
+            </th>
             <th>
                 Name
             </th>
@@ -34,9 +50,7 @@
             <th>
                 Phone
             </th>
-            <th>
-                PurchaseDate
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -44,6 +58,10 @@
         @foreach (var item in Model.Customers)
         {
             <tr>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none">@item.Id </a>
+
+                </td>
                 <td>
                     @item.Name
                 </td>
@@ -54,13 +72,8 @@
                     @item.Phone
                 </td>
                 <td>
-                    @Model.ToPersianDate(@item.PurchaseDate)
-                </td>
-
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-warning "><i class="bi bi-pencil-square"></i> Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-info-square"></i> Details</a> |
-                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-trash-fill"></i> Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.2rem"></i> </a> | 
+                    <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-trash-fill" style="font-size:1.2rem"></i> </a>
                 </td>
             </tr>
         }
