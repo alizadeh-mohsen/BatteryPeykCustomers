@@ -14,7 +14,7 @@
     <a class="btn btn-info" asp-page="Create"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;Create New</a>
 </p>
 
-<div class="row">
+<div class="row" >
     <div class="col-sm-4">
         <form>
 
@@ -34,7 +34,7 @@
 
         </form>
     </div>
-</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -72,7 +72,7 @@
                     @item.Phone
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.2rem"></i> </a> | 
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.2rem"></i> </a> |
                     <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id" style="text-decoration:none"><i class="bi bi-trash-fill" style="font-size:1.2rem"></i> </a>
                 </td>
             </tr>
@@ -97,6 +97,11 @@
             <li class="page-item  @(!Model.ShowLast? "disabled":"")">
                 <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-info"><i class="bi bi-skip-forward-fill" style="@(!Model.ShowLast? "color:gray":"")"></i></a>
             </li>
+            <li><span class="p-2"> Page @Model.CurrentPage of @Model.TotalPages ( @Model.Count)</span></li>
         </ul>
+
+
     </div>
+
 }
+</div>
