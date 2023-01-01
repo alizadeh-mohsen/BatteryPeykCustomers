@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
     builder.Configuration.GetConnectionString("defaultConnection")
     ));
@@ -45,11 +46,18 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowAnyOrigin()); // allow credentials
+
 //SeedDatabase();
 app.UseAuthorization();
 
-app.MapRazorPages();
 
+
+app.MapRazorPages();
+app.MapControllers();
 app.Run();
 
 void SeedDatabase()
