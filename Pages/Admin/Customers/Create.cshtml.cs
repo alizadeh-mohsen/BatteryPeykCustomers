@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BatteryPeykCustomers.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -49,7 +48,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     ModelState.AddModelError("Customer.Phone", "Mobile phone exists");
                     return Page();
                 }
-                
+
+                Customer.PurchaseDate = DateTime.Today;
                 _context.Customer.Add(Customer);
                 await _context.SaveChangesAsync();
                 TempData["success"] = "Created Successfully";

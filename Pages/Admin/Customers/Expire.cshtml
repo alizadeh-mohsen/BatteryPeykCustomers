@@ -1,0 +1,84 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Customers.ExpireModel
+
+@{
+    ViewData["Title"] = "Expire";
+}
+
+<h1>Expire</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Car)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Battery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].PurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Guaranty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].LifeExpectancy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Comments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Customer) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Battery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Guaranty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LifeExpectancy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
