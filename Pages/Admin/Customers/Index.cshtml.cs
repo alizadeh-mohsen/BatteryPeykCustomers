@@ -54,13 +54,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 
                 if (!string.IsNullOrEmpty(SearchBatteryString))
                     query = query.Where(c => c.Battery.ToLower().Contains(SearchBatteryString.ToLower().Trim()));
+                query = query.OrderByDescending(c => c.Id);
 
                 Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);
                 Count = await _customerService.GetCount(query);
-
             }
         }
-
 
         public string ToPersianDate(DateTime? date)
         {

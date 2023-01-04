@@ -40,5 +40,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         {
             return DateHelper.ToPersianDate(date);
         }
+        public string BatteryAge(DateTime purchaseDate)
+        {
+            return DateTime.Today.Subtract(purchaseDate).TotalDays + " Days" ;
+        }
     }
 }

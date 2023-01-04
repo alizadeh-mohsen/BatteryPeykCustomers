@@ -7,90 +7,54 @@
 
 <h1>Expire</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Phone)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Name)
+                Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Address)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Car)
+                Battery
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Battery)
+                PurchaseDate
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].PurchaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Guaranty)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].LifeExpectancy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].Comments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].ReplaceDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer[0].StopNotify)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Customer) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Car)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Battery)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Guaranty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LifeExpectancy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReplaceDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StopNotify)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Customer)
+        {
+            <tr>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none">@item.Id </a>
+                </td>
+                <td>
+                    @item.Phone
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Battery
+                </td>
+                <td>
+                    @Model.ToPersianDate(item.PurchaseDate)
+                </td>
+
+                <td>
+                    <form method="post">
+                        <input type="submit" value="Done" class="text-success" asp-route-id="@item.Id" />
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

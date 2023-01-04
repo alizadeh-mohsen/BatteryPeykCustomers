@@ -7,7 +7,7 @@ namespace BatteryPeykCustomers.Data
     {
         public async Task<IList<Customer>> GetPaginatedResult(IQueryable<Customer> query, int currentPage, int pageSize = 10)
         {
-            return await query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderByDescending(c => c.PurchaseDate).ToListAsync();
+            return await query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
         }
         public async Task<int> GetCount(IQueryable<Customer> query)
         {
