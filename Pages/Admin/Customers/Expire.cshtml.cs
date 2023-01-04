@@ -19,13 +19,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             _context = context;
         }
 
-        public IList<Customer> Customer { get;set; } = default!;
+        public IList<Customer> Customer { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Customer != null)
             {
-                Customer = await _context.Customer.ToListAsync();
+                Customer = await _context.Customer.Where(c => (c.ReplaceDate - DateTime.Today).TotalDays < 60).ToListAsync();
             }
         }
     }

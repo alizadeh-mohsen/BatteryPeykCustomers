@@ -10,5 +10,6 @@
         public string? PurchaseDate { get; set; }
         public string? Expire { get; set; }
         public string? Status { get; set; }
+        public string? BatteryAge { get; set; }
     }
 }

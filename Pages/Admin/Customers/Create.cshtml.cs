@@ -50,6 +50,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
 
                 Customer.PurchaseDate = DateTime.Today;
+                Customer.ReplaceDate = DateTime.Today.AddMonths(Customer.LifeExpectancy);
                 _context.Customer.Add(Customer);
                 await _context.SaveChangesAsync();
                 TempData["success"] = "Created Successfully";

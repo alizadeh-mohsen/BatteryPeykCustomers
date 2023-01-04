@@ -36,6 +36,8 @@ namespace BatteryPeykCustomers.Model
         public int LifeExpectancy { get; set; }
 
         public string? Comments { get; set; }
+        public DateTime ReplaceDate { get; set; }
+        public bool StopNotify { get; set; }
     }
 
 }

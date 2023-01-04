@@ -40,7 +40,8 @@ namespace BatteryPeykCustomers.Controllers
                 Phone = customer.Phone,
                 PurchaseDate = DateHelper.ToPersianDate(customer.PurchaseDate),
                 Expire = setExpire(customer.PurchaseDate, customer.Guaranty),
-                Status=setStatus(customer.PurchaseDate, customer.Guaranty)
+                Status = setStatus(customer.PurchaseDate, customer.Guaranty),
+                BatteryAge = DateTime.Today.Subtract(customer.PurchaseDate).TotalDays.ToString()
             };
 
             //return Ok(customerDto);
@@ -50,10 +51,9 @@ namespace BatteryPeykCustomers.Controllers
         public string setExpire(DateTime purchaseDate, int guaranty)
         {
             var expire = purchaseDate.AddMonths(guaranty);
-
-            return expire > DateTime.Today ? 
-                "<span class='text-danger'>" + DateHelper.ToPersianDate(expire) + "</span>" :
-                "<span class='text-success'>" + DateHelper.ToPersianDate(expire) + "</span>";
+            return expire > DateTime.Today ?
+                "<span class='text-success'>" + DateHelper.ToPersianDate(expire) + "</span>" :
+            "<span class='text-danger'>" + DateHelper.ToPersianDate(expire) + "</span>";
         }
 
         public string setStatus(DateTime purchaseDate, int lifeExpectancy)
