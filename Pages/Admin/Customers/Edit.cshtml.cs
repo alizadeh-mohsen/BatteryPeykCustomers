@@ -53,6 +53,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 try
                 {
+                    Customer.ReplaceDate = DateTime.Today.AddMonths(Customer.LifeExpectancy); 
                     await _context.SaveChangesAsync();
                     TempData["success"] = "Updated Successfully";
 
