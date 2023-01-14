@@ -53,10 +53,17 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 Customer.ReplaceDate = DateTime.Today.AddMonths(Customer.LifeExpectancy);
                 _context.Customer.Add(Customer);
                 await _context.SaveChangesAsync();
-                TempData["success"] = "Created Successfully";
+                var count = _context.Customer.Count();
+                if (count % 100 == 0)
+                {
+                    TempData["success"] = " دمت گرم سلطان مشتریات شد" + count + " تا.";
+                }
+                else
+                    TempData["success"] = "Created Successfully";
                 return RedirectToPage("./Index");
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 throw;
             }
         }
