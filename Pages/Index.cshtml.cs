@@ -22,22 +22,21 @@ namespace BatteryPeykCustomers.Pages
 
         public async Task<IActionResult> OnGetAsync(string m)
         {
-            return RedirectToPage("Admin/Customers/Index");
-            //if (m == null)
-            //{
-            //    return RedirectToPage("/NotFound");
-            //}
+            if (m == null)
+            {
+                return RedirectToPage("/NotFound");
+            }
 
-            //var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == m);
-            //if (customer == null)
-            //{
-            //    return RedirectToPage("/NotFound");
-            //}
-            //else
-            //{
-            //    Customer = customer;
-            //}
-            //return Page();
+            var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == m);
+            if (customer == null)
+            {
+                return RedirectToPage("/NotFound");
+            }
+            else
+            {
+                Customer = customer;
+            }
+            return Page();
 
         }
 

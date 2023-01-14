@@ -1,10 +1,12 @@
 ﻿using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;

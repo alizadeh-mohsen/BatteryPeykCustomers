@@ -1,11 +1,13 @@
 ﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +36,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         [BindProperty(SupportsGet = true)]
         public string? SearchPhoneString { get; set; }
-        
+
         [BindProperty(SupportsGet = true)]
         public string? SearchBatteryString { get; set; }
 
@@ -51,7 +53,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (!string.IsNullOrEmpty(SearchPhoneString))
                     query = query.Where(c => c.Phone.Contains(SearchPhoneString.Trim()));
-                
+
                 if (!string.IsNullOrEmpty(SearchBatteryString))
                     query = query.Where(c => c.Battery.ToLower().Contains(SearchBatteryString.ToLower().Trim()));
                 query = query.OrderByDescending(c => c.Id);

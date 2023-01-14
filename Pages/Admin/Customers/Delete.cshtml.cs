@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
+    [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;

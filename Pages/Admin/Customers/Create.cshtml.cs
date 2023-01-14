@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;

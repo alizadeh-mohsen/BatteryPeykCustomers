@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
+    [Authorize]
     public class ExpireModel : PageModel
     {
         private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
