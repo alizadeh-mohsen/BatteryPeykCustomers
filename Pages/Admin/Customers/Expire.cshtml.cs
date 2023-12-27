@@ -3,6 +3,7 @@ using BatteryPeykCustomers.Data;
 using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Model.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -16,25 +17,32 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             _context = context;
         }
 
-        public IEnumerable<ExpireViewModel> vm { get; set; } = default!;
+        public ExpireViewModel vm { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Customer != null)
             {
-                var result = await _context.Car.Include(c=>c.Customer).
-                    Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today ).Select(
-                    c=> new ExpireViewModel
+                var result = await _context.Car.Include(c => c.Customer).
+                    Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today).Select(
+                    c => new Expire
                     {
-                        Id=c.Id,
-                        Name=c.Customer.Name,
-                        Phone=c.Customer.Phone,
-                        Make=c.Make,
-                        Battery=c.Battery,
-                        ReplaceDate=c.ReplaceDate
+                        Id = c.Id,
+                        Name = c.Customer.Name,
+                        Phone = c.Customer.Phone,
+                        Make = c.Make,
+                        Battery = c.Battery,
+                        ReplaceDate = c.ReplaceDate
 
                     })
                     .ToListAsync();
+
+
+                vm = new ExpireViewModel
+                {
+                    Expires = result
+                };
+
             }
         }
     }
