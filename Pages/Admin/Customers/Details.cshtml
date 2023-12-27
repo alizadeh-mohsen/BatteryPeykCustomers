@@ -16,8 +16,7 @@
         <h6 class="card-subtitle mb-2 text-body-secondary">
             <a class="btn btn-outline-success mb-2 font-weight-light" href=tel:'@Model.Customer.Phone'>
                 @Model.Customer.Phone
-                <i class="fas fa-phone-volume">
-                </i>
+                <i class="bi bi-telephone"></i>
             </a>
         </h6>
         <p class="card-text">
@@ -33,6 +32,6 @@
         </p>
         <a class="btn btn-info ml-2" asp-page="Edit" asp-route-id="@Model.Customer.Id">ویرایش</a>
         <a class="btn btn-success ml-2" asp-page="Index">بازگشت</a>
-        <button class="btn btn-outline-primary ml-2" onclick="copy('@Model.Customer.Phone')"> کپی لینک</button>
+        <button class="btn btn-warning ml-2" onclick="copy('@Model.Customer.Phone')"> کپی لینک</button>
     </div>
 </div>

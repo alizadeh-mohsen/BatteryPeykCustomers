@@ -8,8 +8,7 @@ INSERT INTO [Car]
            ,[LifeExpectancy]
            ,[Comments]
            ,[ReplaceDate]
-           ,[StopNotify]
-           ,isActive)
+           )
 select
            Id
            ,car
@@ -19,6 +18,5 @@ select
            ,LifeExpectancy
            ,Comments
            ,ReplaceDate
-           ,StopNotify
-           ,0           
+           
 from customer

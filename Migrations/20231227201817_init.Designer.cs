@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231227120436_a")]
-    partial class a
+    [Migration("20231227201817_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,6 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<int>("Guaranty")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("LifeExpectancy")
                         .HasColumnType("INTEGER");
 
@@ -55,9 +52,6 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.Property<DateTime>("ReplaceDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("StopNotify")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

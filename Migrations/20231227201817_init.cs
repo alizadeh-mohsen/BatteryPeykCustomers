@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BatteryPeykCustomers.Migrations
 {
     /// <inheritdoc />
-    public partial class @return : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,15 +58,7 @@ namespace BatteryPeykCustomers.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Phone = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    Car = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    Battery = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
-                    LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
-                    Comments = table.Column<string>(type: "TEXT", nullable: true),
-                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    StopNotify = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Address = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,9 +184,7 @@ namespace BatteryPeykCustomers.Migrations
                     Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
                     LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
                     Comments = table.Column<string>(type: "TEXT", nullable: true),
-                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    StopNotify = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
