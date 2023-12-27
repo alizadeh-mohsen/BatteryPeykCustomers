@@ -1,23 +1,27 @@
-﻿using BatteryPeykCustomers.Model;
+﻿
+using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace BatteryPeykCustomers.Pages.Admin.Customers
+namespace BatteryPeykCars.Pages.Admin.Cars
 {
     [Authorize]
     public class EditModel : PageModel
     {
-        private readonly Data.ApplicationDbContext _context;
+        [BindProperty]
+        public Car Car { get; set; } = default!;
 
-        public EditModel(Data.ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        [BindProperty]
-        public Customer Customer { get; set; } = default!;
+
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -26,13 +30,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 return NotFound();
             }
 
-            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            var res = await _context.Car.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (customer == null)
+            if (res == null)
             {
                 return NotFound();
             }
-            Customer = customer;
+            Car = res;
             return Page();
         }
 
@@ -45,24 +49,18 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     return Page();
                 }
 
-                if (!Customer.Phone.StartsWith("0"))
-                {
-                    ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
-                    return Page();
-                }
-
-                _context.Attach(Customer).State = EntityState.Modified;
+                _context.Attach(Car).State = EntityState.Modified;
 
                 try
                 {
-                    //Customer.ReplaceDate = DateTime.Today.AddMonths(Customer.LifeExpectancy); 
+                    Car.ReplaceDate = DateTime.Today.AddMonths(Car.LifeExpectancy);
                     await _context.SaveChangesAsync();
                     TempData["success"] = "Updated Successfully";
 
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    if (!CustomerExists(Customer.Id))
+                    if (!CarExists(Car.Id))
                     {
                         return NotFound();
                     }
@@ -75,7 +73,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 catch (DbUpdateException uex)
                 {
                     if (uex.InnerException.Message != null && uex.InnerException.Message.ToLower().Contains("unique"))
-                        ModelState.AddModelError("CustomerPhone", "Duplicate Phone");
+                        ModelState.AddModelError("CarPhone", "Duplicate Phone");
                     return Page();
                 }
                 catch (Exception ex)
@@ -84,17 +82,17 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     return Page();
                 }
 
-                return RedirectToPage("./Index");
+                return RedirectToPage("Index", new { customerId = Car.CustomerId });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
         }
 
-        private bool CustomerExists(int id)
+        private bool CarExists(int id)
         {
-          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Car?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

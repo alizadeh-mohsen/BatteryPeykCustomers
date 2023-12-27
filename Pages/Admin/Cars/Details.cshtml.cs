@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Data;
 
-namespace BatteryPeykCustomers.Pages.Admin.Customers
+namespace BatteryPeykCars.Pages.Admin.Cars
 {
     [Authorize]
     public class DetailsModel : PageModel
     {
-        public Customer Customer { get; set; } = default!;
+        public Car car { get; set; } = default!;
         private readonly ApplicationDbContext _context;
 
         public DetailsModel(ApplicationDbContext context)
@@ -21,22 +21,21 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null )
+            if (id == null || _context.Car == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+            var carRes = await _context.Car.FirstOrDefaultAsync(m => m.Id == id);
+            if (carRes == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                Customer = customer;
+                car = carRes;
             }
             return Page();
         }
-
     }
 }

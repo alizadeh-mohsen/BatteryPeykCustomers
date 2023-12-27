@@ -20,7 +20,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Upgrade\Customers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Admin\Cars\Create.cshtml" />
+    <None Include="Pages\Admin\Cars\Details.cshtml" />
+    <None Include="Pages\Admin\Cars\Edit.cshtml" />
+    <None Include="Pages\Admin\Cars\Index.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BatteryPeykCustomers.Migrations
 {
     /// <inheritdoc />
-    public partial class ini : Migration
+    public partial class @return : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -64,7 +64,9 @@ namespace BatteryPeykCustomers.Migrations
                     PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
                     LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
-                    Comments = table.Column<string>(type: "TEXT", nullable: true)
+                    Comments = table.Column<string>(type: "TEXT", nullable: true),
+                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StopNotify = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,6 +179,34 @@ namespace BatteryPeykCustomers.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Car",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Make = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Battery = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
+                    LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
+                    Comments = table.Column<string>(type: "TEXT", nullable: true),
+                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StopNotify = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Car", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Car_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -213,6 +243,16 @@ namespace BatteryPeykCustomers.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Car_CustomerId",
+                table: "Car",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_Phone",
+                table: "Customer",
+                column: "Phone");
         }
 
         /// <inheritdoc />
@@ -234,13 +274,16 @@ namespace BatteryPeykCustomers.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customer");
+                name: "Car");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Customer");
         }
     }
 }

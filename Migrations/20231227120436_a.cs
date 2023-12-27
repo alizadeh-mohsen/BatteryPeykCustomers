@@ -5,7 +5,7 @@
 namespace BatteryPeykCustomers.Migrations
 {
     /// <inheritdoc />
-    public partial class addStop : Migration
+    public partial class a : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

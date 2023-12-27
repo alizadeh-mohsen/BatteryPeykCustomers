@@ -1,4 +1,4 @@
-﻿using BatteryPeykCustomers.Data;
+﻿    using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -54,8 +54,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 if (!string.IsNullOrEmpty(SearchPhoneString))
                     query = query.Where(c => c.Phone.Contains(SearchPhoneString.Trim()));
 
-                if (!string.IsNullOrEmpty(SearchBatteryString))
-                    query = query.Where(c => c.Battery.ToLower().Contains(SearchBatteryString.ToLower().Trim()));
                 query = query.OrderByDescending(c => c.Id);
 
                 Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);
@@ -63,9 +61,5 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             }
         }
 
-        public string ToPersianDate(DateTime? date)
-        {
-            return DateHelper.ToPersianDate(date);
-        }
     }
 }

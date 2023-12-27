@@ -1,0 +1,68 @@
+﻿@page
+@using BatteryPeykCustomers.Helpers
+@model BatteryPeykCustomers.Pages.Admin.Cars.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_Notification" />
+<p>
+    <a class="btn btn-info" asp-page="Create" asp-route-customerId="@Model.vm.Customer.Id"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;ماشین جدید</a>
+</p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.vm.Customer.Name</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+            <a class="btn btn-outline-success mb-2 font-weight-light" href=tel:'@Model.vm.Customer.Phone'>
+                @Model.vm.Customer.Phone
+                <i class="fas fa-phone-volume">
+                </i>
+            </a>
+
+        </h6>
+    </div>
+</div>
+
+<div class="row">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ماشین
+                </th>
+                <th>
+                    باتری
+                </th>
+
+                <th>تاریخ خرید</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.vm.Cars)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none"> @item.Make </a>
+
+                    </td>
+                    <td>
+                        @item.Battery
+                    </td>
+                    <td>
+                        @item.PurchaseDate.ToPersianDate()
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> |
+                        <a asp-page="Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href='javascript:history.go(-1)' class="btn btn-success mt-2">بازگشت</a>
+
+</div>

@@ -11,14 +11,54 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221229084558_ini")]
-    partial class ini
+    [Migration("20231227194504_AAAA")]
+    partial class AAAA
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Car", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Battery")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Guaranty")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LifeExpectancy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Make")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ReplaceDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Car");
+                });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Customer", b =>
                 {
@@ -28,24 +68,6 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("Battery")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Car")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Guaranty")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LifeExpectancy")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -57,10 +79,9 @@ namespace BatteryPeykCustomers.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("Phone");
 
                     b.ToTable("Customer");
                 });
@@ -261,6 +282,17 @@ namespace BatteryPeykCustomers.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Car", b =>
+                {
+                    b.HasOne("BatteryPeykCustomers.Model.Customer", "Customer")
+                        .WithMany("Cars")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -310,6 +342,11 @@ namespace BatteryPeykCustomers.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Customer", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

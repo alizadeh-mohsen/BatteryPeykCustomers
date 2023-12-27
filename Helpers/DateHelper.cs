@@ -2,9 +2,9 @@
 
 namespace BatteryPeykCustomers.Helpers
 {
-    public class DateHelper
+    public static class DateHelper
     {
-        public static string ToPersianDate(DateTime? date)
+        public static string ToPersianDate(this DateTime date)
         {
             if (date == null)
                 return string.Empty;
@@ -19,13 +19,13 @@ namespace BatteryPeykCustomers.Helpers
             }
             return string.Empty;
         }
-        public static int CalcLife(DateTime purchaseDate)
+        public static int CalcLife(this DateTime purchaseDate)
         {
             return purchaseDate == null
                 ? 0
                 : ((DateTime.Today.Year - purchaseDate.Year) * 12) + DateTime.Today.Month - purchaseDate.Month;
         } 
-        public static string CalcGuarantyExpireDate(DateTime purchaseDate, int guaranty)
+        public static string CalcGuarantyExpireDate(this DateTime purchaseDate, int guaranty)
         {
             DateTime guarantyExpireDate= purchaseDate.AddMonths(guaranty);
             return ToPersianDate(guarantyExpireDate);

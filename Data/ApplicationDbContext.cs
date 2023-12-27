@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Data
 {
-    public class ApplicationDbContext:IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Car> Car { get; set; }
     }
 }

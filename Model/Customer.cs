@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace BatteryPeykCustomers.Model
 {
+    [Index(nameof(Phone))]
     public class Customer
     {
         [Key]
-        public int Id{ get; set; }
+        public int Id { get; set; }
 
         [MaxLength(20)]
         [Required]
@@ -16,28 +20,6 @@ namespace BatteryPeykCustomers.Model
         public string Name { get; set; }
 
         public string? Address { get; set; }
-
-        [MaxLength(50)]
-        public string? Car { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string Battery { get; set; }
-
-        [Required]
-        [Display(Name = "Purchase Date")]
-        public DateTime PurchaseDate { get; set; }
-
-        [Required]
-        public int Guaranty{ get; set; }
-
-        [Required]
-        [Display(Name = "Life Expectancy")]
-        public int LifeExpectancy { get; set; }
-
-        public string? Comments { get; set; }
-        public DateTime ReplaceDate { get; set; }
-        public bool StopNotify { get; set; }
+        public ICollection<Car> Cars { get; set; }
     }
-
 }

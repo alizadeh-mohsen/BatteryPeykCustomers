@@ -1,4 +1,5 @@
 ﻿@page
+@using BatteryPeykCustomers.Helpers
 @model BatteryPeykCustomers.Pages.Admin.Customers.ExpireModel
 
 @{
@@ -11,48 +12,43 @@
     <thead>
         <tr>
             <th>
-                Id
+                نام
             </th>
             <th>
-                Phone
+                تلفن
             </th>
             <th>
-                Name
+                ماشین
+            </th>
+
+            <th>
+                باتری
             </th>
             <th>
-                Battery
-            </th>
-            <th>
-                PurchaseDate
+                تاریخ انقضا
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Customer)
+        @foreach (var item in Model.vm)
         {
             <tr>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none">@item.Id </a>
+                    <a asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none">@item.Name</a>
                 </td>
                 <td>
                     @item.Phone
                 </td>
                 <td>
-                    @item.Name
+                    @item.Make
                 </td>
                 <td>
                     @item.Battery
                 </td>
                 <td>
-                    @Model.ToPersianDate(item.PurchaseDate)
-                </td>
-
-                <td>
-                    <form method="post">
-                        <input type="submit" value="انجام شد" class="text-success" asp-route-id="@item.Id" />
-                    </form>
+                    @item.ReplaceDate.ToPersianDate()
                 </td>
             </tr>
         }

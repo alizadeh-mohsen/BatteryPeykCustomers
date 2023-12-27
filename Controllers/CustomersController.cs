@@ -24,7 +24,7 @@ namespace BatteryPeykCustomers.Controllers
             {
                 return NotFound();
             }
-            var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == m);
+            var customer = await _context.Customer.Include(c => c.Cars).FirstOrDefaultAsync(c => c.Phone == m);
 
             if (customer == null)
             {
@@ -34,17 +34,25 @@ namespace BatteryPeykCustomers.Controllers
             var customerDto = new CustomerDto
             {
                 Address = customer.Address,
-                Battery = customer.Battery,
-                Car = customer.Car,
                 Name = customer.Name,
-                Phone = customer.Phone,
-                PurchaseDate = DateHelper.ToPersianDate(customer.PurchaseDate),
-                Expire = setExpire(customer.PurchaseDate, customer.Guaranty),
-                Status = setStatus(customer.PurchaseDate, customer.Guaranty),
-                BatteryAge = DateTime.Today.Subtract(customer.PurchaseDate).TotalDays.ToString()
+                Phone = customer.Phone
             };
 
-            //return Ok(customerDto);
+            List<CarDto> carDtos = new List<CarDto>();
+            foreach (var car in customer.Cars)
+            {
+                carDtos.Add(new CarDto
+                {
+                    Battery = car.Battery,
+                    Make = car.Make,
+                    Expire = setExpire(car.PurchaseDate, car.Guaranty),
+                    PurchaseDate = car.PurchaseDate.ToPersianDate(),
+                    Status = setStatus(car.PurchaseDate, car.Guaranty),
+                    BatteryAge = DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString()
+                });
+            }
+
+            customerDto.CarDtos = carDtos;
             return Json(new { data = customerDto });
         }
 
@@ -52,13 +60,13 @@ namespace BatteryPeykCustomers.Controllers
         {
             var expire = purchaseDate.AddMonths(guaranty);
             return expire > DateTime.Today ?
-                "<span class='text-success'>" + DateHelper.ToPersianDate(expire) + "</span>" :
-            "<span class='text-danger'>" + DateHelper.ToPersianDate(expire) + "</span>";
+                "<span class='text-success'>" + expire.ToPersianDate() + "</span>" :
+            "<span class='text-danger'>" + expire.ToPersianDate() + "</span>";
         }
 
         public string setStatus(DateTime purchaseDate, int lifeExpectancy)
         {
-            var monthsPassed = DateHelper.CalcLife(purchaseDate);
+            var monthsPassed = purchaseDate.CalcLife();
             if (monthsPassed < lifeExpectancy / 2)
             {
                 return "<span class='text-success'>سالم</span>";
@@ -72,6 +80,7 @@ namespace BatteryPeykCustomers.Controllers
                 return "<span class= 'text-danger' > در اولین فرصت تعویض شود</span>";
             }
         }
+
     }
 }
 

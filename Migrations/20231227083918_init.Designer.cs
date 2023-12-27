@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231227083918_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -37,6 +40,9 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<int>("Guaranty")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("LifeExpectancy")
                         .HasColumnType("INTEGER");
 
@@ -49,6 +55,9 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.Property<DateTime>("ReplaceDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("StopNotify")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -66,6 +75,24 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Battery")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Car")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Guaranty")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LifeExpectancy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -75,6 +102,15 @@ namespace BatteryPeykCustomers.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ReplaceDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("StopNotify")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

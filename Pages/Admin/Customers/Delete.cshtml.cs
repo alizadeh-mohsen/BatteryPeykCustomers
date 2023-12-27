@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Model;
-using BatteryPeykCustomers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
@@ -10,6 +9,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
     [Authorize]
     public class DeleteModel : PageModel
     {
+        [BindProperty]
+        public Customer Customer { get; set; } = default!;
+
         private readonly Data.ApplicationDbContext _context;
 
         public DeleteModel(Data.ApplicationDbContext context)
@@ -17,8 +19,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             _context = context;
         }
 
-        [BindProperty]
-      public Customer Customer { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -33,7 +33,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Customer = customer;
             }
@@ -42,7 +42,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null || _context.Customer == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -57,12 +57,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Index");
         }
 
-        public string ToPersianDate(DateTime? date)
-        {
-            return DateHelper.ToPersianDate(date);
-        }
+       
     }
 }
