@@ -1,8 +1,6 @@
 ﻿using BatteryPeykCustomers.Helpers;
-using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages
 {
@@ -11,11 +9,9 @@ namespace BatteryPeykCustomers.Pages
         //private readonly ILogger<IndexModel> _logger;
         //private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
 
-        //public IndexModel(ILogger<IndexModel> logger, BatteryPeykCustomers.Data.ApplicationDbContext context)
+        //public IndexModel(IOptions<Sms> sms)
         //{
-        //    _context = context;
-        //    _logger = logger;
-
+        //    _sms = sms;
         //}
 
         //public Customer Customer { get; set; }
@@ -51,6 +47,28 @@ namespace BatteryPeykCustomers.Pages
         //public string CalcGuarantyExpireDate()
         //{
         //    return DateHelper.CalcGuarantyExpireDate(Customer.PurchaseDate, Customer.Guaranty);
+
+
         //}
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+
+                SmsHelper smsHelper = new SmsHelper();
+
+               var result = smsHelper.SendSms();
+                //var result3 = smsHelper.GetCredit();
+
+                return Page();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
