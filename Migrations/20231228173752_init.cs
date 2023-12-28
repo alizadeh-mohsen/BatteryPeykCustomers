@@ -183,8 +183,8 @@ namespace BatteryPeykCustomers.Migrations
                     PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
                     LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
-                    Comments = table.Column<string>(type: "TEXT", nullable: true),
-                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Comments = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

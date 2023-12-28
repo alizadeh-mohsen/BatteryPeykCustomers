@@ -35,7 +35,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                     return Page();
                 }
 
-                Car.PurchaseDate = DateTime.Today;
+                Car.PurchaseDate = DateTime.Now.Date;
                 Car.ReplaceDate = DateTime.Today.AddMonths(Car.LifeExpectancy);
 
                 _context.Car.Add(Car);

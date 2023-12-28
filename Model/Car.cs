@@ -29,7 +29,8 @@ namespace BatteryPeykCustomers.Model
         [Required]
         public int LifeExpectancy { get; set; }
 
-        public string? Comments { get; set; }
         public DateTime ReplaceDate { get; set; }
+
+        public string? Comments { get; set; }
     }
 }

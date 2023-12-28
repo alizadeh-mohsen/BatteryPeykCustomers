@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231227201817_init")]
+    [Migration("20231228173752_init")]
     partial class init
     {
         /// <inheritdoc />
