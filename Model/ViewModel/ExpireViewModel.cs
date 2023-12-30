@@ -5,5 +5,6 @@ namespace BatteryPeykCustomers.Model.ViewModel
     public class ExpireViewModel
     {
        public  IEnumerable<Expire> Expires { get; set; }
+        public int count { get; set; }
     }
 }

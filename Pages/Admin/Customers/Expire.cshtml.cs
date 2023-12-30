@@ -45,7 +45,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 vm = new ExpireViewModel
                 {
-                    Expires = result
+                    Expires = result,
+                    count = result.Count
                 };
 
             }
