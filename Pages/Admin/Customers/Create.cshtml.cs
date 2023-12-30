@@ -4,6 +4,7 @@ using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Model.ViewModel;
 using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Helpers;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -57,7 +58,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     Guaranty = vm.Guaranty,
                     Make = vm.Make,
                     LifeExpectancy = vm.LifeExpectancy,
-                    PurchaseDate = DateTime.Now,
+                    PurchaseDate = DateTime.Today,
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
                     Comments = vm.Comments,
                 } };
@@ -74,15 +75,22 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 var count = _context.Customer.Count();
                 if (count % 100 == 0)
                 {
-                    TempData["success"] = " دمت گرم سلطان مشتریات شد" + count + " تا.";
+                    TempData["success"] = " ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. مشتریها شد" + count + " تا.";
                 }
                 else
                     TempData["success"] = "Created Successfully";
+
+
+
+                SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone);
+                await smsHelper.SendSms(MessageType.Welcome);
+
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
             {
-                throw;
+                TempData["error"] = ex.Message + ex.InnerException?.Message;
+                return Page();
             }
         }
     }

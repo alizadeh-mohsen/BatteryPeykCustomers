@@ -6,48 +6,64 @@
     ViewData["Title"] = "Expire";
 }
 
-<h1>مشتریانی که نیاز به تعویض باتری دارند</h1>
+<h1 class="text-center">مشتریانی که نیاز به تعویض باتری دارند</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
-                نام
-            </th>
-            <th>
+            <th class="text-center">
                 تلفن
             </th>
-            <th>
+            <th class="text-center">
+                
+            </th>
+            <th class="text-center">
                 ماشین
             </th>
 
-            <th>
+            <th class="text-center">
                 باتری
             </th>
-            <th>
-                تاریخ انقضا
+            <th class="text-center">
+                تاریخ خرید
+            </th>
+            <th class="text-center">
+                طول عمر
+            </th>
+            <th class="text-center">
+                تاریخ تعویض
             </th>
 
-            <th></th>
+            <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.vm.Expires)
         {
             <tr>
-                <td>
-                    <a asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none">@item.Name</a>
+                <td class="text-center">
+                    <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.CustomerId" style="text-decoration:none">@item.Phone</a>
                 </td>
-                <td>
-                    @item.Phone
+                <td class="text-center">
+                    <form method="post">
+                        <input type="text" hidden name="name" value="@item.Name" />
+                        <input type="text" hidden name="phone" value="@item.Phone" />
+                        <button class="btn btn-warning" type="submit">ارسال پیامک</button>
+                    </form>
                 </td>
-                <td>
+                <td class="text-center">
                     @item.Make
                 </td>
-                <td>
+                <td class="text-center">
                     @item.Battery
                 </td>
-                <td>
+                <td class="text-center">
+                    @item.PurchaseDate.ToPersianDate()
+                </td> 
+                <td class="text-center">
+                    @item.LifeExpectancy
+                </td>
+                <td class="text-center">
                     @item.ReplaceDate.ToPersianDate()
                 </td>
             </tr>

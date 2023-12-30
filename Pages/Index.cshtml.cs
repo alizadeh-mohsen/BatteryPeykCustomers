@@ -9,10 +9,17 @@ namespace BatteryPeykCustomers.Pages
         //private readonly ILogger<IndexModel> _logger;
         //private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
 
-        //public IndexModel(IOptions<Sms> sms)
-        //{
-        //    _sms = sms;
-        //}
+        public IndexModel()
+        {
+
+            var now = DateTime.Now;
+            var today = DateTime.Today;
+
+
+            
+        }
+
+
 
         //public Customer Customer { get; set; }
 
@@ -56,9 +63,9 @@ namespace BatteryPeykCustomers.Pages
             try
             {
 
-                SmsHelper smsHelper = new SmsHelper();
+                SmsHelper smsHelper = new SmsHelper("محسن علیزاده","09125031094");
 
-               var result = smsHelper.SendSms();
+               //var result = smsHelper.SendSms();
                 //var result3 = smsHelper.GetCredit();
 
                 return Page();

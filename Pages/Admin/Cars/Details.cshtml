@@ -23,29 +23,29 @@
         <p class="card-text">
             <table class="table">
                 <tr>
-                    <td><strong>تاریخ خرید</strong></td>
-                    <td>
+                    <td class="text-center"><strong>تاریخ خرید</strong></td>
+                    <td class="text-center">
                         @Model.car.PurchaseDate.ToPersianDate()
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>گارانتی</strong></td>
-                    <td>@Model.car.Guaranty</td>
+                    <td class="text-center"><strong>گارانتی</strong></td>
+                    <td class="text-center">@Model.car.Guaranty</td>
                 </tr>
                 <tr>
-                    <td><strong>طول عمر</strong></td>
-                    <td>@Model.car.LifeExpectancy</td>
+                    <td class="text-center"><strong>طول عمر</strong></td>
+                    <td class="text-center">@Model.car.LifeExpectancy</td>
                 </tr>
                 <tr>
-                    <td><strong>زمان تعویض</strong></td>
-                    <td>
+                    <td class="text-center"><strong>زمان تعویض</strong></td>
+                    <td class="text-center">
                         @Model.car.ReplaceDate.ToPersianDate()
                     </td>
                 </tr>
 
                 <tr>
-                    <td><strong>توضیحات</strong></td>
-                    <td>@Model.car.Comments</td>
+                    <td class="text-center"><strong>توضیحات</strong></td>
+                    <td class="text-center">@Model.car.Comments</td>
                 </tr>
             </table>
 

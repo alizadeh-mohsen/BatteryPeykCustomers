@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Helpers;
 
 namespace BatteryPeykCars.Pages.Admin.Cars
 {
@@ -35,13 +36,22 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                     return Page();
                 }
 
-                Car.PurchaseDate = DateTime.Now.Date;
+                Car.PurchaseDate = DateTime.Today;
                 Car.ReplaceDate = DateTime.Today.AddMonths(Car.LifeExpectancy);
 
                 _context.Car.Add(Car);
                 await _context.SaveChangesAsync();
 
                 TempData["success"] = "Created Successfully";
+
+
+                var customer = await _context.Customer.FindAsync(Car.CustomerId);
+                if (customer != null)
+                {
+                    SmsHelper smsHelper = new SmsHelper(customer.Name, customer.Phone);
+                    await smsHelper.SendSms(MessageType.NewCar);
+                }
+
                 return RedirectToPage("Index", new { customerId = Car.CustomerId });
             }
             catch (Exception ex)

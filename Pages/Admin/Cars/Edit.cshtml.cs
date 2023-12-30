@@ -1,5 +1,6 @@
 ﻿
 using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -81,6 +82,14 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                     ModelState.AddModelError(string.Empty, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
                     return Page();
                 }
+
+                var customer = await _context.Customer.FindAsync(Car.CustomerId);
+                if (customer != null)
+                {
+                    SmsHelper smsHelper = new SmsHelper(customer.Name, customer.Phone);
+                    await smsHelper.SendSms(MessageType.Update);
+                }
+
 
                 return RedirectToPage("Index", new { customerId = Car.CustomerId });
             }
