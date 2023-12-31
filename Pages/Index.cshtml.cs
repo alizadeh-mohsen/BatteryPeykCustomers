@@ -16,7 +16,7 @@ namespace BatteryPeykCustomers.Pages
             var today = DateTime.Today;
 
 
-            
+
         }
 
 
@@ -63,9 +63,17 @@ namespace BatteryPeykCustomers.Pages
             try
             {
 
-                SmsHelper smsHelper = new SmsHelper("محسن علیزاده","09125031094");
+                SmsHelper smsHelper = new SmsHelper("محسن علیزاده", "09125031094");
 
-               //var result = smsHelper.SendSms();
+                var result = await smsHelper.SendSms(MessageType.Welcome);
+
+
+                if (result.Status == 1)
+                    TempData["Success"] = "Sms Sent successfully";
+                else
+                {
+                    TempData["error"] = result.Message;
+                }
                 //var result3 = smsHelper.GetCredit();
 
                 return Page();

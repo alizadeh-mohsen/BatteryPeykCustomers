@@ -59,7 +59,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 var phone = Request.Form["phone"];
                 SmsHelper smsHelper = new SmsHelper(name, phone);
                 var result = await smsHelper.SendSms(MessageType.Expire);
-
+                if (result.Status != 1)
+                {
+                    TempData["error"] = result.Message;
+                }
                 return Page();
 
 

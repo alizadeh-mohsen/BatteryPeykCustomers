@@ -87,7 +87,11 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 if (customer != null)
                 {
                     SmsHelper smsHelper = new SmsHelper(customer.Name, customer.Phone);
-                    await smsHelper.SendSms(MessageType.Update);
+                    var result = await smsHelper.SendSms(MessageType.Update);
+                    if (result.Status != 1)
+                    {
+                        TempData["error"] = result.Message;
+                    }
                 }
 
 

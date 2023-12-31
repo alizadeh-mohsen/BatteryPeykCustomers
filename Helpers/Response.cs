@@ -3,8 +3,8 @@
     public class Response
     {
 
-        //public int Status { get; set; }
-        //public string Message { get; set; }
+        public byte Status { get; set; }
+        public string Message { get; set; }
         //public decimal Cost { get; set; }
         //public Data Data { get; set; }
         //public object? Result { get; set; }
