@@ -8,7 +8,7 @@ namespace BatteryPeykCustomers.Helpers
     public class SmsHelper
     {
 
-        private const string APIKEY = "1wvNTyffrYh0A51Vno4BGatY0xfCWhZbrFiFrT6ZTmZsVQurKmiyrYxX6E6bU9YEO";
+        private const string APIKEY = "wvNTyffrYh0A51Vno4BGatY0xfCWhZbrFiFrT6ZTmZsVQurKmiyrYxX6E6bU9YEO";
         private const string lineNumber = "30007732907663";
         private string _name;
         private string _phone;
