@@ -68,12 +68,13 @@ namespace BatteryPeykCustomers.Controllers
 
         public string setStatus(DateTime purchaseDate, int lifeExpectancy)
         {
-            var monthsPassed = purchaseDate.CalcLife();
-            if (monthsPassed < lifeExpectancy / 2)
+            var replaceDate = purchaseDate.AddMonths(lifeExpectancy);
+            var goodDate = replaceDate.AddDays(-30);
+            if (DateTime.Today.Date <= goodDate.Date)
             {
                 return "<span class='text-success'>سالم</span>";
             }
-            else if ((lifeExpectancy / 2) < monthsPassed && monthsPassed < lifeExpectancy - 2)
+            else if (DateTime.Today.Date > goodDate && DateTime.Today <= replaceDate.Date)
             {
                 return "<span class='text-warning'>سالم(احتیاط)</span>";
             }
