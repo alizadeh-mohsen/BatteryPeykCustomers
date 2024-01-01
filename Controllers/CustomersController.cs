@@ -47,6 +47,7 @@ namespace BatteryPeykCustomers.Controllers
                     Make = car.Make,
                     Expire = setExpire((DateTime)car.PurchaseDate, car.Guaranty),
                     PurchaseDate = car.PurchaseDate.ToPersianDate(),
+                    ReplacementDate = car.PurchaseDate.CalcReplacementDate(car.LifeExpectancy),
                     Status = setStatus((DateTime)car.PurchaseDate, car.Guaranty),
                     BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0" 
                     : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString()

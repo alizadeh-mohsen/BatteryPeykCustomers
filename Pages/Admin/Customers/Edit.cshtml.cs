@@ -51,6 +51,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     return Page();
                 }
 
+                var customerOld = _context.Customer.FirstOrDefault(c => c.Id != Customer.Id && c.Phone == Customer.Phone);
+               if(customerOld != null)
+                {
+                    ModelState.AddModelError("Customer.Phone", "مشتری دیگری با این شماره تماس قبلا ثبت شده.");
+                    return Page() ;
+
+                }
+
                 _context.Attach(Customer).State = EntityState.Modified;
 
                 try
