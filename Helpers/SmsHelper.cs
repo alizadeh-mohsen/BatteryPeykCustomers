@@ -71,17 +71,27 @@ namespace BatteryPeykCustomers.Helpers
             {
                 int templateId = GetTemplateId(messageType);
                 var sendresponse = await Send(templateId);
-                if (sendresponse.Status != 1)
-                    return GetErrorMessage(sendresponse, true);
+                //if (sendresponse.Status != 1)
+                //    return new Response
+                //    {
+                //        IsSuccess = false,
+                //        Message = "خطا در ارسال پیامک",
+                //    };
+                ////return GetErrorMessage(sendresponse, true);
 
-                var reportresponse = await GetReport(sendresponse.Data.messageId);
-                if (reportresponse.Data.DeliveryState != 1)
-                    return GetErrorMessage(reportresponse, false);
+                //var reportresponse = await GetReport(sendresponse.Data.messageId);
+                //if (reportresponse.Data.DeliveryState != 1)
+                //    //return GetErrorMessage(reportresponse, false);
+                //    return new Response
+                //    {
+                //        IsSuccess = false,
+                //        Message = "اختلال در ارسال پیامک",
+                //    };
 
                 return new Response
                 {
                     IsSuccess = true
-                }; ;
+                };
             }
             catch (Exception ex)
             {
@@ -89,7 +99,7 @@ namespace BatteryPeykCustomers.Helpers
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = ex.Message,
+                    Message = "خطا در ارسال پیامک",
                 };
             }
         }
