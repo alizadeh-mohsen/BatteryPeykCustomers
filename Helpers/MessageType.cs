@@ -3,8 +3,6 @@
     public enum MessageType
     {
         Welcome,
-        NewCar,
-        Expire,
         Update,
 
     }

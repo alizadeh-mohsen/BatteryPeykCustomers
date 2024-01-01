@@ -83,10 +83,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
 
                 SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone);
-                var result= await smsHelper.SendSms(MessageType.Welcome);
-                if (result.Status != 1)
+                var respone = await smsHelper.SendSms(MessageType.Welcome);
+                if (!respone.IsSuccess)
                 {
-                    TempData["error"] = result.Message;
+                    TempData["error"] = respone.Message;
                 }
 
                 return RedirectToPage("./Index");

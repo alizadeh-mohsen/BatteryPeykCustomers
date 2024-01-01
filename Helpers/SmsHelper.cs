@@ -10,17 +10,56 @@ namespace BatteryPeykCustomers.Helpers
 
         private const string APIKEY = "wvNTyffrYh0A51Vno4BGatY0xfCWhZbrFiFrT6ZTmZsVQurKmiyrYxX6E6bU9YEO";
         private const string lineNumber = "30007732907663";
+        private const string vipPanel = "https://BatteryPeyk.com/vip.html?m=";
+        private const string SendUrl = "https://api.sms.ir/v1/send/verify";
+        private const string ReportUrl = "https://api.sms.ir/v1/send/";
+        private const int WelcomeMessageTemplateId = 538705;
+        private const int UpdateMessageTemplateId = 620937;
+        private Dictionary<int, string> DeliveryStatusCode = new Dictionary<int, string>
+        {
+            {0  , "مشکلی در سامانه رخ داده است، لطفا با پشتیبانی در تماس باشید" },
+            {2  ,"نرسیده به گوشی" },
+            {3  ,"پردازش در مخابرات" },
+            {4  ,"نرسیده به مخابرات" },
+            {5  ,"رسیده به اپراتور" },
+            {6  ,"ناموفق" },
+            {7  ,"لیست سیاه" },
+            {10 , "کلید وب سرویس نامعتبر است" },
+            {11 , "کلید وب سرویس غیرفعال است" },
+            {12 , "کلید وب‌ سرویس محدود به IP‌های تعریف شده می‌باشد" },
+            {13 , "حساب کاربری غیر فعال است" },
+            {14 , "حساب کاربری در حالت تعلیق قرار دارد" },
+            {20 , "تعداد درخواست بیشتر از حد مجاز است" },
+            {101, "شماره خط نامعتبر می‌باشد" },
+            {102, "اعتبار کافی نمی‌باشد" },
+            {103, "درخواست شما دارای متن(های) خالی است" },
+            {104, "درخواست شما دارای موبایل(های) نادرست است" },
+            {105, "تعداد موبایل ها بیشتر از حد مجاز(100 عدد) می‌باشد" },
+            {106, "تعداد متن ها بیشتر از حد مجاز(100 عدد) می‌باشد" },
+            {107, "لیست موبایل ها خالی می‌باشد" },
+            {108, "لیست متن ها خالی می‌باشد" },
+            {109, "زمان ارسال نامعتبر می‌باشد" },
+            {110, "تعداد شماره موبایل‌ها و تعداد متن ها برابر نیستند" },
+            {111, "با این شناسه ارسالی ثبت نشده است" },
+            {112, "رکوردی برای حذف یافت نشد" },
+            {113, "قالب یافت نشد" },
+            {114, "طول رشته مقدار پارامتر، بیش از حد مجاز(25 کاراکتر) می‌باشد" },
+            {115, "شماره موبایل(ها) در لیست سیاه سامانه می‌باشند" },
+            {116, "نام پارامتر نمی‌تواند خالی باشد" },
+            {117, "متن ارسال شده مورد تایید نمی‌باشد" },
+            {118, "تعداد پیام ها بیش از حد مجاز می باشد." },
+
+            };
+
         private string _name;
         private string _phone;
         private string _link;
-        private const string defaultPath = "https://BatteryPeyk.com/vip.html?m=";
         HttpClient httpClient;
-
 
         public SmsHelper(string name, string phone)
         {
             _name = name;
-            _link = defaultPath + phone;
+            _link = vipPanel + phone;
             _phone = phone;
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("x-api-key", APIKEY);
@@ -28,56 +67,74 @@ namespace BatteryPeykCustomers.Helpers
 
         public async Task<Response> SendSms(MessageType messageType)
         {
-            if (_phone == null || !_phone.StartsWith("0") || _phone.Length != 11)
+            try
+            {
+                int templateId = GetTemplateId(messageType);
+                var sendresponse = await Send(templateId);
+                if (sendresponse.Status != 1)
+                    return GetErrorMessage(sendresponse, true);
+
+                var reportresponse = await GetReport(sendresponse.Data.messageId);
+                if (reportresponse.Data.DeliveryState != 1)
+                    return GetErrorMessage(reportresponse, false);
+
                 return new Response
                 {
-                    Message="شماره موبایل صحیح نیست"
-                };
+                    IsSuccess = true
+                }; ;
+            }
+            catch (Exception ex)
+            {
 
-            string message = GetMessage(messageType);
-            return await Send(message);
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
         }
 
-        private string GetMessage(MessageType messageType)
+        private int GetTemplateId(MessageType messageType)
         {
-            var message = string.Empty;
 
             switch (messageType)
             {
                 case MessageType.Welcome:
-                    message =
-                        "عضویت شما در باشگاه مشتریان باتری پیک با موفقیت انجام شد. برای مشاهده مشخصات باتری خریداری شده به لینک زیر مراجعه کنید";
-                    break;
+                    return WelcomeMessageTemplateId;
                 case MessageType.Update:
-                    message =
-                    "عضو باشگاه مشتریان باتری پیک. اطلاعات شما بروزرسانی شد. برای مشاهده این اطلاعات به لینک زیر مراجعه کنید" ;
-                    break;
-                case MessageType.Expire:
-                    message =
-                "عضو باشگاه مشتریان باتری پیک. عمر مفید باتری شما به پایان رسیده. ظرف یک ماه آینده نسبت به تعویض آن اقدام کنید." ;
-                    break;
-                case MessageType.NewCar:
-                    message =
-                 "عضو باشگاه مشتریان باتری پیک. خودرو جدیدی به پنل شما اشافه شد. برای مشاهده اطلاعات جدید به آدرس زیر مراجعه کنید.";
-                    break;
+                    return UpdateMessageTemplateId;
                 default:
-                    return string.Empty;
+                    return -1;
             }
 
-            return $" {_name} عزیز" + "\n" +
-                message + "\n" +
-                $"{_link}";
         }
 
-        private string GetPayload(string message)
+        private async Task<Response> Send(int templateId)
+        {
+            HttpContent content = new StringContent(GetPayload(templateId), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(SendUrl, content);
+            return await GetResponse(response);
+        }
+
+        private async Task<Response> GetReport(int messageId)
+        {
+            var response = await httpClient.GetAsync(ReportUrl + messageId);
+            var result = await GetResponse(response);
+            return result;
+        }
+
+        private string GetPayload(int templateId)
         {
             Request request = new Request
             {
 
-                LineNumber = lineNumber,
-                MessageText = message,
-                Mobiles = new string[] { _phone }
-
+                Mobile = _phone,
+                TemplateId = templateId,
+                Parameters = new Parameter[] {
+                    new Parameter { Name = "CUSTOMER", Value = _name },
+                    new Parameter { Name = "DATE", Value = _link.Substring(0,25) },
+                    new Parameter { Name = "PHONE", Value = _link.Substring(25) },
+                }
             };
 
             var payload = JsonConvert.SerializeObject(request);
@@ -85,13 +142,21 @@ namespace BatteryPeykCustomers.Helpers
             return payload;
         }
 
-        private async Task<Response> Send(string message)
+        private async Task<Response> GetResponse(HttpResponseMessage httpResponseMessage)
         {
-            HttpContent content = new StringContent(GetPayload(message), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("https://api.sms.ir/v1/send/bulk", content);
-            var result = await response.Content.ReadAsStringAsync();
-            var resp = JsonConvert.DeserializeObject<Response>(result);
-            return resp;
+            var result = await httpResponseMessage.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<Response>(result);
+            return response;
+        }
+
+        private Response GetErrorMessage(Response response, bool isSend)
+        {
+
+            response.IsSuccess = false;
+            response.Message = isSend ? DeliveryStatusCode[response.Status] :
+            response.Message = DeliveryStatusCode[response.Data.DeliveryState];
+
+            return response;
         }
     }
 }
