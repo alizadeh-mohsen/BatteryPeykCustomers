@@ -47,9 +47,9 @@ namespace BatteryPeykCustomers.Controllers
                     Make = car.Make,
                     Expire = setExpire((DateTime)car.PurchaseDate, car.Guaranty),
                     PurchaseDate = car.PurchaseDate.ToPersianDate(),
-                    ReplacementDate = car.PurchaseDate.CalcReplacementDate(car.LifeExpectancy),
+                    ReplacementDate = setReplacementDate((DateTime)car.PurchaseDate, car.LifeExpectancy),
                     Status = setStatus((DateTime)car.PurchaseDate, car.Guaranty),
-                    BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0" 
+                    BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0"
                     : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString()
                 });
             }
@@ -80,6 +80,30 @@ namespace BatteryPeykCustomers.Controllers
             else
             {
                 return "<span class= 'text-danger' > در اولین فرصت تعویض شود</span>";
+            }
+        }
+
+        public string setReplacementDate(DateTime purchaseDate, int lifeExpectancy)
+        {
+            var replaceDate = purchaseDate.AddMonths(lifeExpectancy);
+            var goodDate = replaceDate.AddDays(-30);
+            if (DateTime.Today.Date <= goodDate.Date)
+            {
+                return "<span class='text-success'>" +
+                    replaceDate.ToPersianDate() +
+                    "</span>";
+            }
+            else if (DateTime.Today.Date > goodDate && DateTime.Today <= replaceDate.Date)
+            {
+                return "<span class='text-warning'>" +
+                                       replaceDate.ToPersianDate() +
+                    "</span>";
+            }
+            else
+            {
+                return "<span class= 'text-danger' >" +
+                                                          replaceDate.ToPersianDate() +
+                    "</span>";
             }
         }
 
