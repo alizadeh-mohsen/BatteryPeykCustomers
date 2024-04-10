@@ -26,7 +26,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             if (_context.Customer != null)
             {
                 var result = await _context.Car.Include(c => c.Customer).
-                    Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today).OrderBy(c => c.PurchaseDate).Select(
+                    Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today && c.Sms == 0).OrderBy(c => c.PurchaseDate).Select(
                     c => new Expire
                     {
                         Id = c.Id,
@@ -57,16 +57,24 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             {
                 var name = Request.Form["name"];
                 var phone = Request.Form["phone"];
+                var Id = int.Parse(Request.Form["Id"]);
                 SmsHelper smsHelper = new SmsHelper(name, phone);
 
                 var respone = await smsHelper.SendSms(MessageType.Update);
+
                 if (!respone.IsSuccess)
                 {
                     TempData["error"] = respone.Message;
                 }
-                return Page();
+                else
+                {
+                    var car = await _context.Car.FindAsync(Id);
+                    car.Sms = 1;
+                    _context.Update(car);
+                  var result=  await _context.SaveChangesAsync();
 
-
+                }
+                return RedirectToPage("/Admin/Customers/Expire");
             }
             catch (Exception ex)
             {

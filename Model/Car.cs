@@ -32,5 +32,6 @@ namespace BatteryPeykCustomers.Model
         public DateTime ReplaceDate { get; set; }
 
         public string? Comments { get; set; }
+        public int Sms { get; set; }
     }
 }
