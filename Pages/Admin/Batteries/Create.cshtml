@@ -1,0 +1,50 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Batteries.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+ 
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-2">
+                باتری
+                <select asp-for="Battery.CompanyId" class="form-select" asp-items="ViewBag.CompanyId"></select>
+            </div>
+            <div class="form-group mb-2">
+                آمپر
+                <select asp-for="Battery.AmperId" class="form-select" asp-items="ViewBag.AmperId"></select>
+            </div>
+            <div class="form-group mb-2">
+                سود
+                <input asp-for="Battery.Profit" class="form-control" />
+                <span asp-validation-for="Battery.Profit" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                موجودی انبار
+                <input asp-for="Battery.Quantity" class="form-control" />
+                <span asp-validation-for="Battery.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                حد نصاب هشدار تامین موجودی
+                <input asp-for="Battery.AlertQuantity" class="form-control" />
+                <span asp-validation-for="Battery.AlertQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -3,9 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
-using BatteryPeykCustomers.Helpers;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+CultureInfo.DefaultThreadCurrentCulture
+  = CultureInfo.DefaultThreadCurrentUICulture
+  = PersianDateExtensionMethods.GetPersianCulture();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

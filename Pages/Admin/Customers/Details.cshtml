@@ -30,8 +30,8 @@
         <p>
                 @Model.Customer.Address
         </p>
-        <a class="btn btn-info ml-2" asp-page="Edit" asp-route-id="@Model.Customer.Id">ویرایش</a>
-        <a class="btn btn-success ml-2" asp-page="Index">بازگشت</a>
-        <button class="btn btn-warning ml-2" onclick="copy('@Model.Customer.Phone')"> کپی لینک</button>
+        <a class="btn btn-warning ml-2" asp-page="./Edit" asp-route-id="@Model.Customer.Id">ویرایش</a>
+        <a class="btn btn-success ml-2" asp-page="./Index">بازگشت</a>
+        <button class="btn btn-info ml-2" onclick="copy('@Model.Customer.Phone')"> کپی لینک</button>
     </div>
 </div>

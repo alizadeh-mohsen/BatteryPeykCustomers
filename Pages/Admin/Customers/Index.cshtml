@@ -7,7 +7,8 @@
 
 <partial name="_Notification" />
 <p>
-    <a class="btn btn-info" asp-page="Create"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;مشتری جدید</a>
+    <a class="btn btn-info" asp-page="Create">
+        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;مشتری جدید</a>
 </p>
 
 <div class="row">
@@ -17,9 +18,14 @@
             <div class="form-floating">
                 <input type="text" class="form-control mb-1" asp-for="SearchNameString" id="name" placeholder="Name" />
                 <label for="name">نام</label>
-            </div>    <div class="form-floating">
+            </div>   
+            <div class="form-floating">
                 <input type="text" class="form-control mb-1" asp-for="SearchPhoneString" id="phone" placeholder="Phone" />
                 <label for="phone">تلفن</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control mb-1" asp-for="SearchCommentString" id="Desc" placeholder="توضیحات" />
+                <label for="Comments">توضیحات</label>
             </div>
 
             <button type="submit" class="btn btn-info mt-2"><i class="bi bi-search"></i>&nbsp;&nbsp;جستجو</button>
@@ -49,8 +55,8 @@
                         @item.Phone
                     </td>
                     <td class="text-center">
-                        <a asp-page="Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
                         <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-car-front-fill" style="font-size:1.5rem"></i> </a>
 
                     </td>
@@ -63,18 +69,18 @@
         <div class="d-flex justify-content-center">
             <ul class="pagination">
                 <li class=" page-item @(!Model.ShowFirst? "disabled":"")">
-                    <a asp-page="Index" asp-route-CurrentPage="1" class="page-link bg-info"><i class="bi bi-skip-backward-fill" style="@(!Model.ShowFirst? "color:gray":"");font-size:1.3rem"></i></a>
+                    <a asp-page="./Index" asp-route-CurrentPage="1" class="page-link bg-info"><i class="bi bi-skip-backward-fill" style="@(!Model.ShowFirst? "color:gray":"");font-size:1.3rem"></i></a>
                 </li>
 
                 <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
-                    <a asp-page="Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link bg-info"><i class="bi bi-skip-start-fill" style="@(!Model.ShowPrevious? "color:gray":"");font-size:1.3rem"></i></a>
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link bg-info"><i class="bi bi-skip-start-fill" style="@(!Model.ShowPrevious? "color:gray":"");font-size:1.3rem"></i></a>
                 </li>
                 <li class="page-item  @(!Model.ShowNext? "disabled":"")">
-                    <a asp-page="Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link bg-info"><i class="bi bi-skip-end-fill" style="@(!Model.ShowNext? "color:gray":"");font-size:1.3rem"></i></a>
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link bg-info"><i class="bi bi-skip-end-fill" style="@(!Model.ShowNext? "color:gray":"");font-size:1.3rem"></i></a>
                 </li>
 
                 <li class="page-item  @(!Model.ShowLast? "disabled":"")">
-                    <a asp-page="Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-info"><i class="bi bi-skip-forward-fill" style="@(!Model.ShowLast? "color:gray":"");font-size:1.3rem"></i></a>
+                    <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-info"><i class="bi bi-skip-forward-fill" style="@(!Model.ShowLast? "color:gray":"");font-size:1.3rem"></i></a>
                 </li>
             </ul>
 

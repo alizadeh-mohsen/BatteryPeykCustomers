@@ -1,0 +1,29 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Ampers.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            عنوان
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amper.Title)
+        </dd>
+        <dt class="col-sm-2">
+            آمپر
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amper.Amperage)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info ml-2" asp-page="./Edit" asp-route-id="@Model.Amper.Id">ویرایش</a>
+    <a class="btn btn-success ml-2" asp-page="./Index">بازگشت</a>
+</div>

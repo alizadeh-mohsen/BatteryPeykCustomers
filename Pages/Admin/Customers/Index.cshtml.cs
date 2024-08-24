@@ -1,4 +1,4 @@
-﻿    using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -38,7 +38,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         public string? SearchPhoneString { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string? SearchBatteryString { get; set; }
+        public string? SearchCommentString { get; set; }
 
         public IList<Customer> Customers { get; set; } = default!;
 
@@ -46,13 +46,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         {
             if (_context.Customer != null)
             {
-                var query = from c in _context.Customer select c;
-
-                if (!string.IsNullOrEmpty(SearchNameString))
-                    query = query.Where(c => c.Name.ToLower().Contains(SearchNameString.ToLower().Trim()));
-
-                if (!string.IsNullOrEmpty(SearchPhoneString))
-                    query = query.Where(c => c.Phone.Contains(SearchPhoneString.Trim()));
+                var query = from customer in _context.Customer
+                            join car in _context.Car on customer.Id equals car.CustomerId
+                            where
+                            (string.IsNullOrEmpty(SearchNameString) || customer.Name.ToLower().Contains(SearchNameString.ToLower().Trim()))
+                            && (string.IsNullOrEmpty(SearchPhoneString) || customer.Phone.Contains(SearchPhoneString.Trim()))
+                           && (string.IsNullOrEmpty(SearchCommentString) || car.Comments.Contains(SearchCommentString))
+                            select customer;
 
                 query = query.OrderByDescending(c => c.Id);
 

@@ -16,7 +16,7 @@
         <h5 class="card-title">
             <a asp-page="/Admin/Customer/Details" asp-route-id="@Model.vm.Customer.Id" style="text-decoration:none" class="text-info">
                 @Model.vm.Customer.Name
-                 </a>
+            </a>
         </h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">
             <a class="btn btn-outline-info mb-2 font-weight-light" href=tel:'@Model.vm.Customer.Phone'>
@@ -42,6 +42,7 @@
                 </th>
 
                 <th class="text-center">تاریخ خرید</th>
+                <th class="text-center">توضیحات</th>
             </tr>
         </thead>
         <tbody>
@@ -59,10 +60,14 @@
                         @item.PurchaseDate.ToPersianDate()
                     </td>
                     <td class="text-center">
-                        <a asp-page="Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> |
-                        <a asp-page="Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>
+                        @item.Comments
+                    </td>
+                    <td class="text-center">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> |
+                        <a asp-page="./Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>
 
                     </td>
+
                 </tr>
             }
         </tbody>

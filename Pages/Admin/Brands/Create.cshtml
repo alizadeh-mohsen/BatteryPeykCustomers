@@ -1,0 +1,41 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Brands.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                عنوان
+                <input asp-for="Company.Title" class="form-control" />
+                <span asp-validation-for="Company.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                مدت گارانتی
+                <input asp-for="Company.Guarranty" class="form-control" />
+                <span asp-validation-for="Company.Guarranty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                عمر مفید
+                <input asp-for="Company.LifeTime" class="form-control" />
+                <span asp-validation-for="Company.LifeTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

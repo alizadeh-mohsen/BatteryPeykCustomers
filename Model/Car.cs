@@ -14,7 +14,7 @@ namespace BatteryPeykCustomers.Model
         public Customer? Customer { get; set; }
 
         [MaxLength(50)]
-        public string? Make{ get; set; }
+        public string? Make { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -33,5 +33,18 @@ namespace BatteryPeykCustomers.Model
 
         public string? Comments { get; set; }
         public int Sms { get; set; }
+
+        //public int VehicleId { get; set; }
+
+        //[ForeignKey("VehicleId")]
+        //public Vehicle? Vehicle { get; set; }
+
+        //public int BatteryId { get; set; }
+
+        //[ForeignKey("BatteryId")]
+        //public Battery? CarBattery { get; set; }
+
+
+
     }
 }

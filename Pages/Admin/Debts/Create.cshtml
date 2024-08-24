@@ -1,0 +1,79 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Debts.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+
+}
+
+@* @{
+    var date = DateTime.Now;  // or from your model (Model.From_Date)
+    var pc = new System.Globalization.PersianCalendar();
+    var persianDay = pc.GetDayOfMonth(date);
+    var persianMonth = pc.GetMonth(date);
+    var persianYear = pc.GetYear(date);
+
+    // create the date string  for use in the date picker
+    string persianDateString = string.Format("{0}/{1}/{2}", persianYear, persianMonth, persianDay);
+}
+ *@
+
+<h1>بدهی ها</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                طرف حساب
+                <select asp-for="Debt.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId"></select>
+            </div>
+            <div class="form-group">
+                بابت
+                <select asp-for="Debt.ReasonId" class="form-select" asp-items="ViewBag.ReasonId"></select>
+            </div>
+            <div class="form-group">
+                مبلغ
+                <input asp-for="Debt.Amount" class="form-control" />
+                <span asp-validation-for="Debt.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیحات
+                <input asp-for="Debt.Description" class="form-control" />
+                <span asp-validation-for="Debt.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                تاریخ سررسید
+                <input asp-for="Debt.DueDate" id="From_Date" type="date" class="form-control" />
+                <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+
+    }
+@*     <script>
+        $(document).ready(function () {
+            alert('hi');
+            alert('@persianDateString');
+            alert(persianDateString);
+            $("#From_Date").kendoDatePicker({ format: "yyyy/MM/dd" });
+            var datepicker = $("#From_Date").data("kendoDatePicker");
+            datepicker.value('@persianDateString');
+            
+        });
+    </script> *@
+}

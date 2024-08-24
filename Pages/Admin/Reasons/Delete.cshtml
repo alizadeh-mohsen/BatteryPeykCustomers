@@ -1,0 +1,25 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Reasons.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+
+}
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            عنوان
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reason.Title)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Reason.Id" />
+        <input type="submit" value="حذف" class="btn btn-danger mt-2" />
+        <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+    </form>
+</div>

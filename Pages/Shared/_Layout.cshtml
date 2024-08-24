@@ -23,15 +23,55 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 ">
-                   
+
                         @if (User != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light "  asp-page="/Admin/Customers/Index">مشتریان</a>
+                                <a class="nav-link text-light " asp-page="/Admin/Customers/Index">مشتریان</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light"  asp-page="/Admin/Customers/Expire">تعویضی ها</a>
+                                <a class="nav-link text-light" asp-page="/Admin/Customers/Expire">تعویضی ها</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-page="/Admin/Debts/Index">بدهی ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-page="/Admin/Expenses/Index">مخارج</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-page="/Admin/Batteries/Index">انبار</a>
+                            </li>
+                            <li class="nav-item dropdown" >
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    اطلاعات پایه
+                                </a>
+                                <ul  class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                   
+                                    <li style="text-align:right">
+                                        <a  class="dropdown-item text-light" asp-page="/Admin/Ampers/Index">آمپرها</a>
+
+                                    </li>
+                                    <li style="text-align:right">
+                                        <a  class="dropdown-item text-light" asp-page="/Admin/Brands/Index">برندها</a>
+
+                                    </li>
+                                    <li style="text-align:right">
+                                        <a  class="dropdown-item text-light" asp-page="/Admin/Counterparties/Index">طرف حسابها</a>
+
+                                    </li>
+                                    <li style="text-align:right">
+                                        <a  class="dropdown-item text-light" asp-page="/Admin/Reasons/Index">بابت ها</a>
+
+                                    </li>
+                                    <li style="text-align:right">
+                                        <a  class="dropdown-item text-light" asp-page="/Admin/Vehicles/Index">ماشین ها</a>
+
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
                         }
                     </ul>
                     <partial name="_LoginPartial" />

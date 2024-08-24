@@ -1,0 +1,37 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Brands.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    
+}
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            عنوان
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company.Title)
+        </dd>
+        <dt class="col-sm-2">
+            مدت گارانتی
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company.Guarranty)
+        </dd>
+        <dt class="col-sm-2">
+            عمر مفید
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company.LifeTime)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <div class="form-group my-3">
+            <input type="submit" value="حذف" class="btn btn-danger mt-2" />
+            <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+        </div>
+    </form>
+</div>
