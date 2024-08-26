@@ -10,32 +10,32 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Battery.Id" />
-            <div class="form-group">
+            <div class="form-group mb-2">
                 سود
                 <input asp-for="Battery.Profit" class="form-control" />
                 <span asp-validation-for="Battery.Profit" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 تعداد
                 <input asp-for="Battery.Quantity" class="form-control" />
                 <span asp-validation-for="Battery.Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 حد نصاب هشدار موجودی
                 <input asp-for="Battery.AlertQuantity" class="form-control" />
                 <span asp-validation-for="Battery.AlertQuantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 آمپر
                 <select asp-for="Battery.AmperId" class="form-control" asp-items="ViewBag.AmperId"></select>
                 <span asp-validation-for="Battery.AmperId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 باتری
                 <select asp-for="Battery.CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
                 <span asp-validation-for="Battery.CompanyId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
 

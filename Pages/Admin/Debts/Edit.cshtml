@@ -3,64 +3,59 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Debt</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Debt.Id" />
-            <div class="form-group">
-                <label asp-for="Debt.Date" class="control-label"></label>
+            <div class="form-group mb-2">
+                تاریخ
                 <input asp-for="Debt.Date" class="form-control" />
                 <span asp-validation-for="Debt.Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Debt.Amount" class="control-label"></label>
-                <input asp-for="Debt.Amount" class="form-control" />
-                <span asp-validation-for="Debt.Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Debt.Description" class="control-label"></label>
-                <input asp-for="Debt.Description" class="form-control" />
-                <span asp-validation-for="Debt.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Debt.CounterpartyId" class="control-label"></label>
+            </div> <div class="form-group mb-2">
+                طرف حساب
                 <select asp-for="Debt.CounterpartyId" class="form-control" asp-items="ViewBag.CounterpartyId"></select>
                 <span asp-validation-for="Debt.CounterpartyId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Debt.ReasonId" class="control-label"></label>
+            <div class="form-group mb-2">
+                بابت
                 <select asp-for="Debt.ReasonId" class="form-control" asp-items="ViewBag.ReasonId"></select>
                 <span asp-validation-for="Debt.ReasonId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Debt.DueDate" class="control-label"></label>
+            <div class="form-group mb-2">
+                مبلغ
+                <input asp-for="Debt.Amount" class="form-control" />
+                <span asp-validation-for="Debt.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                توضیحات
+                <input asp-for="Debt.Description" class="form-control" />
+                <span asp-validation-for="Debt.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-2">
+                تاریخ سررسید
                 <input asp-for="Debt.DueDate" class="form-control" />
                 <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Debt.Settled" /> @Html.DisplayNameFor(model => model.Debt.Settled)
+                    <input class="form-check-input" asp-for="Debt.Settled" />تسویه شد
                 </label>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

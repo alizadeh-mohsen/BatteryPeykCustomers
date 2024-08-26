@@ -11,22 +11,22 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Company.Id" />
-            <div class="form-group">
+            <div class="form-group mb-2">
                 عنوان
                 <input asp-for="Company.Title" class="form-control" />
                 <span asp-validation-for="Company.Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 مدت گارانتی
                 <input asp-for="Company.Guarranty" class="form-control" />
                 <span asp-validation-for="Company.Guarranty" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 عمر مفید
                 <input asp-for="Company.LifeTime" class="form-control" />
                 <span asp-validation-for="Company.LifeTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
             </div>

@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Create";
-
+string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
 }
 
 @* @{
@@ -18,46 +18,46 @@
 }
  *@
 
-<h1>بدهی ها</h1>
+
+
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 طرف حساب
                 <select asp-for="Debt.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 بابت
                 <select asp-for="Debt.ReasonId" class="form-select" asp-items="ViewBag.ReasonId"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 مبلغ
                 <input asp-for="Debt.Amount" class="form-control" />
                 <span asp-validation-for="Debt.Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 توضیحات
-                <input asp-for="Debt.Description" class="form-control" />
+                <textarea asp-for="Debt.Description" class="form-control" ></textarea>
                 <span asp-validation-for="Debt.Description" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 تاریخ سررسید
-                <input asp-for="Debt.DueDate" id="From_Date" type="date" class="form-control" />
+                <input asp-for="Debt.DueDate" id="From_Date" value="@dateNow" type="date" class="form-control" />
                 <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
             </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{

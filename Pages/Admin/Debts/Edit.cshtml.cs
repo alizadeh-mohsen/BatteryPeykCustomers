@@ -36,8 +36,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 return NotFound();
             }
             Debt = debt;
-           ViewData["CounterpartyId"] = new SelectList(_context.Counterparty, "Id", "Title");
-           ViewData["ReasonId"] = new SelectList(_context.Reason, "Id", "Title");
+           ViewData["CounterpartyId"] = new SelectList(_context.Counterparty.OrderBy(c => c.Title), "Id", "Title");
+           ViewData["ReasonId"] = new SelectList(_context.Reason.OrderBy(c => c.Title), "Id", "Title");
             return Page();
         }
 

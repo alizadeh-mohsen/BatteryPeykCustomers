@@ -9,22 +9,22 @@
     <div class="col-md-4">
         <form method="post">
             <input type="hidden" asp-for="Customer.Id" />
-            <div class="form-group">
+            <div class="form-group mb-2">
                 تلفن
                 <input asp-for="Customer.Phone" class="form-control" />
                 <span asp-validation-for="Customer.Phone" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 نام
                 <input asp-for="Customer.Name" class="form-control" />
                 <span asp-validation-for="Customer.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 آدرس
                 <input asp-for="Customer.Address" class="form-control" />
                 <span asp-validation-for="Customer.Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
 

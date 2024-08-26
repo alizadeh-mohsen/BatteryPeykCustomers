@@ -13,37 +13,37 @@
 
             <input type="hidden" asp-for="Car.Id" />
             
-            <div class="form-group">
+            <div class="form-group mb-2">
                 ماشین
                 <input asp-for="Car.Make" class="form-control" />
                 <span asp-validation-for="Car.Make" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 باتری
                 <input asp-for="Car.Battery" class="form-control" />
                 <span asp-validation-for="Car.Battery" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 تاریخ خرید
                 <input asp-for="Car.PurchaseDate" type="date" class="form-control" />
                 <span asp-validation-for="Car.PurchaseDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 گارانتی
                 <input asp-for="Car.Guaranty" class="form-control" />
                 <span asp-validation-for="Car.Guaranty" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 عمر مفید
                 <input asp-for="Car.LifeExpectancy" class="form-control" />
                 <span asp-validation-for="Car.LifeExpectancy" class="text-danger"></span>
             </div> 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 توضیحات
                 <input asp-for="Car.Comments" class="form-control" />
                 <span asp-validation-for="Car.Comments" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a href='javascript:history.go(-1)' class="btn btn-success mt-2">بازگشت</a>
 
