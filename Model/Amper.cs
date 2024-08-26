@@ -5,12 +5,12 @@ namespace BatteryPeykCustomers.Model
     public class Amper
     {
         [Key]
-        public byte Id { get; set; }
+        public int Id { get; set; }
         
         [Required]
         public string Title { get; set; }
         
         [Required]
-        public byte Amperage { get; set; }
+        public int Amperage { get; set; }
     }
 }

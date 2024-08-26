@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240826082910_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -32,7 +35,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amper", (string)null);
+                    b.ToTable("Amper");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Battery", b =>
@@ -62,7 +65,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Battery", (string)null);
+                    b.ToTable("Battery");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Car", b =>
@@ -105,7 +108,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Car", (string)null);
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Company", b =>
@@ -126,7 +129,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company", (string)null);
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Counterparty", b =>
@@ -141,7 +144,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Counterparty", (string)null);
+                    b.ToTable("Counterparty");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Customer", b =>
@@ -167,7 +170,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("Phone");
 
-                    b.ToTable("Customer", (string)null);
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Debt", b =>
@@ -203,7 +206,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("ReasonId");
 
-                    b.ToTable("Debt", (string)null);
+                    b.ToTable("Debt");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Expense", b =>
@@ -233,7 +236,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("ReasonId");
 
-                    b.ToTable("Expense", (string)null);
+                    b.ToTable("Expense");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Reason", b =>
@@ -248,7 +251,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reason", (string)null);
+                    b.ToTable("Reason");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Vehicle", b =>
@@ -263,7 +266,7 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vehicle", (string)null);
+                    b.ToTable("Vehicle");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

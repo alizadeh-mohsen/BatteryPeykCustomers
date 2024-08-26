@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Helpers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BatteryPeykCars.Pages.Admin.Cars
 {
@@ -22,6 +23,8 @@ namespace BatteryPeykCars.Pages.Admin.Cars
         public IActionResult OnGet(int customerId)
         {
             Car = new Car { CustomerId = customerId };
+         
+
             return Page();
         }
 

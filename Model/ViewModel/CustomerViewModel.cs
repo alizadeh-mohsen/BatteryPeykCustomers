@@ -33,5 +33,8 @@ namespace BatteryPeykCustomers.Model.ViewModel
         public string? Comments { get; set; }
 
         public DateTime ReplaceDate { get; set; }
+        public int VehicleId{ get; set; }
+        public int CompanyId{ get; set; }
+        public int AmperId{ get; set; }
     }
 }

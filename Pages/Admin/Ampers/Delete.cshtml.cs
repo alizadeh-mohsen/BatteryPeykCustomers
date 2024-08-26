@@ -22,7 +22,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Ampers
         [BindProperty]
         public Amper Amper { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(byte? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -42,7 +42,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Ampers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(byte? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {

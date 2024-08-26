@@ -21,7 +21,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Ampers
 
         public Amper Amper { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(byte? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
