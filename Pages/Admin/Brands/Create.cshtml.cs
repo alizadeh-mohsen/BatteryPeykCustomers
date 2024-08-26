@@ -25,7 +25,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
         }
 
         [BindProperty]
-        public Company Company { get; set; } = default!;
+        public Brand Brand { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +35,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return Page();
             }
 
-            _context.Company.Add(Company);
+            _context.Brand.Add(Brand);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

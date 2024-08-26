@@ -17,13 +17,13 @@ namespace BatteryPeykCustomers.Model
         public int AlertQuantity { get; set; }
         
         public byte AmperId { get; set; }
-        public int CompanyId { get; set; }
+        public int BrandId { get; set; }
 
         [ForeignKey("AmperId")]
         public Amper? Amper { get; set; }
 
-        [ForeignKey("CompanyId")]
-        public Company? Company { get; set; }
+        [ForeignKey("BrandId")]
+        public Brand? Brand { get; set; }
 
 
     }

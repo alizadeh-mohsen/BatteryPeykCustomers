@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using BatteryPeykCustomers.Helpers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BatteryPeykCars.Pages.Admin.Cars
 {
@@ -22,6 +23,10 @@ namespace BatteryPeykCars.Pages.Admin.Cars
         public IActionResult OnGet(int customerId)
         {
             Car = new Car { CustomerId = customerId };
+            ViewData["Vehicle"] = new SelectList(_context.Vehicle.OrderBy(c => c.Make), "Id", "Make");
+            ViewData["Battery"] = new SelectList(_context.Brand.OrderBy(c => c.Title), "Id", "Title");
+            ViewData["Amper"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
+
             return Page();
         }
 

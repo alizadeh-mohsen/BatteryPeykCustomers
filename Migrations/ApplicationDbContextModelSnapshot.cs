@@ -46,7 +46,7 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<byte>("AmperId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("BrandId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Profit")
@@ -59,9 +59,30 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("AmperId");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("BrandId");
 
                     b.ToTable("Battery");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Guarranty")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("LifeTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Car", b =>
@@ -70,10 +91,16 @@ namespace BatteryPeykCustomers.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<byte>("AmperId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Battery")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Comments")
                         .HasColumnType("TEXT");
@@ -100,32 +127,20 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<int>("Sms")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AmperId");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("VehicleId");
+
                     b.ToTable("Car");
-                });
-
-            modelBuilder.Entity("BatteryPeykCustomers.Model.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Guarranty")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("LifeTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Counterparty", b =>
@@ -469,26 +484,50 @@ namespace BatteryPeykCustomers.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatteryPeykCustomers.Model.Company", "Company")
+                    b.HasOne("BatteryPeykCustomers.Model.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Amper");
 
-                    b.Navigation("Company");
+                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Car", b =>
                 {
+                    b.HasOne("BatteryPeykCustomers.Model.Amper", "Amper")
+                        .WithMany()
+                        .HasForeignKey("AmperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BatteryPeykCustomers.Model.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BatteryPeykCustomers.Model.Customer", "Customer")
                         .WithMany("Cars")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BatteryPeykCustomers.Model.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Amper");
+
+                    b.Navigation("Brand");
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Debt", b =>

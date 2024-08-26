@@ -1,4 +1,4 @@
-﻿INSERT INTO Company (Title)
+﻿INSERT INTO Brand (Title)
 VALUES ('صبا'),
 ('اوربیتال'),
 ('سوزوکی'),

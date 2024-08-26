@@ -14,19 +14,20 @@ namespace BatteryPeykCustomers.Model
         public Customer? Customer { get; set; }
 
         [MaxLength(50)]
+        [Obsolete]
         public string? Make { get; set; }
 
-        [Required]
         [MaxLength(50)]
+        [Obsolete]
         public string Battery { get; set; }
 
         [Required]
         public DateTime PurchaseDate { get; set; }
-
-        [Required]
+            
+        [Obsolete]
         public int Guaranty { get; set; }
 
-        [Required]
+        [Obsolete]
         public int LifeExpectancy { get; set; }
 
         public DateTime ReplaceDate { get; set; }
@@ -34,17 +35,18 @@ namespace BatteryPeykCustomers.Model
         public string? Comments { get; set; }
         public int Sms { get; set; }
 
-        //public int VehicleId { get; set; }
+        public int VehicleId { get; set; }
+        public int BrandId { get; set; }
+        public byte AmperId { get; set; }
 
-        //[ForeignKey("VehicleId")]
-        //public Vehicle? Vehicle { get; set; }
+        [ForeignKey("VehicleId")]
+        public Vehicle? Vehicle { get; set; }
 
-        //public int BatteryId { get; set; }
+        [ForeignKey("BrandId")]
+        public Brand? Brand { get; set; }
 
-        //[ForeignKey("BatteryId")]
-        //public Battery? CarBattery { get; set; }
-
-
-
+        [ForeignKey("AmperId")]
+        public Amper? Amper { get; set; }
     }
+
 }

@@ -25,7 +25,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         {
             Battery = await _context.Battery
                 .Include(b => b.Amper)
-                .Include(b => b.Company).ToListAsync();
+                .Include(b => b.Brand).ToListAsync();
         }
     }
 }

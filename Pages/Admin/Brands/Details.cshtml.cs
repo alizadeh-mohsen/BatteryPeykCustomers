@@ -19,7 +19,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
             _context = context;
         }
 
-        public Company Company { get; set; } = default!;
+        public Brand Brand { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return NotFound();
             }
 
-            var company = await _context.Company.FirstOrDefaultAsync(m => m.Id == id);
-            if (company == null)
+            var Brand = await _context.Brand.FirstOrDefaultAsync(m => m.Id == id);
+            if (Brand == null)
             {
                 return NotFound();
             }
             else
             {
-                Company = company;
+                Brand = Brand;
             }
             return Page();
         }

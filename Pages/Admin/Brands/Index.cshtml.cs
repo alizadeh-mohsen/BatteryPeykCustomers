@@ -19,11 +19,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
             _context = context;
         }
 
-        public IList<Company> Company { get;set; } = default!;
+        public IList<Brand> Brand { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Company = await _context.Company.ToListAsync();
+            Brand = await _context.Brand.ToListAsync();
         }
     }
 }

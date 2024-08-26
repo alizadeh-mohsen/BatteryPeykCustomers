@@ -6,11 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BatteryPeykCustomers.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class updatecar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Amper",
+                columns: table => new
+                {
+                    Id = table.Column<byte>(type: "INTEGER", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Amperage = table.Column<byte>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Amper", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -51,6 +64,34 @@ namespace BatteryPeykCustomers.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Brand",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Guarranty = table.Column<int>(type: "INTEGER", nullable: true),
+                    LifeTime = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brand", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Counterparty",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Counterparty", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customer",
                 columns: table => new
                 {
@@ -63,6 +104,32 @@ namespace BatteryPeykCustomers.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reason",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reason", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Make = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicle", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,6 +239,95 @@ namespace BatteryPeykCustomers.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Battery",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Profit = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    AlertQuantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    AmperId = table.Column<byte>(type: "INTEGER", nullable: false),
+                    BrandId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Battery", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Battery_Amper_AmperId",
+                        column: x => x.AmperId,
+                        principalTable: "Amper",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Battery_Brand_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brand",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Debt",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    CounterpartyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReasonId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Settled = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Debt", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Debt_Counterparty_CounterpartyId",
+                        column: x => x.CounterpartyId,
+                        principalTable: "Counterparty",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Debt_Reason_ReasonId",
+                        column: x => x.ReasonId,
+                        principalTable: "Reason",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Expense",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    CounterpartyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReasonId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Expense", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Expense_Counterparty_CounterpartyId",
+                        column: x => x.CounterpartyId,
+                        principalTable: "Counterparty",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Expense_Reason_ReasonId",
+                        column: x => x.ReasonId,
+                        principalTable: "Reason",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Car",
                 columns: table => new
                 {
@@ -184,15 +340,37 @@ namespace BatteryPeykCustomers.Migrations
                     Guaranty = table.Column<int>(type: "INTEGER", nullable: false),
                     LifeExpectancy = table.Column<int>(type: "INTEGER", nullable: false),
                     ReplaceDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Comments = table.Column<string>(type: "TEXT", nullable: true)
+                    Comments = table.Column<string>(type: "TEXT", nullable: true),
+                    Sms = table.Column<int>(type: "INTEGER", nullable: false),
+                    VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BrandId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AmperId = table.Column<byte>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Car", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Car_Amper_AmperId",
+                        column: x => x.AmperId,
+                        principalTable: "Amper",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Car_Brand_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brand",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Car_Customer_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Car_Vehicle_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicle",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -235,14 +413,59 @@ namespace BatteryPeykCustomers.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Battery_AmperId",
+                table: "Battery",
+                column: "AmperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Battery_BrandId",
+                table: "Battery",
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Car_AmperId",
+                table: "Car",
+                column: "AmperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Car_BrandId",
+                table: "Car",
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Car_CustomerId",
                 table: "Car",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Car_VehicleId",
+                table: "Car",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customer_Phone",
                 table: "Customer",
                 column: "Phone");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Debt_CounterpartyId",
+                table: "Debt",
+                column: "CounterpartyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Debt_ReasonId",
+                table: "Debt",
+                column: "ReasonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expense_CounterpartyId",
+                table: "Expense",
+                column: "CounterpartyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expense_ReasonId",
+                table: "Expense",
+                column: "ReasonId");
         }
 
         /// <inheritdoc />
@@ -264,7 +487,16 @@ namespace BatteryPeykCustomers.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Battery");
+
+            migrationBuilder.DropTable(
                 name: "Car");
+
+            migrationBuilder.DropTable(
+                name: "Debt");
+
+            migrationBuilder.DropTable(
+                name: "Expense");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -273,7 +505,22 @@ namespace BatteryPeykCustomers.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Amper");
+
+            migrationBuilder.DropTable(
+                name: "Brand");
+
+            migrationBuilder.DropTable(
                 name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "Vehicle");
+
+            migrationBuilder.DropTable(
+                name: "Counterparty");
+
+            migrationBuilder.DropTable(
+                name: "Reason");
         }
     }
 }

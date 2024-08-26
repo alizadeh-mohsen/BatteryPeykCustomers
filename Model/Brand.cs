@@ -2,7 +2,7 @@
 
 namespace BatteryPeykCustomers.Model
 {
-    public class Company
+    public class Brand
     {
         [Key]
         public int Id { get; set; }
