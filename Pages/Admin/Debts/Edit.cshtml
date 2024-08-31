@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
 }
 
 <div class="row">
@@ -11,13 +12,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Debt.Id" />
             <div class="form-group mb-2">
-                تاریخ
-                <input asp-for="Debt.Date" class="form-control" />
-                <span asp-validation-for="Debt.Date" class="text-danger"></span>
-            </div> <div class="form-group mb-2">
                 طرف حساب
-                <select asp-for="Debt.CounterpartyId" class="form-control" asp-items="ViewBag.CounterpartyId"></select>
-                <span asp-validation-for="Debt.CounterpartyId" class="text-danger"></span>
+                <select asp-for="Debt.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                بابت
+                <select asp-for="Debt.ReasonId" class="form-select" asp-items="ViewBag.ReasonId">
+                    <option value=""></option>
+                </select>
             </div>
             <div class="form-group mb-2">
                 بابت
@@ -27,19 +31,19 @@
             <div class="form-group mb-2">
                 مبلغ
                 <input asp-for="Debt.Amount" class="form-control" />
-                <span asp-validation-for="Debt.Amount" class="text-danger"></span>
+                <lable id="amount"></lable>
+
+            </div>    <div class="form-group mb-2">
+                تاریخ سررسید
+                <input asp-for="Debt.DueDate" id="From_Date" value="@dateNow" type="date" class="form-control" />
+                <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
                 توضیحات
                 <input asp-for="Debt.Description" class="form-control" />
-                <span asp-validation-for="Debt.Description" class="text-danger"></span>
-            </div>
 
-            <div class="form-group mb-2">
-                تاریخ سررسید
-                <input asp-for="Debt.DueDate" class="form-control" />
-                <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
             </div>
+        
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Debt.Settled" />تسویه شد

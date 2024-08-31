@@ -3,20 +3,8 @@
 
 @{
     ViewData["Title"] = "Create";
-string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
+    string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
 }
-
-@* @{
-    var date = DateTime.Now;  // or from your model (Model.From_Date)
-    var pc = new System.Globalization.PersianCalendar();
-    var persianDay = pc.GetDayOfMonth(date);
-    var persianMonth = pc.GetMonth(date);
-    var persianYear = pc.GetYear(date);
-
-    // create the date string  for use in the date picker
-    string persianDateString = string.Format("{0}/{1}/{2}", persianYear, persianMonth, persianDay);
-}
- *@
 
 
 
@@ -26,28 +14,31 @@ string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-2">
                 طرف حساب
-                <select asp-for="Debt.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId"></select>
+                <select asp-for="Debt.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId">
+                    <option value=""></option>
+                </select>
             </div>
             <div class="form-group mb-2">
                 بابت
-                <select asp-for="Debt.ReasonId" class="form-select" asp-items="ViewBag.ReasonId"></select>
+                <select asp-for="Debt.ReasonId" class="form-select" asp-items="ViewBag.ReasonId">
+                    <option value=""></option>
+                </select>
             </div>
             <div class="form-group mb-2">
                 مبلغ
-                <input asp-for="Debt.Amount" class="form-control" />
-                <span asp-validation-for="Debt.Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                توضیحات
-                <textarea asp-for="Debt.Description" class="form-control" ></textarea>
-                <span asp-validation-for="Debt.Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-2">
+                <input type="text" id="numberInput" asp-for="Debt.Amount" class="form-control" />
+                <lable id="amount"></lable>
+            </div>   <div class="form-group mb-2">
                 تاریخ سررسید
                 <input asp-for="Debt.DueDate" id="From_Date" value="@dateNow" type="date" class="form-control" />
                 <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
             </div>
+            <div class="form-group mb-2">
+                توضیحات
+                <textarea asp-for="Debt.Description" class="form-control"></textarea>
+            </div>
+
+
 
             <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
@@ -57,23 +48,20 @@ string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
     </div>
 </div>
 
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-
-
     }
-@*     <script>
+    <script>
         $(document).ready(function () {
-            alert('hi');
-            alert('@persianDateString');
-            alert(persianDateString);
-            $("#From_Date").kendoDatePicker({ format: "yyyy/MM/dd" });
-            var datepicker = $("#From_Date").data("kendoDatePicker");
-            datepicker.value('@persianDateString');
-            
+            $('#numberInput').on('input', function () {
+                var value = $(this).val();
+                value = value.replace(/,/g, ''); // Remove existing commas
+                if (!isNaN(value) && value !== '') {
+                    value = parseFloat(value).toLocaleString('en-US');
+                }
+                $('#amount').text(value);
+            });
         });
-    </script> *@
+    </script>
 }

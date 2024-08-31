@@ -13,22 +13,32 @@
 
             <div class="form-group mb-2">
                 ماشین
-                <input asp-for="Car.Make" class="form-control" />
-                <span asp-validation-for="Car.Make" class="text-danger"></span>
+                <select asp-for="SelectedCarId" class="form-select" asp-items="ViewBag.Vehicles">
+                    <option value=""></option>
+                </select>
+
             </div>
             <div class="form-group mb-2">
                 باتری
-                <input asp-for="Car.Battery" class="form-control" />
-                <span asp-validation-for="Car.Battery" class="text-danger"></span>
+                <select id="company" asp-for="SelectedBatteryId" class="form-select" asp-items="ViewBag.Companies">
+                    <option value=""></option>
+                </select>
+
+            </div>   <div class="form-group mb-2">
+                آمپر
+                <select asp-for="SelectedAmperId" class="form-select" asp-items="ViewBag.Ampers">
+                    <option value=""></option>
+                </select>
+
             </div>
             <div class="form-group mb-2">
                 گارانتی
-                <input asp-for="Car.Guaranty" class="form-control" />
+                <input id=guaranty asp-for="Car.Guaranty" class="form-control" />
                 <span asp-validation-for="Car.Guaranty" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
                 عمر مفید
-                <input asp-for="Car.LifeExpectancy" class="form-control" />
+                <input id=lifeTime asp-for="Car.LifeExpectancy" class="form-control" />
                 <span asp-validation-for="Car.LifeExpectancy" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
@@ -49,5 +59,26 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            $(document).ready(function () {
+                $('#company').change(function () {
+
+                    var companyId = $(this).val();
+                    var guarantyInput = $('#guaranty');
+                    var lifeTimeInput = $('#lifeTime');
+
+                    if (companyId) {
+                        $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
+                            console.log(data);
+                            guarantyInput.val(data.guarranty);
+                            lifeTimeInput.val(data.lifeTime);
+                        });
+                    } else {
+                        guarantyInput.val("");
+                        lifeTimeInput.val("");
+                    }
+                });
+            });
+        </script>
     }
 }

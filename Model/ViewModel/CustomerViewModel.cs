@@ -14,15 +14,11 @@ namespace BatteryPeykCustomers.Model.ViewModel
 
         public string? Address { get; set; }
 
-        [MaxLength(50)]
         public string? Make { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Battery { get; set; }
+        public string? Battery { get; set; }
 
-        [Required]
-        public DateTime PurchaseDate { get; set; }
+        public DateTime? PurchaseDate { get; set; }
 
         [Required]
         public int Guaranty { get; set; }
@@ -32,9 +28,9 @@ namespace BatteryPeykCustomers.Model.ViewModel
 
         public string? Comments { get; set; }
 
-        public DateTime ReplaceDate { get; set; }
-        public int VehicleId{ get; set; }
-        public int CompanyId{ get; set; }
-        public int AmperId{ get; set; }
+        public DateTime? ReplaceDate { get; set; }
+        public int? VehicleId{ get; set; }
+        public int? CompanyId{ get; set; }
+        public int? AmperId{ get; set; }
     }
 }

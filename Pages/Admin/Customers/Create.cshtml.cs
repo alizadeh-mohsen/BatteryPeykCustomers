@@ -19,6 +19,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty]
         public CustomerViewModel vm { get; set; } = default!;
 
+
         public CreateModel(ApplicationDbContext context)
         {
             _context = context;
@@ -29,9 +30,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
             var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
             var ampers = await _context.Amper.OrderBy(c => c.Title).ToListAsync();
-            ViewData["CompanyId"] = new SelectList(companies, "Id", "Title");
-            ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Make");
-            ViewData["AmperId"] = new SelectList(ampers, "Id", "Title");
+            ViewData["Companies"] = new SelectList(companies, "Id", "Title");
+            ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
+            ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
             return Page();
         }
 
@@ -58,12 +59,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     return Page();
                 }
 
+                var selectedCompnay = await _context.Company.FindAsync(vm.CompanyId);
+                var selectedVehicle = await _context.Vehicle.FindAsync(vm.VehicleId);
+                var selectedAmper = await _context.Amper.FindAsync(vm.AmperId);
 
                 var Cars = new List<Car> { new()
                 {
-                    Battery = vm.Battery,
+                    Battery = selectedCompnay?.Title + " " + selectedAmper?.Title,
                     Guaranty = vm.Guaranty,
-                    Make = vm.Make,
+                    Make = selectedVehicle?.Make,
                     LifeExpectancy = vm.LifeExpectancy,
                     PurchaseDate = DateTime.Today,
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
@@ -77,17 +81,23 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     Cars = Cars,
                 };
 
+                // mojoodi yeki kam mishe
+                var battery = await _context.Battery.FirstOrDefaultAsync(x => x.AmperId == vm.AmperId && x.CompanyId == vm.CompanyId);
+                if (battery != null)
+                    battery.Quantity -= 1;
+
+
                 _context.Customer.Add(customer);
                 await _context.SaveChangesAsync();
+
                 var count = _context.Customer.Count();
                 if (count % 100 == 0)
-                {
                     TempData["success"] = " ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. مشتریها شد" + count + " تا.";
-                }
                 else
                     TempData["success"] = "Created Successfully";
 
-
+                if (battery?.Quantity <= battery?.AlertQuantity)
+                    TempData["error"] = $"فقط {battery.Quantity} عدد باتری {battery.Company.Title} {battery.Amper.Title} در انبار باقی مانده ";
 
                 SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone);
                 var respone = await smsHelper.SendSms(MessageType.Welcome);
@@ -103,6 +113,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 TempData["error"] = ex.Message + ex.InnerException?.Message;
                 return Page();
             }
+        }
+
+        public async Task<JsonResult> OnGetCompanyAsync(int companyId)
+        {
+            var battery = await _context.Company.FirstOrDefaultAsync(c => c.Id == companyId);
+            return new JsonResult(battery);
         }
     }
 }

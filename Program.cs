@@ -56,7 +56,7 @@ app.UseCors(x => x
                .AllowAnyHeader()
                .AllowAnyOrigin()); // allow credentials
 
-SeedDatabase();
+//SeedDatabase();
 app.UseAuthorization();
 
 
