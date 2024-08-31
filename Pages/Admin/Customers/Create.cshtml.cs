@@ -6,6 +6,7 @@ using BatteryPeykCustomers.Model.ViewModel;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -23,11 +24,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            ViewData["CompanyId"] = new SelectList(_context.Company.OrderBy(c => c.Title), "Id", "Title");
-            ViewData["VehicleId"] = new SelectList(_context.Vehicle.OrderBy(c => c.Make), "Id", "Make");
-            ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
+            var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
+            var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
+            var ampers = await _context.Amper.OrderBy(c => c.Title).ToListAsync();
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Title");
+            ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Make");
+            ViewData["AmperId"] = new SelectList(ampers, "Id", "Title");
             return Page();
         }
 

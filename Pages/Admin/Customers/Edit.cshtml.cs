@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
@@ -33,6 +34,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 return NotFound();
             }
             Customer = customer;
+
+
+            var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
+            var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
+            var ampers = await _context.Amper.OrderBy(c => c.Title).ToListAsync();
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Title");
+            ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Make");
+            ViewData["AmperId"] = new SelectList(ampers, "Id", "Title");
+
             return Page();
         }
 

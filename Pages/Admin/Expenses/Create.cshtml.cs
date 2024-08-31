@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Expenses
 {
@@ -19,10 +20,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Expenses
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-        ViewData["CounterpartyId"] = new SelectList(_context.Counterparty.OrderBy(c => c.Title), "Id", "Title");
-        ViewData["ReasonId"] = new SelectList(_context.Reason.OrderBy(c => c.Title), "Id", "Title");
+            var counterparties = await _context.Counterparty.OrderBy(c => c.Title).ToListAsync();
+            var reasons = await _context.Reason.OrderBy(c => c.Title).ToListAsync();
+
+            ViewData["CounterpartyId"] = new SelectList(counterparties.OrderBy(c => c.Title), "Id", "Title");
+            ViewData["ReasonId"] = new SelectList(reasons, "Id", "Title");
+
+
             return Page();
         }
 
