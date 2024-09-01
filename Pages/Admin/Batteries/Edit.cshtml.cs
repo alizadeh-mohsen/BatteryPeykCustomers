@@ -30,14 +30,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                 return NotFound();
             }
 
-            var battery =  await _context.Battery.FirstOrDefaultAsync(m => m.Id == id);
+            var battery = await _context.Battery    
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (battery == null)
             {
                 return NotFound();
             }
             Battery = battery;
-           ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
-           ViewData["CompanyId"] = new SelectList(_context.Company.OrderBy(c => c.Title), "Id", "Title");
+            ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
+            ViewData["CompanyId"] = new SelectList(_context.Company.OrderBy(c => c.Title), "Id", "Title");
             return Page();
         }
 

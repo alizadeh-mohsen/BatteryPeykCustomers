@@ -7,15 +7,15 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
-        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public uint Amount { get; set; }
         public string? Description { get; set; }
         [Required]
-        public int CounterpartyId { get; set; }
+        public int? CounterpartyId { get; set; }
         [Required]
-        public int ReasonId { get; set; }
-        public DateOnly DueDate { get; set; }
+        public int? ReasonId { get; set; }
+        //public DateTime? DueDate { get; set; }
         public bool Settled { get; set; } = false;
 
         [ForeignKey("ReasonId")]

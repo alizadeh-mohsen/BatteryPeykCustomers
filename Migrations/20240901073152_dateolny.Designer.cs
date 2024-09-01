@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240901073152_dateolny")]
+    partial class dateolny
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -176,8 +179,7 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<uint>("Amount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CounterpartyId")
-                        .IsRequired()
+                    b.Property<int>("CounterpartyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
@@ -186,8 +188,10 @@ namespace BatteryPeykCustomers.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ReasonId")
-                        .IsRequired()
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ReasonId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Settled")

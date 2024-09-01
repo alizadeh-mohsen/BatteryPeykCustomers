@@ -29,7 +29,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                 return NotFound();
             }
 
-            var battery = await _context.Battery.FirstOrDefaultAsync(m => m.Id == id);
+            var battery = await _context.Battery.Include(b => b.Company)
+                .Include(b => b.Amper).FirstOrDefaultAsync(m => m.Id == id);
 
             if (battery == null)
             {

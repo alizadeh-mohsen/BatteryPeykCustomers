@@ -33,11 +33,12 @@
                 <input asp-for="Debt.Amount" class="form-control" />
                 <lable id="amount"></lable>
 
-            </div>    <div class="form-group mb-2">
+            </div>   
+            @* <div class="form-group mb-2">
                 تاریخ سررسید
                 <input asp-for="Debt.DueDate" id="From_Date" value="@dateNow" type="date" class="form-control" />
                 <span asp-validation-for="Debt.DueDate" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group mb-2">
                 توضیحات
                 <input asp-for="Debt.Description" class="form-control" />

@@ -7,7 +7,7 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
-        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
         public int Amount { get; set; }

@@ -29,7 +29,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 return NotFound();
             }
 
-            var debt = await _context.Debt.FirstOrDefaultAsync(m => m.Id == id);
+            var debt = await _context.Debt
+                .Include(d=>d.Reason)
+                .Include(d=>d.Counterparty)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (debt == null)
             {
@@ -52,8 +55,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
             var debt = await _context.Debt.FindAsync(id);
             if (debt != null)
             {
-                Debt = debt;
-                _context.Debt.Remove(Debt);
+                debt.Settled = true;
+                //Debt = debt;
+                //_context.Debt.Remove(Debt);
                 await _context.SaveChangesAsync();
             }
 

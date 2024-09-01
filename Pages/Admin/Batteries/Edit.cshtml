@@ -12,7 +12,8 @@
             <input type="hidden" asp-for="Battery.Id" />
             <div class="form-group mb-2">
                 سود
-                <input asp-for="Battery.Profit" class="form-control" />
+                <input type="text" id="numberInput" asp-for="Battery.Profit" class="form-control" />
+                <lable id="amount"></lable>
                 <span asp-validation-for="Battery.Profit" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
@@ -27,12 +28,12 @@
             </div>
             <div class="form-group mb-2">
                 آمپر
-                <select asp-for="Battery.AmperId" class="form-control" asp-items="ViewBag.AmperId"></select>
+                <select asp-for="Battery.AmperId" class="form-select" asp-items="ViewBag.AmperId"></select>
                 <span asp-validation-for="Battery.AmperId" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
                 باتری
-                <select asp-for="Battery.CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
+                <select asp-for="Battery.CompanyId" class="form-select" asp-items="ViewBag.CompanyId"></select>
                 <span asp-validation-for="Battery.CompanyId" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
@@ -48,4 +49,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#numberInput').on('input', function () {
+                var value = $(this).val();
+                value = value.replace(/,/g, ''); // Remove existing commas
+                if (!isNaN(value) && value !== '') {
+                    value = parseFloat(value).toLocaleString('en-US');
+                }
+                $('#amount').text(value);
+            });
+        });
+    </script>
 }

@@ -1,8 +1,8 @@
 ﻿@page
-@model BatteryPeykCustomers.Pages.Admin.Batteries.CreateModel
+@model BatteryPeykCustomers.Pages.Admin.Batteries.NewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "New";
  
 }
 
@@ -13,30 +13,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-2">
                 باتری
-                <select asp-for="Battery.CompanyId" class="form-select" asp-items="ViewBag.CompanyId">
-                    <option value=""></option>
-                </select>
+                <select asp-for="Battery.CompanyId" class="form-select" asp-items="ViewBag.CompanyId"><option value=""></option></select>
             </div>
             <div class="form-group mb-2">
                 آمپر
                 <select asp-for="Battery.AmperId" class="form-select" asp-items="ViewBag.AmperId"><option value=""></option></select>
             </div>
             <div class="form-group mb-2">
-                سود
-                <input type="text" id="numberInput" asp-for="Battery.Profit" class="form-control" />
-                <lable id="amount"></lable>
-                <span asp-validation-for="Battery.Profit" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                موجودی انبار
+               تعداد ورود
                 <input asp-for="Battery.Quantity" class="form-control" />
                 <span asp-validation-for="Battery.Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group mb-2">
-                حد نصاب هشدار تامین موجودی
-                <input asp-for="Battery.AlertQuantity" class="form-control" />
-                <span asp-validation-for="Battery.AlertQuantity" class="text-danger"></span>
-            </div>
+            
             <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
