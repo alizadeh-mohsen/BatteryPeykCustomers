@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,7 +18,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public IActionResult OnGet()
         {
-        ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
+        ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Amperage), "Id", "Title");
         ViewData["CompanyId"] = new SelectList(_context.Company.OrderBy(c => c.Title), "Id", "Title");
             return Page();
         }

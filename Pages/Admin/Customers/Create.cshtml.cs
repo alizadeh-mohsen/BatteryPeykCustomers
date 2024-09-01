@@ -15,21 +15,23 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
         [BindProperty]
         public CustomerViewModel vm { get; set; } = default!;
 
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> OnGet()
         {
             var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
             var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
-            var ampers = await _context.Amper.OrderBy(c => c.Title).ToListAsync();
+            var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
             ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
@@ -48,14 +50,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (!vm.Phone.StartsWith("0"))
                 {
-                    ModelState.AddModelError("Customer.Phone", "Phone number should start with 0");
+                    ModelState.AddModelError("Customer.Phone", "شماره موبایل باید با 0 شروع شود");
                     return Page();
                 }
 
                 var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == vm.Phone);
                 if (existingCustomer != null)
                 {
-                    ModelState.AddModelError("Customer.Phone", "Mobile phone exists");
+                    ModelState.AddModelError("Customer.Phone", "شماره موبایل قبلا ثبت شده. مشتری موجود است. برای این مشتری ماشین جدید ثبت کنید");
                     return Page();
                 }
 
@@ -80,24 +82,35 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     Phone = vm.Phone,
                     Cars = Cars,
                 };
+                string stockEnabled = _configuration["StockEnabled"];
+                if (!string.IsNullOrWhiteSpace(stockEnabled) && bool.Parse(stockEnabled) == true)
+                {
+                    var battery = await _context.Battery.FirstOrDefaultAsync(x => x.AmperId == vm.AmperId && x.CompanyId == vm.CompanyId);
+                    if (battery != null)
+                        battery.Quantity -= 1;
 
-                // mojoodi yeki kam mishe
-                var battery = await _context.Battery.FirstOrDefaultAsync(x => x.AmperId == vm.AmperId && x.CompanyId == vm.CompanyId);
-                if (battery != null)
-                    battery.Quantity -= 1;
+                    var message = $"موجودی انبار " +
+                           $"{battery.Company.Title} {battery.Amper.Title} : {battery.Quantity}" +
+                           $" عدد";
 
+                    if (battery?.Quantity <= battery?.AlertQuantity)
+                        TempData["error"] = message;
+                    else
+                        TempData["success"] = message;
+                }
 
                 _context.Customer.Add(customer);
                 await _context.SaveChangesAsync();
 
                 var count = _context.Customer.Count();
                 if (count % 100 == 0)
-                    TempData["success"] = " ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. مشتریها شد" + count + " تا.";
+                    TempData["success"] = $" ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. سلطان مشتری هات شد " +
+                        $"{count} " +
+                        $"تا.";
                 else
-                    TempData["success"] = "Created Successfully";
+                    TempData["success"] = "با موفقیت ثبت شد";
 
-                if (battery?.Quantity <= battery?.AlertQuantity)
-                    TempData["error"] = $"فقط {battery.Quantity} عدد باتری {battery.Company.Title} {battery.Amper.Title} در انبار باقی مانده ";
+
 
                 SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone);
                 var respone = await smsHelper.SendSms(MessageType.Welcome);

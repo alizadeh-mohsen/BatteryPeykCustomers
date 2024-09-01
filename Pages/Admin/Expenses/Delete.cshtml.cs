@@ -29,7 +29,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Expenses
                 return NotFound();
             }
 
-            var expense = await _context.Expense.FirstOrDefaultAsync(m => m.Id == id);
+            var expense = await _context.Expense
+                .Include(c=>c.Reason)
+                .Include(c=>c.Counterparty)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (expense == null)
             {

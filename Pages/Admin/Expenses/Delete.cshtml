@@ -10,6 +10,9 @@
         <dt class="col-sm-2">
             تاریخ
         </dt>
+        <dd class="col-sm-10">
+            @Model.Expense.Date.ToShortDateString()
+        </dd>
         <dt class="col-sm-2">
             طرف حساب
         </dt>
@@ -22,14 +25,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Expense.Reason.Title)
         </dd>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Expense.Date)
-        </dd>
+
         <dt class="col-sm-2">
             مبلغ
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Expense.Amount)
+            @Model.Expense.Amount.ToString("N0")
         </dd>
         <dt class="col-sm-2">
             توضیحات
@@ -37,8 +38,8 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Expense.Description)
         </dd>
-        
-        
+
+
     </dl>
     
     <form method="post">

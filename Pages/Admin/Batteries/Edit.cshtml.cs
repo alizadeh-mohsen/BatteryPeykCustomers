@@ -37,7 +37,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                 return NotFound();
             }
             Battery = battery;
-            ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Title), "Id", "Title");
+            ViewData["AmperId"] = new SelectList(_context.Amper.OrderBy(c => c.Amperage), "Id", "Title");
             ViewData["CompanyId"] = new SelectList(_context.Company.OrderBy(c => c.Title), "Id", "Title");
             return Page();
         }

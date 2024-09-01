@@ -10,22 +10,28 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-2">
+            @* <div class="form-group mb-2">
                 تاریخ
                 <input asp-for="Expense.Date" class="form-control" />
                 <span asp-validation-for="Expense.Date" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group mb-2">
                 طرف حساب
-                <select asp-for="Expense.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId"></select>
+                <select asp-for="Expense.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId">
+                    <option value=""></option>
+                </select>
             </div>
             <div class="form-group mb-2">
                 بابت
-                <select asp-for="Expense.ReasonId" class="form-select" asp-items="ViewBag.ReasonId"></select>
+                <select asp-for="Expense.ReasonId" class="form-select" asp-items="ViewBag.ReasonId">
+                    <option value=""></option>
+
+                </select>
             </div>
             <div class="form-group mb-2">
                 مبلغ
-                <input asp-for="Expense.Amount" class="form-control" />
+                <input type="text" id="numberInput" asp-for="Expense.Amount" class="form-control" />
+                <lable id="amount"></lable>
                 <span asp-validation-for="Expense.Amount" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
@@ -48,4 +54,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#numberInput').on('input', function () {
+                var value = $(this).val();
+                value = value.replace(/,/g, ''); // Remove existing commas
+                if (!isNaN(value) && value !== '') {
+                    value = parseFloat(value).toLocaleString('en-US');
+                }
+                $('#amount').text(value);
+            });
+        });
+    </script>
 }

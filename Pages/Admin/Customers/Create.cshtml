@@ -81,7 +81,6 @@
 
                         if (companyId) {
                             $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
-                                console.log(data);
                                 guarantyInput.val(data.guarranty);
                                 lifeTimeInput.val(data.lifeTime);
                             });

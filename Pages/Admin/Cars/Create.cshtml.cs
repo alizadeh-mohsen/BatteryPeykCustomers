@@ -35,7 +35,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
 
             var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
             var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
-            var ampers = await _context.Amper.OrderBy(c => c.Title).ToListAsync();
+            var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
             ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
