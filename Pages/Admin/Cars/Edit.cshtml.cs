@@ -56,7 +56,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 {
                     Car.ReplaceDate = DateTime.Today.AddMonths(Car.LifeExpectancy);
                     await _context.SaveChangesAsync();
-                    TempData["success"] = "Updated Successfully";
+                    TempData["success"] = "با موفقیت ثبت شد";
 
                 }
                 catch (DbUpdateConcurrencyException ex)

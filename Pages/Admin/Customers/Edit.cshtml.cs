@@ -75,7 +75,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 {
                     //Customer.ReplaceDate = DateTime.Today.AddMonths(Customer.LifeExpectancy); 
                     await _context.SaveChangesAsync();
-                    TempData["success"] = "Updated Successfully";
+                    TempData["success"] = "با موفقیت ثبت شد";
 
                 }
                 catch (DbUpdateConcurrencyException ex)
