@@ -23,7 +23,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Reasons
 
         public async Task OnGetAsync()
         {
-            Reason = await _context.Reason.ToListAsync();
+            Reason = await _context.Reason.OrderBy(c => c.Title).ToListAsync();
         }
     }
 }

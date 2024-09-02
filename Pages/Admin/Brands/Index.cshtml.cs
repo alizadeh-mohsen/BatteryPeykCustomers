@@ -23,7 +23,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
 
         public async Task OnGetAsync()
         {
-            Company = await _context.Company.ToListAsync();
+            Company = await _context.Company.OrderBy(c => c.Title).ToListAsync();
         }
     }
 }

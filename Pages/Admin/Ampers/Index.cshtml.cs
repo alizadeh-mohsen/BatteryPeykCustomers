@@ -23,7 +23,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Ampers
 
         public async Task OnGetAsync()
         {
-            Amper = await _context.Amper.ToListAsync();
+            Amper = await _context.Amper.OrderBy(c=>c.Amperage).ToListAsync();
         }
     }
 }

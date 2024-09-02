@@ -23,7 +23,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Counterparties
 
         public async Task OnGetAsync()
         {
-            Counterparty = await _context.Counterparty.ToListAsync();
+            Counterparty = await _context.Counterparty.OrderBy(c => c.Title).ToListAsync();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Vehicles
 
         public async Task OnGetAsync()
         {
-            Vehicle = await _context.Vehicle.ToListAsync();
+            Vehicle = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
         }
     }
 }
