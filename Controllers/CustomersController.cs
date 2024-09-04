@@ -45,10 +45,10 @@ namespace BatteryPeykCustomers.Controllers
                 {
                     Battery = car.Battery,
                     Make = car.Make,
-                    Expire = setExpire((DateTime)car.PurchaseDate, car.Guaranty),
-                    PurchaseDate = car.PurchaseDate.ToPersianDate(),
-                    ReplacementDate = setReplacementDate((DateTime)car.PurchaseDate, car.LifeExpectancy),
-                    Status = setStatus((DateTime)car.PurchaseDate, car.Guaranty),
+                    Expire = setExpire(car.PurchaseDate, car.Guaranty),
+                    PurchaseDate = car.PurchaseDate.ToShortDateString(),
+                    ReplacementDate = setReplacementDate(car.PurchaseDate, car.LifeExpectancy),
+                    Status = setStatus(car.PurchaseDate, car.Guaranty),
                     BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0"
                     : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString()
                 });
@@ -62,8 +62,8 @@ namespace BatteryPeykCustomers.Controllers
         {
             var expire = purchaseDate.AddMonths(guaranty);
             return expire > DateTime.Today ?
-                "<span class='text-success'>" + expire.ToPersianDate() + "</span>" :
-            "<span class='text-danger'>" + expire.ToPersianDate() + "</span>";
+                "<span class='text-success'>" + expire + "</span>" :
+            "<span class='text-danger'>" + expire + "</span>";
         }
 
         public string setStatus(DateTime purchaseDate, int lifeExpectancy)
@@ -91,19 +91,19 @@ namespace BatteryPeykCustomers.Controllers
             if (DateTime.Today.Date <= goodDate.Date)
             {
                 return "<span class='text-success'>" +
-                    replaceDate.ToPersianDate() +
+                    replaceDate +
                     "</span>";
             }
             else if (DateTime.Today.Date > goodDate && DateTime.Today <= replaceDate.Date)
             {
                 return "<span class='text-warning'>" +
-                                       replaceDate.ToPersianDate() +
+                                       replaceDate +
                     "</span>";
             }
             else
             {
                 return "<span class= 'text-danger' >" +
-                                                          replaceDate.ToPersianDate() +
+                                                          replaceDate +
                     "</span>";
             }
         }

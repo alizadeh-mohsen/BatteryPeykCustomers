@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace BatteryPeykCustomers.Model.ViewModel
+﻿namespace BatteryPeykCustomers.Model.ViewModel
 {
     public class CarAndCustomerViewModel
     {

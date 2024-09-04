@@ -63,13 +63,13 @@ namespace BatteryPeykCustomers.Pages
             try
             {
 
-                SmsHelper smsHelper = new SmsHelper("منگوله گوش", "09303003843");
+                //SmsHelper smsHelper = new SmsHelper("منگوله گوش", "09303003843");
 
-                var respone = await smsHelper.SendSms(MessageType.Welcome);
-                if (!respone.IsSuccess)
-                {
-                    TempData["error"] = respone.Message;
-                }
+                //var respone = await smsHelper.SendSms(MessageType.Welcome);
+                //if (!respone.IsSuccess)
+                //{
+                //    TempData["error"] = respone.Message;
+                //}
 
                 //var result3 = smsHelper.GetCredit();
 

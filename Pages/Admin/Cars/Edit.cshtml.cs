@@ -83,16 +83,6 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                     return Page();
                 }
 
-                var customer = await _context.Customer.FindAsync(Car.CustomerId);
-                if (customer != null)
-                {
-                    SmsHelper smsHelper = new SmsHelper(customer.Name, customer.Phone);
-                    var respone = await smsHelper.SendSms(MessageType.Update);
-                    if (!respone.IsSuccess)
-                    {
-                        TempData["error"] = respone.Message;
-                    }
-                }
 
 
                 return RedirectToPage("Index", new { customerId = Car.CustomerId });
