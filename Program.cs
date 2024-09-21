@@ -15,8 +15,7 @@ CultureInfo.DefaultThreadCurrentCulture
 builder.Services.AddRazorPages();
 builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
-    builder.Configuration.GetConnectionString("defaultConnection")
-    ));
+    builder.Configuration.GetConnectionString("defaultConnection")    ));
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();

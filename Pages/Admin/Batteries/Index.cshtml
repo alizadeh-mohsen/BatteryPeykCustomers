@@ -5,62 +5,90 @@
     ViewData["Title"] = "Index";
 }
 
+<div class="row">
+    <div class="col">
+        <p>
+            <a class="btn btn-info" asp-page="Create">
+                <i class="bi bi-plus-square"></i>&nbsp;&nbsp;باتری جدید
+            </a>
 
-<p>
-    <a class="btn btn-info" asp-page="Create">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;باتری جدید
-    </a>
+            <a class="btn btn-info" asp-page="New">
+                <i class="bi bi-plus-square"></i>&nbsp;&nbsp;ورودی جدید
+            </a>
+        </p>
+    </div>
+    <div class="col">
+        موجودی کل انبار:
+        <span>@Model.Total</span>
 
-    <a class="btn btn-info" asp-page="New">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;ورودی جدید
-    </a>
-</p>
-<table class="table table-sm table-striped">
-    <thead>
-        <tr>
-            <th>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 mb-2">
+        <form method="get">
+            <div class="form-group mb-2">
                 باتری
-            </th>
-            <th>
+                <select asp-for="SelectedCompany" class="form-select" asp-items="Model.CompanyList">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group mb-2">
                 آمپر
-            </th>
-            <th>
-                موجودی
-            </th>
-            <th>
-                سود
-            </th>
-            <th>
-                حد نصاب هشدار موجودی
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Battery)
-        {
+                <select asp-for="SelectedAmper" class="form-select" asp-items="Model.AmperList"><option value=""></option></select>
+            </div>
+            <input class="btn btn-info" type="submit" value="جستجو" />
+        </form>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-sm table-striped">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amper.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @item.Profit.ToString("N0")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AlertQuantity)
-                </td>
-                <td class="text-center">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
-                </td>
+                <th>
+                    باتری
+                </th>
+                <th>
+                    آمپر
+                </th>
+                <th class="text-center">
+                    موجودی
+                </th>
+                <th>
+                    سود
+                </th>
+                <th class="text-center">
+                    تعداد هشدار
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Battery)
+            {
+                <tr >
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amper.Title)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @item.Profit.ToString("N0")
+                    </td>
+                    <td class="text-center">
+                        <span class="text="></span>
+                        @Html.DisplayFor(modelItem => item.AlertQuantity)
+                    </td>
+                    <td class="text-center">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

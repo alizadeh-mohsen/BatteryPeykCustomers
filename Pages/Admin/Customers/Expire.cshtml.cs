@@ -13,10 +13,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
     public class ExpireModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ExpireModel(ApplicationDbContext context)
+        public ExpireModel(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public ExpireViewModel vm { get; set; } = default!;
@@ -58,7 +60,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 var name = Request.Form["name"];
                 var phone = Request.Form["phone"];
                 var Id = int.Parse(Request.Form["Id"]);
-                SmsHelper smsHelper = new SmsHelper(name, phone);
+                SmsHelper smsHelper = new SmsHelper(name, phone, _configuration);
 
                 var respone = await smsHelper.SendSms(MessageType.Update);
 
@@ -71,7 +73,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     var car = await _context.Car.FindAsync(Id);
                     car.Sms = 1;
                     _context.Update(car);
-                  var result=  await _context.SaveChangesAsync();
+                    var result = await _context.SaveChangesAsync();
 
                 }
                 return RedirectToPage("/Admin/Customers/Expire");

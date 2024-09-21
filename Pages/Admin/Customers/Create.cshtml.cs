@@ -51,14 +51,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 if (!vm.Phone.StartsWith("0"))
                 {
                     ModelState.AddModelError("Customer.Phone", "شماره موبایل باید با 0 شروع شود");
-                    return Page();
+                    return await OnGet();
                 }
 
                 var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == vm.Phone);
                 if (existingCustomer != null)
                 {
                     ModelState.AddModelError("Customer.Phone", "شماره موبایل قبلا ثبت شده. مشتری موجود است. برای این مشتری ماشین جدید ثبت کنید");
-                    return Page();
+                    return await OnGet();
                 }
 
                 var selectedCompnay = await _context.Company.FindAsync(vm.CompanyId);
@@ -82,21 +82,41 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     Phone = vm.Phone,
                     Cars = Cars,
                 };
+
                 string stockEnabled = _configuration["StockEnabled"];
                 if (!string.IsNullOrWhiteSpace(stockEnabled) && bool.Parse(stockEnabled) == true)
                 {
                     var battery = await _context.Battery.FirstOrDefaultAsync(x => x.AmperId == vm.AmperId && x.CompanyId == vm.CompanyId);
+                    var used = await _context.Used.FirstOrDefaultAsync();
+
                     if (battery != null)
+                    {
                         battery.Quantity -= 1;
 
-                    var message = $"موجودی انبار " +
-                           $"{battery.Company.Title} {battery.Amper.Title} : {battery.Quantity}" +
-                           $" عدد";
+                        if (used == null)
+                        {
+                            used = new Used
+                            {
+                                Quantity = 1,
+                                Amperage = battery.Amper.Amperage
+                            };
+                            _context.Used.Add(used);
+                        }
+                        else
+                        {
+                            used.Quantity += 1;
+                            used.Amperage += battery.Amper.Amperage;
+                        }
 
-                    if (battery?.Quantity <= battery?.AlertQuantity)
-                        TempData["error"] = message;
-                    else
-                        TempData["success"] = message;
+                        var message = $"موجودی انبار " +
+                               $"{battery.Company.Title} {battery.Amper.Title} : {battery.Quantity}" +
+                               $" عدد";
+
+                        if (battery?.Quantity <= battery?.AlertQuantity)
+                            TempData["error"] = message;
+                        else
+                            TempData["success"] = message;
+                    }
                 }
 
                 _context.Customer.Add(customer);
@@ -112,7 +132,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
 
 
-                SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone);
+                SmsHelper smsHelper = new SmsHelper(vm.Name, vm.Phone, _configuration);
                 var respone = await smsHelper.SendSms(MessageType.Welcome);
                 if (!respone.IsSuccess)
                 {
@@ -124,7 +144,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             catch (Exception ex)
             {
                 TempData["error"] = ex.Message + ex.InnerException?.Message;
-                return Page();
+                return await OnGet();
             }
         }
 

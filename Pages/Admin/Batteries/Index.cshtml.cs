@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics.Metrics;
 
 namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
@@ -19,14 +21,41 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
             _context = context;
         }
 
-        public IList<Battery> Battery { get;set; } = default!;
+        public IList<Battery> Battery { get; set; } = default;
+
+
+        public SelectList CompanyList { get; set; }
+        public SelectList AmperList { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SelectedCompany { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SelectedAmper { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Total { get; set; }
+
 
         public async Task OnGetAsync()
         {
-            Battery = await _context.Battery
-                .Include(b => b.Amper)
-                .Include(b => b.Company).OrderBy(c => c.Company.Title).ThenBy(c=>c.Amper.Amperage)
-                .ToListAsync();
+
+            AmperList = new SelectList(await _context.Amper.OrderBy(c => c.Amperage).ToListAsync(), "Id", "Title");
+            CompanyList = new SelectList(await _context.Company.OrderBy(c => c.Title).ToListAsync(), "Id", "Title");
+            Total = (await _context.Battery.SumAsync(b => b.Quantity)).ToString();
+
+            IQueryable<Battery> result = _context.Battery
+                            .Include(b => b.Amper)
+                            .Include(b => b.Company)
+                            .OrderByDescending(c => c.Quantity<= c.AlertQuantity );
+
+            if (!string.IsNullOrEmpty(SelectedCompany))
+                result = result.Where(t => t.CompanyId == int.Parse(SelectedCompany));
+
+            if (!string.IsNullOrEmpty(SelectedAmper))
+                result = result.Where(t => t.AmperId == int.Parse(SelectedAmper));
+
+            Battery = await result.ToListAsync();
         }
     }
 }

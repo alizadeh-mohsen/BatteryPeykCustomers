@@ -1,0 +1,31 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Useds.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            تعداد
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Used.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            آمپر
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Used.Amperage)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info ml-2" asp-page="./Edit" asp-route-id="@Model.Used.Id">ویرایش</a>
+    <a class="btn btn-success ml-2" asp-page="./Index">بازگشت</a>
+</div>
+

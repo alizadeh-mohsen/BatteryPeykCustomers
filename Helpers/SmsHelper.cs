@@ -51,14 +51,16 @@ namespace BatteryPeykCustomers.Helpers
 
         private string _name;
         private string _phone;
+        private readonly IConfiguration _configuration;
         private string _link;
         HttpClient httpClient;
 
-        public SmsHelper(string name, string phone)
+        public SmsHelper(string name, string phone, IConfiguration configuration)
         {
             _name = name;
             _link = vipPanel + phone;
             _phone = phone;
+            _configuration = configuration;
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("x-api-key", APIKEY);
         }
@@ -67,25 +69,30 @@ namespace BatteryPeykCustomers.Helpers
         {
             try
             {
-                int templateId = GetTemplateId(messageType);
-                var sendresponse = await Send(templateId);
-                //if (sendresponse.Status != 1)
-                //    return new Response
-                //    {
-                //        IsSuccess = false,
-                //        Message = "خطا در ارسال پیامک",
-                //    };
-                ////return GetErrorMessage(sendresponse, true);
+                string smsEnabled = _configuration["SmsEnabled"];
+                if (!string.IsNullOrWhiteSpace(smsEnabled) && bool.Parse(smsEnabled) == true)
+                {
 
-                //var reportresponse = await GetReport(sendresponse.Data.messageId);
-                //if (reportresponse.Data.DeliveryState != 1)
-                //    //return GetErrorMessage(reportresponse, false);
-                //    return new Response
-                //    {
-                //        IsSuccess = false,
-                //        Message = "اختلال در ارسال پیامک",
-                //    };
+                    int templateId = GetTemplateId(messageType);
+                    var sendresponse = await Send(templateId);
+                    //if (sendresponse.Status != 1)
+                    //    return new Response
+                    //    {
+                    //        IsSuccess = false,
+                    //        Message = "خطا در ارسال پیامک",
+                    //    };
+                    ////return GetErrorMessage(sendresponse, true);
 
+                    //var reportresponse = await GetReport(sendresponse.Data.messageId);
+                    //if (reportresponse.Data.DeliveryState != 1)
+                    //    //return GetErrorMessage(reportresponse, false);
+                    //    return new Response
+                    //    {
+                    //        IsSuccess = false,
+                    //        Message = "اختلال در ارسال پیامک",
+                    //    };
+
+                }
                 return new Response
                 {
                     IsSuccess = true
@@ -119,9 +126,11 @@ namespace BatteryPeykCustomers.Helpers
 
         private async Task<Response> Send(int templateId)
         {
+
             HttpContent content = new StringContent(GetPayload(templateId), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(SendUrl, content);
             return await GetResponse(response);
+
         }
 
         private async Task<Response> GetReport(int messageId)

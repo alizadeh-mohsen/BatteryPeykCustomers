@@ -1,0 +1,38 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Useds.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Used.Id" />
+            <div class="form-group">
+                تعداد
+                <input asp-for="Used.Quantity" class="form-control" />
+                <span asp-validation-for="Used.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                آمپر
+                <input asp-for="Used.Amperage" class="form-control" />
+                <span asp-validation-for="Used.Amperage" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
