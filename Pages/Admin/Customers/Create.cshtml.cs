@@ -29,15 +29,18 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGet()
         {
+            await PopulateData(); await PopulateData(); return Page();
+        }
+
+        private async Task PopulateData()
+        {
             var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
             var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
             var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
             ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
-            return Page();
         }
-
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -45,7 +48,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             {
                 if (!ModelState.IsValid)
                 {
-                    return Page();
+                    await PopulateData(); return Page();
                 }
 
                 if (!vm.Phone.StartsWith("0"))
@@ -122,13 +125,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 _context.Customer.Add(customer);
                 await _context.SaveChangesAsync();
 
-                var count = _context.Customer.Count();
-                if (count % 100 == 0)
-                    TempData["success"] = $" ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. سلطان مشتری هات شد " +
-                        $"{count} " +
-                        $"تا.";
-                else
-                    TempData["success"] = "با موفقیت ثبت شد";
+
+
+                //var count = _context.Customer.Count();
+                //if (count % 100 == 0)
+                //    TempData["success"] = $" ای ول به ولت وولی به وولت زنبور نزنه یه وری به دولت. سلطان مشتری هات شد " +
+                //        $"{count} " +
+                //        $"تا.";
+                //else
+                //    TempData["success"] = "با موفقیت ثبت شد";
 
 
 
@@ -151,6 +156,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         public async Task<JsonResult> OnGetCompanyAsync(int companyId)
         {
             var battery = await _context.Company.FirstOrDefaultAsync(c => c.Id == companyId);
+            return new JsonResult(battery);
+        }
+        public async Task<JsonResult> OnGetQuantityAsync(int companyId, int amperId)
+        {
+            var battery = await _context.Battery
+                .FirstOrDefaultAsync(c => c.CompanyId == companyId && c.AmperId == amperId);
             return new JsonResult(battery);
         }
     }

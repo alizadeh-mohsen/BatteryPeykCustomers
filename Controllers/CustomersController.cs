@@ -2,7 +2,6 @@
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Helpers;
 
 namespace BatteryPeykCustomers.Controllers
 {
@@ -61,9 +60,10 @@ namespace BatteryPeykCustomers.Controllers
         public string setExpire(DateTime purchaseDate, int guaranty)
         {
             var expire = purchaseDate.AddMonths(guaranty);
+            var expireToDisplay = expire.ToShortDateString();
             return expire > DateTime.Today ?
-                "<span class='text-success'>" + expire + "</span>" :
-            "<span class='text-danger'>" + expire + "</span>";
+                "<span class='text-success'>" + expireToDisplay + "</span>" :
+            "<span class='text-danger'>" + expireToDisplay + "</span>";
         }
 
         public string setStatus(DateTime purchaseDate, int lifeExpectancy)
@@ -88,27 +88,27 @@ namespace BatteryPeykCustomers.Controllers
         {
             var replaceDate = purchaseDate.AddMonths(lifeExpectancy);
             var goodDate = replaceDate.AddDays(-30);
+            var replaceDateDisplay = replaceDate.ToShortDateString();
+
+
             if (DateTime.Today.Date <= goodDate.Date)
             {
                 return "<span class='text-success'>" +
-                    replaceDate +
+                    replaceDateDisplay +
                     "</span>";
             }
             else if (DateTime.Today.Date > goodDate && DateTime.Today <= replaceDate.Date)
             {
                 return "<span class='text-warning'>" +
-                                       replaceDate +
+                     replaceDateDisplay +
                     "</span>";
             }
             else
             {
                 return "<span class= 'text-danger' >" +
-                                                          replaceDate +
+                     replaceDateDisplay +
                     "</span>";
             }
         }
-
     }
 }
-
-
