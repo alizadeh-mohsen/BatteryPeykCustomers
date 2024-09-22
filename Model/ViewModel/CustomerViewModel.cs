@@ -32,5 +32,8 @@ namespace BatteryPeykCustomers.Model.ViewModel
         public int? VehicleId{ get; set; }
         public int? CompanyId{ get; set; }
         public int? AmperId{ get; set; }
+        public bool HasUsed{ get; set; }
+        public bool GuarrantyCustomer{ get; set; }
+        public int Profit{ get; set; }
     }
 }

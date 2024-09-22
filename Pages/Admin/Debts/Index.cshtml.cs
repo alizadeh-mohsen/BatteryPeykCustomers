@@ -20,7 +20,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
         {
             Debt = await _context.Debt.Where(c => c.Settled == false)
                 .Include(d => d.Counterparty)
-                .Include(d => d.Reason).OrderBy(c => c.Counterparty.Title).ToListAsync();
+                //.Include(d => d.Reason).OrderBy(c => c.Counterparty.Title)
+                .ToListAsync();
         }
     }
 }

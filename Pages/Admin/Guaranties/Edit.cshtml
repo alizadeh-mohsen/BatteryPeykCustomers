@@ -1,0 +1,50 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Guaranties.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Guarranty.Id" />
+            <div class="form-group">
+                تاریخ
+                <input asp-for="Guarranty.Date" class="form-control" />
+                <span asp-validation-for="Guarranty.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                آمپر
+                <select asp-for="Guarranty.AmperId" class="form-select" asp-items="ViewBag.AmperId"></select>
+                <span asp-validation-for="Guarranty.AmperId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                باتری
+                <select asp-for="Guarranty.CompanyId" class="form-select" asp-items="ViewBag.CompanyId"></select>
+                <span asp-validation-for="Guarranty.CompanyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                مبلغ
+                <input asp-for="Guarranty.Amount" class="form-control" />
+                <span asp-validation-for="Guarranty.Amount" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

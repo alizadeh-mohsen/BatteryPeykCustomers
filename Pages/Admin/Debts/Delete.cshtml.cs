@@ -30,8 +30,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
             }
 
             var debt = await _context.Debt
-                .Include(d=>d.Reason)
-                .Include(d=>d.Counterparty)
+                //.Include(d=>d.Reason)
+                //.Include(d=>d.Counterparty)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (debt == null)

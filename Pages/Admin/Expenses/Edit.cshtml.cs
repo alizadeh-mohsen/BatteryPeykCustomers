@@ -36,11 +36,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Expenses
                 return NotFound();
             }
             Expense = expense;
-            var counterparties = await _context.Counterparty.OrderBy(c => c.Title).ToListAsync();
-            var reasons = await _context.Reason.OrderBy(c => c.Title).ToListAsync();
+            //var counterparties = await _context.Counterparty.OrderBy(c => c.Title).ToListAsync();
+            //var reasons = await _context.Reason.OrderBy(c => c.Title).ToListAsync();
 
-            ViewData["CounterpartyId"] = new SelectList(counterparties.OrderBy(c => c.Title), "Id", "Title");
-            ViewData["ReasonId"] = new SelectList(reasons, "Id", "Title");
+            //ViewData["CounterpartyId"] = new SelectList(counterparties.OrderBy(c => c.Title), "Id", "Title");
+            //ViewData["ReasonId"] = new SelectList(reasons, "Id", "Title");
 
             return Page();
         }

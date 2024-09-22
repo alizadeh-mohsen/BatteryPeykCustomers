@@ -197,8 +197,6 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("CounterpartyId");
 
-                    b.HasIndex("ReasonId");
-
                     b.ToTable("Debt");
                 });
 
@@ -225,11 +223,54 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CounterpartyId");
-
-                    b.HasIndex("ReasonId");
-
                     b.ToTable("Expense");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Guarranty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AmperId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AmperId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Guarranty");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Profit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profit");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Reason", b =>
@@ -513,34 +554,26 @@ namespace BatteryPeykCustomers.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatteryPeykCustomers.Model.Reason", "Reason")
-                        .WithMany()
-                        .HasForeignKey("ReasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Counterparty");
-
-                    b.Navigation("Reason");
                 });
 
-            modelBuilder.Entity("BatteryPeykCustomers.Model.Expense", b =>
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Guarranty", b =>
                 {
-                    b.HasOne("BatteryPeykCustomers.Model.Counterparty", "Counterparty")
+                    b.HasOne("BatteryPeykCustomers.Model.Amper", "Amper")
                         .WithMany()
-                        .HasForeignKey("CounterpartyId")
+                        .HasForeignKey("AmperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatteryPeykCustomers.Model.Reason", "Reason")
+                    b.HasOne("BatteryPeykCustomers.Model.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("ReasonId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Counterparty");
+                    b.Navigation("Amper");
 
-                    b.Navigation("Reason");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

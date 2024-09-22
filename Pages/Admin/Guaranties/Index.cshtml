@@ -1,0 +1,53 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Guaranties.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<partial name="_Notification" />
+
+<p>
+    <a class="btn btn-info" asp-page="Create">
+        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;گارانتی جدید
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                تاریخ
+            </th>
+
+            <th>
+                آمپر
+            </th>
+            <th>
+                باتری
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Guarranty)
+        {
+            <tr>
+                <td>
+                    @item.Date.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amper.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Title)
+                </td>
+                <td class="text-center">
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

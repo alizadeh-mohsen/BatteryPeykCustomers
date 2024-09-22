@@ -24,8 +24,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Expenses
         public async Task OnGetAsync()
         {
             Expense = await _context.Expense
-                .Include(e => e.Counterparty)
-                .Include(e => e.Reason).OrderByDescending(c => c.Date).ToListAsync();
+                //.Include(e => e.Counterparty).Include(e => e.Reason)
+                .OrderByDescending(c => c.Date).ToListAsync();
         }
     }
 }

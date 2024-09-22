@@ -7,7 +7,7 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Today;
 
         [Required]
         public int Amount { get; set; }
@@ -17,11 +17,11 @@ namespace BatteryPeykCustomers.Model
         [Required]
         public int ReasonId { get; set; }
 
-        [ForeignKey("ReasonId")]
-        public Reason? Reason { get; set; }
+        //[ForeignKey("ReasonId")]
+        //public Reason? Reason { get; set; }
 
-        [ForeignKey("CounterpartyId")]
-        public Counterparty? Counterparty { get; set; }
+        //[ForeignKey("CounterpartyId")]
+        //public Counterparty? Counterparty { get; set; }
 
 
     }

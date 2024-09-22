@@ -1,0 +1,37 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Guaranties.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+        تاریخ
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Guarranty.Date.ToShortDateString()
+        </dd>
+        
+        <dt class="col-sm-2">
+            آمپر
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Guarranty.Amper.Title)
+        </dd>
+        <dt class="col-sm-2">
+            باتری
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Guarranty.Company.Title)
+        </dd>
+        
+        
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info ml-2" asp-page="./Edit" asp-route-id="@Model.Guarranty.Id">ویرایش</a>
+    <a class="btn btn-success ml-2" asp-page="./Index">بازگشت</a>
+</div>

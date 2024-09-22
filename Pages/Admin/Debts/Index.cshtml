@@ -19,12 +19,12 @@
             <th>
                 تاریخ
             </th>
-            <th>
+           @*  <th>
                 طرف حساب
             </th>
             <th>
                 بابت
-            </th>
+            </th> *@
             <th>
                 مبلغ
             </th>
@@ -48,12 +48,12 @@
                 <td>
                     @item.Date.ToShortDateString()
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.Counterparty.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Reason.Title)
-                </td>
+                </td> *@
                 <td>
                     @item.Amount.ToString("N0")
                 </td>

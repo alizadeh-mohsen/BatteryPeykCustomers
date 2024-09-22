@@ -1,0 +1,39 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Profits.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Profit.Id" />
+            <div class="form-group">
+                تاریخ
+                <input asp-for="Profit.Date" class="form-control" />
+                <span asp-validation-for="Profit.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                مبلغ
+                <input asp-for="Profit.Amount" class="form-control" />
+                <span asp-validation-for="Profit.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                توضیحات
+                <textarea asp-for="Profit.Description" class="form-control" ></textarea>
+                <span asp-validation-for="Profit.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

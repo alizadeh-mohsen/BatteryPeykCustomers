@@ -21,7 +21,9 @@ namespace BatteryPeykCustomers.Data
         public DbSet<Reason> Reason { get; set; }
         public DbSet<Debt> Debt { get; set; }
         public DbSet<Expense> Expense { get; set; }
-        public DbSet<Used> Used{ get; set; }
+        public DbSet<Used> Used { get; set; }
+        public DbSet<Profit> Profit { get; set; }
+        public DbSet<Guarranty> Guarranty{ get; set; }
 
     }
 }

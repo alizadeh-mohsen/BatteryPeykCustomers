@@ -12,11 +12,6 @@ namespace BatteryPeykCustomers.Pages
         public IndexModel()
         {
 
-            var now = DateTime.Now;
-            var today = DateTime.Today;
-
-
-
         }
 
 

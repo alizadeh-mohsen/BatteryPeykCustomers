@@ -15,7 +15,7 @@
                 <input asp-for="Expense.Date" class="form-control" />
                 <span asp-validation-for="Expense.Date" class="text-danger"></span>
             </div> *@
-            <div class="form-group mb-2">
+          @*   <div class="form-group mb-2">
                 طرف حساب
                 <select asp-for="Expense.CounterpartyId" class="form-select" asp-items="ViewBag.CounterpartyId">
                     <option value=""></option>
@@ -27,7 +27,7 @@
                     <option value=""></option>
 
                 </select>
-            </div>
+            </div> *@
             <div class="form-group mb-2">
                 مبلغ
                 <input type="text" id="numberInput" asp-for="Expense.Amount" class="form-control" />

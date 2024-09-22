@@ -1,0 +1,37 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Profits.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            تاریخ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Profit.Date)
+        </dd>
+        <dt class="col-sm-2">
+            مبلغ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Profit.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            توضیحات
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Profit.Description)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <div class="form-group my-3">
+            <input type="submit" value="حذف" class="btn btn-danger mt-2" />
+            <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+        </div>
+    </form>
+</div>

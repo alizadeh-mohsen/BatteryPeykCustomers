@@ -65,7 +65,7 @@
         <tbody>
             @foreach (var item in Model.Battery)
             {
-                <tr >
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Company.Title)
                     </td>
@@ -73,13 +73,14 @@
                         @Html.DisplayFor(modelItem => item.Amper.Title)
                     </td>
                     <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.Quantity)
+                        <span class="@(item.Quantity <= item.AlertQuantity? "text-danger":"text-success")">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </span>
                     </td>
                     <td>
                         @item.Profit.ToString("N0")
                     </td>
                     <td class="text-center">
-                        <span class="text="></span>
                         @Html.DisplayFor(modelItem => item.AlertQuantity)
                     </td>
                     <td class="text-center">

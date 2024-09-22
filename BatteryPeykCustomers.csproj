@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admin\Counterparties\**" />
+    <Compile Remove="Pages\Admin\Reasons\**" />
+    <Content Remove="Pages\Admin\Counterparties\**" />
+    <Content Remove="Pages\Admin\Reasons\**" />
+    <EmbeddedResource Remove="Pages\Admin\Counterparties\**" />
+    <EmbeddedResource Remove="Pages\Admin\Reasons\**" />
+    <None Remove="Pages\Admin\Counterparties\**" />
+    <None Remove="Pages\Admin\Reasons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />

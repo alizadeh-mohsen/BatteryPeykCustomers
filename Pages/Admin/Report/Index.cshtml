@@ -1,0 +1,122 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Report.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/persianDatepicker-default.css" />
+
+<div class="row">
+    <div class="col-sm-4 mb-3">
+        <form method="get">
+            <div class="form-group mb-3">
+                از تاریخ
+                <input type="text" id="input1" class="form-control" />
+                <input style="display:none" type="text" id="from" asp-for="From" />
+            </div>
+            <div class="form-group mb-2">
+                تا تاریخ
+                <input type="text" id="input2" class="form-control" />
+                <input style="display:none" type="text" id="to" asp-for="To" />
+            </div>
+            <input class="btn btn-info" type="submit" value="جستجو" />
+        </form>
+    </div>
+</div>
+<div style="@(Model.To==null?"display:none;":"dispaly:block")">
+    <div class="mx-auto">
+        <p>
+            از تاریخ:
+            <strong>
+                @(@Model.From != null ? @Model.From.Value.ToShortDateString() : "")
+            </strong>
+        </p><p>
+            تا تاریخ:
+            <strong>
+                @(@Model.To != null ? @Model.To.Value.ToShortDateString() : "")
+            </strong>
+        </p>
+    </div>
+    <div class="row mx-auto mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">باتری ها</h5>
+                <p class="card-text">
+                    تعداد باتری فروخته شده:
+                    <strong>@Model.vm.TotalBatterySold</strong>
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mx-auto mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">درآمد</h5>
+                <p class="card-text">
+                    مجموع درآمد:
+                    <strong>@Model.vm.TotalProfit.ToString("N0")</strong>
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mx-auto mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">هزینه ها</h5>
+
+                <p class="card-text">
+                    مجموع هزینه ها:
+                    <strong>  @Model.vm.TotalLoss.ToString("N0")</strong>
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-auto mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">سود</h5>
+
+                <p class="card-text">
+
+                    <strong>       @Model.vm.Profit.ToString("0,000")</strong>
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script src="~/js/persianDatepicker.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#input1, #input2").persianDatepicker(
+                    {
+                        cellWidth: 30,
+                        cellHeight: 30,
+                        fontSize: 14,
+
+                        onSelect: function () {
+
+                            let from = $("#input1").attr("data-gdate");
+                            let to = $("#input2").attr("data-gdate");
+                            $("#from").val(from);
+                            $("#to").val(to);
+                        }
+                    }
+                );
+            });
+        </script>
+
+    }
+}
+
+

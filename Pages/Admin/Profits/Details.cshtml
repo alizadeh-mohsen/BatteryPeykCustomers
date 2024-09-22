@@ -1,0 +1,35 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Profits.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            تاریخ
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Profit.Date.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            مبلغ
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Profit.Amount.ToString("N0")
+        </dd>
+        <dt class="col-sm-2">
+           توضیحات
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Profit.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info ml-2" asp-page="./Edit" asp-route-id="@Model.Profit.Id">ویرایش</a>
+    <a class="btn btn-success ml-2" asp-page="./Index">بازگشت</a>
+</div>

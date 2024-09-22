@@ -1,0 +1,81 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Guaranties.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Guarranty.Id" />
+            <div class="form-group mb-2">
+                نوع تسویه
+                <select id="mySelect" asp-for="DeleteType" class="form-select">
+                    <option value=""></option>
+                    <option value="battery">باتری معادل</option>
+                    <option value="cash">نقدی</option>
+                </select>
+                <span asp-validation-for="Guarranty.AmperId" class="text-danger"></span>
+            </div>
+            <div id="battery" style="display:none">
+                <div class="form-group mb-2">
+                    آمپر
+                    <select asp-for="Guarranty.AmperId" class="form-select" asp-items="ViewBag.AmperId"></select>
+                    <span asp-validation-for="Guarranty.AmperId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    باتری
+                    <select asp-for="Guarranty.CompanyId" class="form-select" asp-items="ViewBag.CompanyId"></select>
+                    <span asp-validation-for="Guarranty.CompanyId" class="text-danger"></span>
+                </div>
+            </div><div id="cash" style="display:none">
+                <div class="form-group mb-2">
+                    مبلغ
+                    <input asp-for="Guarranty.Amount" class="form-control" />
+                    <span asp-validation-for="Guarranty.Amount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group mb-2">
+                <input type="submit" value="حذف" class="btn btn-info mt-2" />
+                <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('#mySelect').change(function () {
+                console.log($(this).val());
+                if ($(this).val() === 'battery') {
+                    $('#cash').hide();
+                    $('#battery').show();
+                }
+                else if ($(this).val() === 'cash') {
+                    $('#cash').show();
+                    $('#battery').hide();
+                }
+                else {
+
+                    $('#cash').hide();
+                    $('#battery').hide();
+                }
+            });
+        });
+    </script>
+}
+
+
