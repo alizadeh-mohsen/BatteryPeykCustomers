@@ -69,9 +69,9 @@ namespace BatteryPeykCustomers.Helpers
         {
             try
             {
-                string smsEnabled = _configuration["SmsEnabled"];
-                if (!string.IsNullOrWhiteSpace(smsEnabled) && bool.Parse(smsEnabled) == true)
-                {
+                //string smsEnabled = _configuration["SmsEnabled"];
+                //if (!string.IsNullOrWhiteSpace(smsEnabled) && bool.Parse(smsEnabled) == true)
+                //{
 
                     int templateId = GetTemplateId(messageType);
                     var sendresponse = await Send(templateId);
@@ -92,7 +92,7 @@ namespace BatteryPeykCustomers.Helpers
                     //        Message = "اختلال در ارسال پیامک",
                     //    };
 
-                }
+                //}
                 return new Response
                 {
                     IsSuccess = true

@@ -12,8 +12,8 @@ namespace BatteryPeykCustomers.Model
         [Required]
         public int Amount { get; set; }
 
-        public DateTime Date { get; set; }
-        
+        public DateTime Date { get; set; } = DateTime.Today;
+
         [Required]
         public string? Description { get; set; }
 

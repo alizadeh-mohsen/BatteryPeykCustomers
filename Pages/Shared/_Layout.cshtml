@@ -71,13 +71,13 @@
 
                                     </li>
                                     @* <li style="text-align:right">
-                                        <a class="dropdown-item text-light" asp-page="/Admin/Counterparties/Index">طرف حسابها</a>
+                                <a class="dropdown-item text-light" asp-page="/Admin/Counterparties/Index">طرف حسابها</a>
 
-                                    </li>
-                                    <li style="text-align:right">
-                                        <a class="dropdown-item text-light" asp-page="/Admin/Reasons/Index">بابت ها</a>
+                                </li>
+                                <li style="text-align:right">
+                                <a class="dropdown-item text-light" asp-page="/Admin/Reasons/Index">بابت ها</a>
 
-                                    </li> *@
+                                </li> *@
                                     <li style="text-align:right">
                                         <a class="dropdown-item text-light" asp-page="/Admin/Vehicles/Index">ماشین ها</a>
 
@@ -96,6 +96,8 @@
     </header>
     <div class="container" dir="rtl">
         <main role="main" class="pb-3">
+            <partial name="_Notification" />
+
             @RenderBody()
         </main>
     </div>
