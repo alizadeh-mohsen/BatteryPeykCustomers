@@ -18,8 +18,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
 
         public async Task OnGetAsync()
         {
-            Debt = await _context.Debt.Where(c => c.Settled == false)
-                .Include(d => d.Counterparty)
+            Debt = await _context.Debt
+                //.Include(d => d.Counterparty)
                 //.Include(d => d.Reason).OrderBy(c => c.Counterparty.Title)
                 .ToListAsync();
         }

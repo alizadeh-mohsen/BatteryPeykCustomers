@@ -8,19 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 
-namespace BatteryPeykCustomers.Pages.Admin.Debts
+namespace BatteryPeykCustomers.Pages.Admin.Credits
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Debt Debt { get; set; } = default!;
+        public Credit Credit { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,18 +29,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 return NotFound();
             }
 
-            var debt = await _context.Debt
-                //.Include(d=>d.Reason)
-                //.Include(d=>d.Counterparty)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var credit = await _context.Credit.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (debt == null)
+            if (credit == null)
             {
                 return NotFound();
             }
             else
             {
-                Debt = debt;
+                Credit = credit;
             }
             return Page();
         }
@@ -52,12 +49,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 return NotFound();
             }
 
-            var debt = await _context.Debt.FindAsync(id);
-            if (debt != null)
+            var credit = await _context.Credit.FindAsync(id);
+            if (credit != null)
             {
-
-                Debt = debt;
-                _context.Debt.Remove(Debt);
+                Credit = credit;
+                _context.Credit.Remove(Credit);
                 await _context.SaveChangesAsync();
             }
 

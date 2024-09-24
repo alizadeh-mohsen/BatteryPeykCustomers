@@ -37,17 +37,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 return Page();
             }
 
-            try
-            {
-                _context.Debt.Add(Debt);
-                await _context.SaveChangesAsync();
 
-                return RedirectToPage("./Index");
-            }
-            catch (Exception ex)
-            {
-                return Page();
-            }
+
+            _context.Debt.Add(Debt);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
+
         }
     }
 }

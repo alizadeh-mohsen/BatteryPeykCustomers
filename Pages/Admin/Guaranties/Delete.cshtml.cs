@@ -66,14 +66,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
             var desc = battery.Company.Title + " " + battery.Amper.Title;
             if (DeleteType == "cash")
             {
-                var profit = new Profit
+
+                var credit = new Credit
                 {
                     Amount = Guarranty.Amount,
                     Date = DateTime.Today,
                     Description = "تسویه نقدی گارانتی " + desc
                 };
-                _context.Profit.Add(profit);
-                var message = $" درآمدهای روزانه ثبت شد {Guarranty.Amount}";
+                _context.Credit.Add(credit);
+                var message = $" به اعتبار خریداضافه شد {Guarranty.Amount}";
                 TempData["success"] = message;
             }
             else if (DeleteType == "battery")
@@ -93,8 +94,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
             }
 
             await _context.SaveChangesAsync();
+            
+            if (DeleteType == "battery")
+                return RedirectToPage("./Index");
+            else
+                return RedirectToPage("/Admin/Credits/Index");
 
-            return RedirectToPage("./Index");
         }
     }
 }

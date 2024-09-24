@@ -26,8 +26,8 @@
             </div> *@
             <div class="form-group mb-2">
                 مبلغ
-                <input type="text" id="numberInput" asp-for="Debt.Amount" class="form-control" />
-                <lable id="amount"></lable>
+                <input type="text"  asp-for="Debt.Amount" class="form-control" />
+                @* <lable id="amount"></lable> *@
             </div>  
             @* <div class="form-group mb-2">
                 تاریخ سررسید
@@ -53,16 +53,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        $(document).ready(function () {
-            $('#numberInput').on('input', function () {
-                var value = $(this).val();
-                value = value.replace(/,/g, ''); // Remove existing commas
-                if (!isNaN(value) && value !== '') {
-                    value = parseFloat(value).toLocaleString('en-US');
-                }
-                $('#amount').text(value);
-            });
-        });
-    </script>
+ 
 }

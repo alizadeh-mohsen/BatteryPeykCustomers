@@ -11,11 +11,12 @@ namespace BatteryPeykCustomers.Model
 
         [Required]
         public int Amount { get; set; }
+        [Required]
         public string? Description { get; set; }
-        [Required]
-        public int CounterpartyId { get; set; }
-        [Required]
-        public int ReasonId { get; set; }
+        //[Required]
+        //public int CounterpartyId { get; set; }
+        //[Required]
+        //public int ReasonId { get; set; }
 
         //[ForeignKey("ReasonId")]
         //public Reason? Reason { get; set; }
