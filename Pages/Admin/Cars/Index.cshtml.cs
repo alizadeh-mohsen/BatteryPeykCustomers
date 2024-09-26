@@ -21,9 +21,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
 
         }
 
+        [BindProperty]
+        public int CustomerId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int customerId)
         {
+            CustomerId = customerId;
             vm = new CarAndCustomerViewModel
             {
 
@@ -32,5 +35,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
             };
             return Page();
         }
+
+        public IActionResult OnPost()
+        {
+
+            return RedirectToPage("/Admin/Customers/Create", new { CustomerId });
+
+
+        }
+
     }
 }

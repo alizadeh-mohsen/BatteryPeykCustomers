@@ -7,9 +7,10 @@
 }
 
 <partial name="_Notification" />
-<p>
-    <a class="btn btn-info" asp-page="Create" asp-route-customerId="@Model.vm.Customer.Id"><i class="bi bi-plus-square"></i>&nbsp;&nbsp;ماشین جدید</a>
-</p>
+<form method="post">
+    <button type="submit" class="btn btn-info"></button>
+    <input type="hidden" asp-for="CustomerId" />
+</form>
 
 <div class="card">
     <div class="card-body">
