@@ -18,7 +18,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
 
         public async Task OnGetAsync()
         {
-            Debt = await _context.Debt
+            Debt = await _context.Debt.OrderBy(C => C.Id)
                 //.Include(d => d.Counterparty)
                 //.Include(d => d.Reason).OrderBy(c => c.Counterparty.Title)
                 .ToListAsync();

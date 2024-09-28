@@ -5,10 +5,10 @@
     ViewData["Title"] = "Index";
 }
 
-<partial name="_Notification" />
 <p>
     <a class="btn btn-info" asp-page="Create">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;مشتری جدید</a>
+        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;مشتری جدید
+    </a>
 </p>
 
 <div class="row">
@@ -18,7 +18,7 @@
             <div class="form-floating">
                 <input type="text" class="form-control mb-1" asp-for="SearchNameString" id="name" placeholder="Name" />
                 <label for="name">نام</label>
-            </div>   
+            </div>
             <div class="form-floating">
                 <input type="text" class="form-control mb-1" asp-for="SearchPhoneString" id="phone" placeholder="Phone" />
                 <label for="phone">تلفن</label>
@@ -55,8 +55,9 @@
                         @item.Phone
                     </td>
                     <td class="text-center">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        @* <a asp-page="./Create" asp-route-customerId="@item.Id" asp-route-old="true" style="text-decoration:none" class="text-info"><i class="bi bi-arrow-clockwise" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp; *@
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp;
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp;
                         <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-car-front-fill" style="font-size:1.5rem"></i> </a>
 
                     </td>

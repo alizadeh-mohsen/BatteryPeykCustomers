@@ -1,29 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BatteryPeykCustomers.Pages.Admin.Profits
 {
     public class IndexModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        [BindProperty(SupportsGet = true)]
+        public DateTime? From { get; set; } = DateTime.Today;
 
-        public IndexModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
+        [BindProperty(SupportsGet = true)]
+        public DateTime? To { get; set; }= DateTime.Today;
+
+
+        private readonly ApplicationDbContext _context;
+
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Profit> Profit { get;set; } = default!;
+        public IList<Profit> Profit { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
+
         {
-            Profit = await _context.Profit.OrderByDescending(c=>c.Date).ToListAsync();
+            TimeSpan ts = new TimeSpan(11, 59, 59);
+
+            IQueryable<Profit> query = _context.Profit.OrderByDescending(c => c.Id);
+
+            if (From != null && To != null)
+            {
+                To = To.Value.Date + ts;
+                query = query.Where(c => c.Date >= From && c.Date <= To);
+            }
+
+            Profit = await query.ToListAsync();
+            return Page();
         }
     }
 }

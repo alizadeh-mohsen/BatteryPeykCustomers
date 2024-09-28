@@ -13,7 +13,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
 {
     public class EditModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public EditModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
         {

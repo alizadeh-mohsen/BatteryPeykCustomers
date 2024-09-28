@@ -12,9 +12,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
 {
     public class IndexModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
         {
             Guarranty = await _context.Guarranty
                 .Include(g => g.Amper)
-                .Include(g => g.Company).OrderByDescending(c => c.Date).ToListAsync();
+                .Include(g => g.Company).OrderBy(c => c.Id).ToListAsync();
         }
     }
 }

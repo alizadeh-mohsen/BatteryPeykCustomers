@@ -12,7 +12,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
 {
     public class DetailsModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public DetailsModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
         {

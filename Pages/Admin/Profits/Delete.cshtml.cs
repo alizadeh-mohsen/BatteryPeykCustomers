@@ -12,7 +12,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Profits
 {
     public class DeleteModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public DeleteModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
         {

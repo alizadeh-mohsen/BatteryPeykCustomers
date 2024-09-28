@@ -32,7 +32,7 @@
                 <textarea asp-for="vm.Address" class="form-control"></textarea>
                 <span asp-validation-for="vm.Address" class="text-danger"></span>
             </div>
-            <div class="form-group mb-2">
+            <div class="form-group mb-2" id="car" style="display:none">
                 ماشین
                 <select asp-for="vm.VehicleId" class="form-select" asp-items="ViewBag.Vehicles">
                     <option value=""></option>
@@ -95,7 +95,29 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script>
+            function getUrlVars() {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            };
+
             $(document).ready(function () {
+
+                var carId = getUrlVars()["carId"];
+                alert(carId);
+                if (carId == null || carId == "undefined") {
+                    ("#car").css("display", "block");
+                }
+                else {
+                    ("#car").css("display", "none");
+                }
+
+
                 var companyId;
                 $('#company').change(function () {
 
@@ -139,7 +161,12 @@
                         $('#used').attr('checked', false);
 
                 })
-            });
+            }
+
+
+
+
+            );
         </script>
     }
 }	

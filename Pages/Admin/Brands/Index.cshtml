@@ -11,42 +11,43 @@
         <i class="bi bi-plus-square"></i>&nbsp;&nbsp;برند باتری جدید
     </a>
 </p>
+<div class="row">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                عنوان
-            </th>
-            <th>
-                مدت گارانتی
-            </th>
-            <th>
-                عمر مفید
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Company) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Guarranty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LifeTime)
-            </td>
-                <td class="text-center">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
-                </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    عنوان
+                </th>
+                <th>
+                    مدت گارانتی
+                </th>
+                <th>
+                    عمر مفید
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Company)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Guarranty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LifeTime)
+                    </td>
+                    <td class="text-center">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
+                        <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

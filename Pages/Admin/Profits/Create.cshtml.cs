@@ -12,7 +12,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Profits
 {
     public class CreateModel : PageModel
     {
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CreateModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
         {

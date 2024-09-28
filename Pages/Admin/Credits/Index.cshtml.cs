@@ -14,9 +14,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Credits
     {
         [BindProperty(SupportsGet = true)]
         public int TotalCredit { get; set; }
-        private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(BatteryPeykCustomers.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }

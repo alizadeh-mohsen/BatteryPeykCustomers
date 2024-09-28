@@ -7,6 +7,7 @@ using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -22,6 +23,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         [BindProperty]
         public int? CustomerId { get; set; }
+
+        [BindProperty]
+        public int? CarId { get; set; }
+
+
         public CreateModel(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
@@ -29,23 +35,20 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         }
 
 
-        public async Task<IActionResult> OnGetAsync(int? customerId)
+        public async Task<IActionResult> OnGetAsync(int? customerId, int? carId)
         {
-
             if (customerId != null)
             {
-
                 var customer = await _context.Customer.FindAsync(customerId);
                 customerId = customer.Id;
+                carId = carId;
                 vm = new CustomerViewModel
                 {
                     Address = customer.Address,
                     Phone = customer.Phone,
                     Name = customer.Name
                 };
-
             }
-
 
             await PopulateData();
             return Page();
@@ -72,15 +75,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (!vm.Phone.StartsWith("0"))
                 {
-                    ModelState.AddModelError("Customer.Phone", "شماره موبایل باید با 0 شروع شود");
-                    return await OnGetAsync(null);
+                    ModelState.AddModelError("vm.Phone", "شماره موبایل باید با 0 شروع شود");
+                    return await OnGetAsync(CustomerId, CarId);
                 }
 
-                var existingCustomer = _context.Customer.FirstOrDefault(x => x.Phone == vm.Phone);
-                if (existingCustomer != null)
+                var existingCustomer =await _context.Customer.FirstOrDefaultAsync(x => x.Phone == vm.Phone);
+                if (existingCustomer != null && CustomerId == null)
                 {
-                    ModelState.AddModelError("Customer.Phone", "شماره موبایل قبلا ثبت شده. مشتری موجود است. برای این مشتری ماشین جدید ثبت کنید");
-                    return await OnGetAsync(null);
+                    ModelState.AddModelError("vm.Phone", "مشتری مورد نظر عضو باشگاه مشتریان است. بعد از جستجو و پیدا کردن مشتری از منوی ماشین ها اقدام کنید");
+                    return await OnGetAsync(CustomerId, CarId);
                 }
 
                 var selectedCompnay = await _context.Company.FindAsync(vm.CompanyId);
@@ -96,8 +99,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (battery == null)
                 {
-                    ModelState.AddModelError("Customer.Phone", "شماره موبایل قبلا ثبت شده. مشتری موجود است. برای این مشتری ماشین جدید ثبت کنید");
-                    return await OnGetAsync(null);
+                    ModelState.AddModelError("vm.Phone", "باتری انتخاب شده در انبار ثبت نشده. ابتدا باتری مورد نظر را به انبار اضافه کنید");
+                    return await OnGetAsync(CustomerId, CarId);
                 }
                 battery.Quantity -= 1;
 
@@ -144,6 +147,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     Description = desc
                 };
 
+                _context.Profit.Add(profit);
+
                 if (CustomerId == null)
                 {
                     var Cars = new List<Car> { new()
@@ -169,22 +174,39 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else
                 {
-
-                    var car = new Car()
+                    if (CarId != null)
                     {
-                        Battery = desc,
-                        Guaranty = vm.Guaranty,
-                        Make = selectedVehicle?.Make,
-                        LifeExpectancy = vm.LifeExpectancy,
-                        PurchaseDate = DateTime.Today,
-                        ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
-                        Comments = vm.Comments,
-                        CustomerId = (int)CustomerId
-                    };
+                        var car = await _context.Car.FindAsync(CarId);
+                        car.Battery = desc;
+                        car.Guaranty = vm.Guaranty;
+                        car.LifeExpectancy = vm.LifeExpectancy;
+                        car.PurchaseDate = DateTime.Today;
+                        car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
+                        car.Comments = vm.Comments;
+                        car.Sms = 0;
 
-                    _context.Car.Add(car);
+                        _context.Attach(car).State = EntityState.Modified;
+
+                    }
+                    else
+                    {
+                        var car = new Car()
+                        {
+                            Battery = desc,
+                            Guaranty = vm.Guaranty,
+                            Make = selectedVehicle?.Make,
+                            LifeExpectancy = vm.LifeExpectancy,
+                            PurchaseDate = DateTime.Today,
+                            ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
+                            Comments = vm.Comments,
+                            CustomerId = (int)CustomerId,
+                            Sms = 0
+                        };
+
+                        _context.Car.Add(car);
+
+                    }
                 }
-                _context.Profit.Add(profit);
                 await _context.SaveChangesAsync();
 
                 //}
@@ -211,7 +233,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             catch (Exception ex)
             {
                 TempData["error"] = ex.Message + ex.InnerException?.Message;
-                return await OnGetAsync(null);
+                return await OnGetAsync(CustomerId, CarId);
             }
         }
 

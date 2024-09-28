@@ -7,7 +7,7 @@ namespace BatteryPeykCustomers.Pages
     public class IndexModel : PageModel
     {
         //private readonly ILogger<IndexModel> _logger;
-        //private readonly BatteryPeykCustomers.Data.ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
         public IndexModel()
         {
