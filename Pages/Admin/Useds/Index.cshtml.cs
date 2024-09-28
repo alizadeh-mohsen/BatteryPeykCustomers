@@ -14,11 +14,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
             _context = context;
         }
 
-        public IList<Used> Used { get;set; } = default!;
+        public Used Used { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Used = await _context.Used.ToListAsync();
+            Used = await _context.Used.FirstOrDefaultAsync();
         }
     }
 }

@@ -17,16 +17,17 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
         public LossAndProfitViewModel vm { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
-        public DateTime? From { get; set; }
+        public DateTime? From { get; set; } = DateTime.Today;
 
         [BindProperty(SupportsGet = true)]
-        public DateTime? To { get; set; }
+        public DateTime? To { get; set; } = DateTime.Today;
 
         private readonly ApplicationDbContext _context;
 
         public IndexModel(ApplicationDbContext context)
         {
             vm = new LossAndProfitViewModel();
+
             _context = context;
 
         }

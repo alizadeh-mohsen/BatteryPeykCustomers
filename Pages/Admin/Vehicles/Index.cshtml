@@ -11,8 +11,20 @@
     </a>
 </p>
 <div class="row">
+    <div class="col-sm-4">
+        <form>
 
-    <table class="table">
+            <div class="form-floating">
+                <input type="text" class="form-control mb-1" asp-for="SearchNameString" id="name" placeholder="Name" />
+                <label for="name">نام</label>
+            </div>
+
+            <button type="submit" class="btn btn-info mt-2"><i class="bi bi-search"></i>&nbsp;&nbsp;جستجو</button>
+
+        </form>
+    </div>
+
+    <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>

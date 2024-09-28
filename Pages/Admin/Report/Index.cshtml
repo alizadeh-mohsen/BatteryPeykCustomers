@@ -52,7 +52,11 @@
     <div class="row mx-auto mb-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title text-center">درآمد</h5>
+                <h5 class="card-title text-center">
+                    <a asp-page="/Admin/Profits/Index" style="text-decoration:none">
+                        درآمد ها
+                    </a>
+                </h5>
                 <p class="card-text">
                     مجموع درآمد:
                     <strong>@Model.vm.TotalProfit.ToString("N0")</strong>
@@ -64,7 +68,11 @@
     <div class="row mx-auto mb-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title text-center">هزینه ها</h5>
+                <h5 class="card-title text-center">
+                    <a asp-page="/Admin/Expenses/Index" style="text-decoration:none">
+                        هزینه ها
+                    </a>
+                </h5>
 
                 <p class="card-text">
                     مجموع هزینه ها:
