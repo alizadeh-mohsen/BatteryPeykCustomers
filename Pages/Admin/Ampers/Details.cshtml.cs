@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
-namespace BatteryPeykCustomers.Pages.Admin.Ampers
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Ampers
 {
-    public class DetailsModel : PageModel
+        [Authorize] public class DetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

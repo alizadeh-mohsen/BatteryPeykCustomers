@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
-namespace BatteryPeykCustomers.Pages.Admin.Credits
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Credits
 {
-    public class IndexModel : PageModel
+    [Authorize] public class IndexModel : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public int TotalCredit { get; set; }

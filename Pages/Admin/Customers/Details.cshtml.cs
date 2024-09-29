@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BatteryPeykCustomers.Pages.Admin.Customers
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
     [Authorize]
     public class DetailsModel : PageModel

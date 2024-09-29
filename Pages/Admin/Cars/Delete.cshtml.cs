@@ -2,9 +2,8 @@ using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
-namespace BatteryPeykCustomers.Pages.Admin.Cars
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Cars
 {
     public class DeleteModel : PageModel
     {

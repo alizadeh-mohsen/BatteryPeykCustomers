@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
-using Microsoft.EntityFrameworkCore;
 
-namespace BatteryPeykCustomers.Pages.Admin.Expenses
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Expenses
 {
-    public class CreateModel : PageModel
+    [Authorize] public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using BatteryPeykCustomers.Data;
-using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Model.ViewModel;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
+using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Model.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BatteryPeykCustomers.Pages.Admin.Customers
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
     [Authorize]
     public class ExpireModel : PageModel

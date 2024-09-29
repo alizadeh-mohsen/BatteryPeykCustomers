@@ -1,17 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model.ViewModel;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Runtime.Intrinsics.X86;
-using System.Text.RegularExpressions;
 
-namespace BatteryPeykCustomers.Pages.Admin.Report
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Report
 {
-    public class IndexModel : PageModel
+    [Authorize] public class IndexModel : PageModel
     {
         [BindProperty]
         public LossAndProfitViewModel vm { get; set; } = default!;

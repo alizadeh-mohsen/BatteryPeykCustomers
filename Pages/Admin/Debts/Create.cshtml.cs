@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
-using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace BatteryPeykCustomers.Pages.Admin.Debts
 {
-    public class CreateModel : PageModel
+    [Authorize] public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

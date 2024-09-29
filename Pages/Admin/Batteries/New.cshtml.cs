@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BatteryPeykCustomers.Pages.Admin.Batteries
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
-    public class NewModel : PageModel
+    [Authorize] public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

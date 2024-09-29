@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BatteryPeykCustomers.Pages.Admin.Expenses
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Expenses
 {
-    public class IndexModel : PageModel
+    [Authorize] public class IndexModel : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public DateTime? From { get; set; } = DateTime.Today;

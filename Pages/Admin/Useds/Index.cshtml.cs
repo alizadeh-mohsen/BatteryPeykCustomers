@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
+﻿using Microsoft.AspNetCore.Authorization;
 using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BatteryPeykCustomers.Pages.Admin.Useds
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Useds
 {
-    public class IndexModel : PageModel
+    [Authorize] public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

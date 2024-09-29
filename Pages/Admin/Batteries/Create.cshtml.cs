@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BatteryPeykCustomers.Pages.Admin.Batteries
+using Microsoft.EntityFrameworkCore; namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
-    public class CreateModel : PageModel
+    [Authorize] public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
