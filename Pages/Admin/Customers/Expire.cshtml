@@ -32,9 +32,9 @@
                         <div class="card-text mb-2">
                             <div><strong> ماشین: </strong>@item.Make </div>
                             <div><strong> باتری: </strong>@item.Battery </div>
-                            <div><strong> تاریخ خرید: </strong>@item.PurchaseDate.ToPersianDate() </div>
+                            <div><strong> تاریخ خرید: </strong>@item.PurchaseDate.ToShortDateString() </div>
                             <div><strong> طول عمر: </strong>@item.LifeExpectancy </div>
-                            <div><strong> تاریخ تعویض: </strong>@item.ReplaceDate.ToPersianDate() </div>
+                            <div><strong> تاریخ تعویض: </strong>@item.ReplaceDate.ToShortDateString() </div>
                         </div>
                         <form method="post">
                             <input type="text" hidden name="name" value="@item.Name" />
