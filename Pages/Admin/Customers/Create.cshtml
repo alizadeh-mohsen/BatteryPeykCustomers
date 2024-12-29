@@ -10,12 +10,12 @@
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-check mb-2">
-                <input class="form-check-input" id="guarantyCustomer" type="checkbox" asp-for="vm.GuarrantyCustomer">
-                مشتری گارانتی
+                <input class="form-check-input" style="width:22px;height:22px;" id="used" type="checkbox" asp-for="vm.HasUsed" checked>
+                داغی دارد
             </div>
             <div class="form-check mb-2">
-                <input class="form-check-input" id="used" type="checkbox" asp-for="vm.HasUsed" checked>
-                داغی دارد
+                <input class="form-check-input" style="width:22px;height:22px;"  id="guarantyCustomer" type="checkbox" asp-for="vm.GuarrantyCustomer">
+                مشتری گارانتی
             </div>
             <div class="form-group mb-2">
                 تلفن
@@ -94,54 +94,54 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script>
-            $(document).ready(function () {
+                <script>
+                    $(document).ready(function () {
 
-                var companyId;
-                $('#company').change(function () {
+                        var companyId;
+                        $('#company').change(function () {
 
-                    companyId = $(this).val();
-                    var guarantyInput = $('#guaranty');
-                    var lifeTimeInput = $('#lifeTime');
+                            companyId = $(this).val();
+                            var guarantyInput = $('#guaranty');
+                            var lifeTimeInput = $('#lifeTime');
 
-                    if (companyId) {
-                        $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
-                            guarantyInput.val(data.guarranty);
-                            lifeTimeInput.val(data.lifeTime);
+                            if (companyId) {
+                                $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
+                                    guarantyInput.val(data.guarranty);
+                                    lifeTimeInput.val(data.lifeTime);
+                                });
+                            } else {
+                                guarantyInput.val("");
+                                lifeTimeInput.val("");
+                            }
                         });
-                    } else {
-                        guarantyInput.val("");
-                        lifeTimeInput.val("");
-                    }
-                });
-                $('#amper').change(function () {
+                        $('#amper').change(function () {
 
-                    var amperId = $(this).val();
+                            var amperId = $(this).val();
 
 
-                    if (amperId) {
-                        $.getJSON('@Url.Page("Create", "Quantity")', { companyId: companyId, amperId: amperId }, function (data) {
-                            if (data == null) {
-                                $('#qty').text('-');
-                                $('#profit').val("");
+                            if (amperId) {
+                                $.getJSON('@Url.Page("Create", "Quantity")', { companyId: companyId, amperId: amperId }, function (data) {
+                                    if (data == null) {
+                                        $('#qty').text('-');
+                                        $('#profit').val("");
+                                    }
+                                    else {
+                                        $('#qty').text(data.quantity);
+                                        $('#profit').val(data.profit);
+                                    }
+
+                                })
                             }
-                            else {
-                                $('#qty').text(data.quantity);
-                                $('#profit').val(data.profit);
-                            }
+
+                        });
+                        $('#guarantyCustomer').change(function () {
+
+                            if (this.checked)
+                                $('#used').attr('checked', false);
 
                         })
                     }
-
-                });
-                $('#guarantyCustomer').change(function () {
-
-                    if (this.checked)
-                        $('#used').attr('checked', false);
-
-                })
-            }
-            );
-        </script>
+                    );
+                </script>
     }
 }	

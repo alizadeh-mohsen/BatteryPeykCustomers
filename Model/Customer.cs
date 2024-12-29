@@ -20,5 +20,7 @@ namespace BatteryPeykCustomers.Model
         public string? Address { get; set; }
         public ICollection<Car>? Cars { get; set; }
 
+        public bool IsCompany { get; set; }
+
     }
 }

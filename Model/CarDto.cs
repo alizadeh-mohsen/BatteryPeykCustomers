@@ -9,5 +9,7 @@
         public string? Status { get; set; }
         public string? BatteryAge { get; set; }
         public string? ReplacementDate { get; set; }
+        public bool IsCompany { get; set; }
+        public string? Comment{ get; set; }
     }
 }

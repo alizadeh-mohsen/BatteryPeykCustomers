@@ -3,6 +3,7 @@ using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -46,13 +47,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             if (_context.Customer != null)
             {
                 var query = from customer in _context.Customer
-                            join car in _context.Car on customer.Id equals car.CustomerId
                             where
                             (string.IsNullOrEmpty(SearchNameString) || customer.Name.ToLower().Contains(SearchNameString.ToLower().Trim()))
                             && (string.IsNullOrEmpty(SearchPhoneString) || customer.Phone.Contains(SearchPhoneString.Trim()))
-                           && (string.IsNullOrEmpty(SearchCommentString) || car.Comments.Contains(SearchCommentString))
                             select customer;
 
+                if (!string.IsNullOrEmpty(SearchCommentString))
+                    query = query.Include(c => c.Cars).Where(c => c.Cars.Any(c => c.Comments.Contains(SearchCommentString)));
+                
                 query = query.OrderByDescending(c => c.Id);
 
                 Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);

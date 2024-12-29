@@ -49,7 +49,10 @@ namespace BatteryPeykCustomers.Controllers
                     ReplacementDate = setReplacementDate(car.PurchaseDate, car.LifeExpectancy),
                     Status = setStatus(car.PurchaseDate, car.Guaranty),
                     BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0"
-                    : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString()
+                    : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString(),
+                    IsCompany = customer.IsCompany,
+                    Comment = car.Comments
+
                 });
             }
 

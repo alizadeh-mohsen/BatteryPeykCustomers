@@ -46,7 +46,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 {
                     Address = customer.Address,
                     Phone = customer.Phone,
-                    Name = customer.Name
+                    Name = customer.Name,
+                    IsCompany = customer.IsCompany
                 };
             }
 
@@ -167,6 +168,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         Address = vm.Address,
                         Name = vm.Name,
                         Phone = vm.Phone,
+                        IsCompany = false,
                         Cars = Cars,
                     };
                     _context.Customer.Add(customer);
