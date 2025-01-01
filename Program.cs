@@ -73,10 +73,3 @@ void SeedDatabase()
     }
 }
 
-//MASTER 1
-//MASTER 2
-
-}
-
-//TEST 1
-//TEST 2
