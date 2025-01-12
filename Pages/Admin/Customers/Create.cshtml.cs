@@ -227,7 +227,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 var respone = await smsHelper.SendSms(MessageType.Welcome);
                 if (!respone.IsSuccess)
                 {
-                    TempData["error"] = respone.Message;
+                    TempData["error"] = "خطا در ارسال پیامک: " + respone.Message;
                 }
 
                 return RedirectToPage("./Index");

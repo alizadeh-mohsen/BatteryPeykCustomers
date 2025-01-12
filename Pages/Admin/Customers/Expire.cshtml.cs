@@ -66,7 +66,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (!respone.IsSuccess)
                 {
-                    TempData["error"] = respone.Message;
+                    TempData["error"] = "خطا در ارسال پیامک: " + respone.Message;
                 }
                 else
                 {

@@ -73,29 +73,30 @@ namespace BatteryPeykCustomers.Helpers
                 //if (!string.IsNullOrWhiteSpace(smsEnabled) && bool.Parse(smsEnabled) == true)
                 //{
 
-                    int templateId = GetTemplateId(messageType);
-                    var sendresponse = await Send(templateId);
-                    //if (sendresponse.Status != 1)
-                    //    return new Response
-                    //    {
-                    //        IsSuccess = false,
-                    //        Message = "خطا در ارسال پیامک",
-                    //    };
-                    ////return GetErrorMessage(sendresponse, true);
+                int templateId = GetTemplateId(messageType);
+                var sendresponse = await Send(templateId);
+                if (sendresponse.Status != 1)
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = sendresponse.Message
+                    };
+                //return GetErrorMessage(sendresponse, true);
 
-                    //var reportresponse = await GetReport(sendresponse.Data.messageId);
-                    //if (reportresponse.Data.DeliveryState != 1)
-                    //    //return GetErrorMessage(reportresponse, false);
-                    //    return new Response
-                    //    {
-                    //        IsSuccess = false,
-                    //        Message = "اختلال در ارسال پیامک",
-                    //    };
+                //var reportresponse = await GetReport(sendresponse.Data.messageId);
+                //if (reportresponse.Data.DeliveryState != 1)
+                //    //return GetErrorMessage(reportresponse, false);
+                //    return new Response
+                //    {
+                //        IsSuccess = false,
+                //        Message = "اختلال در ارسال پیامک",
+                //    };
 
                 //}
+
                 return new Response
                 {
-                    IsSuccess = true
+                    IsSuccess = true,
                 };
             }
             catch (Exception ex)
