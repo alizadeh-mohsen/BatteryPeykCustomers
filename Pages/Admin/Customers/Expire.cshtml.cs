@@ -40,6 +40,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         PurchaseDate = c.PurchaseDate,
                         ReplaceDate = c.ReplaceDate,
                         LifeExpectancy = c.LifeExpectancy,
+                        Address = c.Customer.Address,
+                        Comments = c.Comments,
+                        Guaranty = c.Guaranty,
+                        VipLink = "https://batterypeyk.com/vip.html?m="+c.Customer.Phone
+
 
                     })
                     .ToListAsync();

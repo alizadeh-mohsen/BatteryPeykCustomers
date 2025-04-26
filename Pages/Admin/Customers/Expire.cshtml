@@ -35,12 +35,18 @@
                             <div><strong> تاریخ خرید: </strong>@item.PurchaseDate.ToShortDateString() </div>
                             <div><strong> طول عمر: </strong>@item.LifeExpectancy </div>
                             <div><strong> تاریخ تعویض: </strong>@item.ReplaceDate.ToShortDateString() </div>
+                            <div><strong> گارانتی: </strong>@item.Guaranty</div>
+                            <div><strong> آدرس: </strong>@item.Address </div>
+                            <div><strong> توضیحات: </strong>@item.Comments </div>
                         </div>
                         <form method="post">
                             <input type="text" hidden name="name" value="@item.Name" />
                             <input type="text" hidden name="phone" value="@item.Phone" />
                             <input type="text" hidden name="id" value="@item.Id" />
                             <button class="btn btn-success" type="submit">ارسال پیامک</button>
+                        <a class="btn btn-outline-info font-weight-light" href=@item.VipLink>
+                                باشگاه مشتریان
+                        </a>
                         </form>
                     </div>
                 </div>

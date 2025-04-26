@@ -25,7 +25,7 @@
                 <tr>
                     <td class="text-center"><strong>تاریخ خرید</strong></td>
                     <td class="text-center">
-                        @Model.car.PurchaseDate.ToPersianDate()
+                        @Model.car.PurchaseDate.ToShortDateString()
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +39,7 @@
                 <tr>
                     <td class="text-center"><strong>زمان تعویض</strong></td>
                     <td class="text-center">
-                        @Model.car.ReplaceDate.ToPersianDate()
+                        @Model.car.ReplaceDate.ToShortDateString()
                     </td>
                 </tr>
 

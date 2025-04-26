@@ -23,5 +23,6 @@
         public string? Comments { get; set; }
 
         public DateTime ReplaceDate { get; set; }
+        public string? VipLink { get; set; }
     }
 }
