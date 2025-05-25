@@ -2,12 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BatteryPeykCustomers.Pages.Admin.Debts
 {
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+
+        [BindProperty(SupportsGet = true)]
+        public long TotalDebit { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {
@@ -22,6 +26,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
                 //.Include(d => d.Counterparty)
                 //.Include(d => d.Reason).OrderBy(c => c.Counterparty.Title)
                 .ToListAsync();
+
+            TotalDebit = Debt.Sum(x => x.Amount);
         }
     }
 }
