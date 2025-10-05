@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Controllers
@@ -32,7 +32,7 @@ namespace BatteryPeykCustomers.Controllers
 
             var customerDto = new CustomerDto
             {
-                Address = customer.Address,
+                Address = customer.Address?.Substring(0, 20) + "***",
                 Name = customer.Name,
                 Phone = customer.Phone
             };
