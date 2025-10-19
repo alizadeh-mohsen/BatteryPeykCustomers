@@ -32,7 +32,7 @@ namespace BatteryPeykCustomers.Controllers
 
             var customerDto = new CustomerDto
             {
-                Address = customer.Address?.Substring(0, 20) + "***",
+                Address = customer.Address?.Length > 20 ? (customer.Address?.Substring(0, 20) + "***") : customer.Address,
                 Name = customer.Name,
                 Phone = customer.Phone
             };
@@ -60,7 +60,7 @@ namespace BatteryPeykCustomers.Controllers
             return Json(new { data = customerDto });
         }
 
-        public string setExpire(DateTime purchaseDate, int guaranty)
+        private string setExpire(DateTime purchaseDate, int guaranty)
         {
             var expire = purchaseDate.AddMonths(guaranty);
             var expireToDisplay = expire.ToShortDateString();
@@ -69,7 +69,7 @@ namespace BatteryPeykCustomers.Controllers
             "<span class='text-danger'>" + expireToDisplay + "</span>";
         }
 
-        public string setStatus(DateTime purchaseDate, int lifeExpectancy)
+        private string setStatus(DateTime purchaseDate, int lifeExpectancy)
         {
             var replaceDate = purchaseDate.AddMonths(lifeExpectancy);
             var goodDate = replaceDate.AddDays(-30);
@@ -87,7 +87,7 @@ namespace BatteryPeykCustomers.Controllers
             }
         }
 
-        public string setReplacementDate(DateTime purchaseDate, int lifeExpectancy)
+        private string setReplacementDate(DateTime purchaseDate, int lifeExpectancy)
         {
             var replaceDate = purchaseDate.AddMonths(lifeExpectancy);
             var goodDate = replaceDate.AddDays(-30);
