@@ -14,12 +14,12 @@
                 داغی دارد
             </div>
             <div class="form-check mb-2">
-                <input class="form-check-input" style="width:22px;height:22px;"  id="guarantyCustomer" type="checkbox" asp-for="vm.GuarrantyCustomer">
+                <input class="form-check-input" style="width:22px;height:22px;" id="guarantyCustomer" type="checkbox" asp-for="vm.GuarrantyCustomer">
                 مشتری گارانتی
             </div>
             <div class="form-group mb-2">
                 تلفن
-                <input asp-for="vm.Phone" class="form-control" />
+                <input asp-for="vm.Phone" class="form-control" id="phone" />
                 <span asp-validation-for="vm.Phone" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
@@ -32,11 +32,12 @@
                 <textarea asp-for="vm.Address" class="form-control"></textarea>
                 <span asp-validation-for="vm.Address" class="text-danger"></span>
             </div>
-            <div class="form-group mb-2" id="car" >
+            <div class="form-group mb-2" id="car">
                 ماشین
-                <select asp-for="vm.VehicleId" class="form-select" asp-items="ViewBag.Vehicles">
+                <select asp-for="vm.VehicleId" class="form-select" asp-items="ViewBag.Vehicles" id="vehicleSelect">
                     <option value=""></option>
                 </select>
+
             </div>
             <div class="form-group mb-2">
                 باتری
@@ -94,54 +95,80 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-                <script>
-                    $(document).ready(function () {
+        <script>
+            $(document).ready(function () {
 
-                        var companyId;
-                        $('#company').change(function () {
 
-                            companyId = $(this).val();
-                            var guarantyInput = $('#guaranty');
-                            var lifeTimeInput = $('#lifeTime');
 
-                            if (companyId) {
-                                $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
-                                    guarantyInput.val(data.guarranty);
-                                    lifeTimeInput.val(data.lifeTime);
-                                });
-                            } else {
-                                guarantyInput.val("");
-                                lifeTimeInput.val("");
-                            }
+                var companyId;
+                $('#company').change(function () {
+
+                    companyId = $(this).val();
+                    var guarantyInput = $('#guaranty');
+                    var lifeTimeInput = $('#lifeTime');
+
+                    if (companyId) {
+                        $.getJSON('@Url.Page("Create", "Company")', { companyId: companyId }, function (data) {
+                            guarantyInput.val(data.guarranty);
+                            lifeTimeInput.val(data.lifeTime);
                         });
-                        $('#amper').change(function () {
+                    } else {
+                        guarantyInput.val("");
+                        lifeTimeInput.val("");
+                    }
+                });
+                $('#amper').change(function () {
 
-                            var amperId = $(this).val();
+                    var amperId = $(this).val();
 
 
-                            if (amperId) {
-                                $.getJSON('@Url.Page("Create", "Quantity")', { companyId: companyId, amperId: amperId }, function (data) {
-                                    if (data == null) {
-                                        $('#qty').text('-');
-                                        $('#profit').val("");
-                                    }
-                                    else {
-                                        $('#qty').text(data.quantity);
-                                        $('#profit').val(data.profit);
-                                    }
-
-                                })
+                    if (amperId) {
+                        $.getJSON('@Url.Page("Create", "Quantity")', { companyId: companyId, amperId: amperId }, function (data) {
+                            if (data == null) {
+                                $('#qty').text('-');
+                                $('#profit').val("");
                             }
-
-                        });
-                        $('#guarantyCustomer').change(function () {
-
-                            if (this.checked)
-                                $('#used').attr('checked', false);
+                            else {
+                                $('#qty').text(data.quantity);
+                                $('#profit').val(data.profit);
+                            }
 
                         })
                     }
-                    );
-                </script>
+
+                });
+                $('#guarantyCustomer').change(function () {
+
+                    if (this.checked)
+                        $('#used').attr('checked', false);
+
+                });
+                 $('#phone').change(function () {
+
+                    var phoneNo = $(this).val();
+
+                    if (phoneNo) {
+                        $.getJSON('@Url.Page("Create", "phoneNo")', { phoneNo: phoneNo }, function (data) {
+                            if (data != null) {
+                            // attempt to read either camelCase or PascalCase id
+                            var customerId = data.id || data.Id;
+                            if (customerId) {
+                                var carsUrl = '@Url.Page("/Admin/Cars/Index")';
+                                window.location.href = carsUrl + '?customerId=' + encodeURIComponent(customerId);
+                            } else {
+                                console.log('Phone lookup returned a customer object without an Id:', data);
+                            }
+                        }
+                        })
+                    }
+                });
+            }
+            );
+             $('#vehicleSelect').select2({
+                        placeholder: "",
+                        allowClear: true,
+                        width: '100%' 
+                    });
+        </script>
     }
-}	
+}

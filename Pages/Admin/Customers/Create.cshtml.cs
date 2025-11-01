@@ -250,5 +250,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 .FirstOrDefaultAsync(c => c.CompanyId == companyId && c.AmperId == amperId);
             return new JsonResult(battery);
         }
+        public async Task<JsonResult> OnGetPhoneNoAsync(string phoneNo)
+        {
+            var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == phoneNo);
+            return new JsonResult(customer);
+        }
     }
 }
