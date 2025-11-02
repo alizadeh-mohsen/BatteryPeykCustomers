@@ -8,7 +8,7 @@
 
 <p>
     <a class="btn btn-primary" asp-page="/Admin/Customers/Create" asp-route-customerid="@Model.vm.Customer.Id">
-        <i class="bi bi-plus-square ms-2"></i>اضافه کردن ماشین جدید
+        <i class="bi bi-plus-square ms-2"></i>باتری جدید
     </a>
 </p>
 <div class="card">
@@ -39,7 +39,6 @@
 
                     <th class="text-center">تاریخ خرید</th>
                     <th class="text-center">توضیحات</th>
-                    <th class="text-center">تعویض باتری ماشین قبلی</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +60,6 @@
                         <td class="text-center">
                             <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success ms-1 "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a>
                             <a asp-page="./Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger ms-1"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>
-                            <a asp-page="/Admin/Customers/Create" asp-route-carId="@item.Id" asp-route-customerId="@Model.vm.Customer.Id" style="text-decoration:none" class="text-warning ms-1"><i class="bi bi-tools" style="font-size:1.4rem"></i></a>
                         </td>
                     </tr>
                 }

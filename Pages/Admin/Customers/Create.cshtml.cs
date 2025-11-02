@@ -203,43 +203,44 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     _context.Customer.Add(customer);
 
                 }
-                else
+                else //always add new car to keep the history
                 {
-                    if (CarId != null)
+                    //if (CarId != null)
+                    //{
+                    //    var car = await _context.Car.FindAsync(CarId);
+                    //    car.Battery = desc;
+                    //    car.Guaranty = vm.Guaranty;
+                    //    car.Make = selectedVehicle?.Make;
+                    //    car.LifeExpectancy = vm.LifeExpectancy;
+                    //    car.PurchaseDate = DateTime.Today;
+                    //    car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
+                    //    car.Comments = vm.Comments;
+                    //    car.Sms = 0;
+                    //    car.VehicleId = vm.VehicleId;
+
+                    //    _context.Attach(car).State = EntityState.Modified;
+
+                    //}
+                    //else
+                    //{
+                    var car = new Car()
                     {
-                        var car = await _context.Car.FindAsync(CarId);
-                        car.Battery = desc;
-                        car.Guaranty = vm.Guaranty;
-                        car.Make = selectedVehicle?.Make;
-                        car.LifeExpectancy = vm.LifeExpectancy;
-                        car.PurchaseDate = DateTime.Today;
-                        car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
-                        car.Comments = vm.Comments;
-                        car.Sms = 0;
-                        car.VehicleId = vm.VehicleId;
 
-                        _context.Attach(car).State = EntityState.Modified;
+                        Battery = desc,
+                        Guaranty = vm.Guaranty,
+                        Make = selectedVehicle?.Make,
+                        LifeExpectancy = vm.LifeExpectancy,
+                        PurchaseDate = DateTime.Today,
+                        ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
+                        Comments = vm.Comments,
+                        CustomerId = (int)CustomerId,
+                        Sms = 0,
+                        VehicleId = vm.VehicleId
+                    };
 
-                    }
-                    else
-                    {
-                        var car = new Car()
-                        {
-                            Battery = desc,
-                            Guaranty = vm.Guaranty,
-                            Make = selectedVehicle?.Make,
-                            LifeExpectancy = vm.LifeExpectancy,
-                            PurchaseDate = DateTime.Today,
-                            ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
-                            Comments = vm.Comments,
-                            CustomerId = (int)CustomerId,
-                            Sms = 0,
-                            VehicleId = vm.VehicleId
-                        };
+                    _context.Car.Add(car);
 
-                        _context.Car.Add(car);
-
-                    }
+                    //}
                 }
                 await _context.SaveChangesAsync();
 
