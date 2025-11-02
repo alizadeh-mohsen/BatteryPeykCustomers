@@ -10,10 +10,10 @@ namespace BatteryPeykCustomers.Model
         public int Id { get; set; }
 
         [MaxLength(20)]
-        [Required]
+        [Required(ErrorMessage ="این فیلد اجباری است")]
         public string Phone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="این فیلد اجباری است")]
         [MaxLength(50)]
         public string Name { get; set; }
 

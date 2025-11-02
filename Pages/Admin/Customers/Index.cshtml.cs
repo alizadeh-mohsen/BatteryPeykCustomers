@@ -44,22 +44,16 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task OnGetAsync()
         {
-            if (_context.Customer != null)
-            {
-                var query = from customer in _context.Customer
-                            where
-                            (string.IsNullOrEmpty(SearchNameString) || customer.Name.ToLower().Contains(SearchNameString.ToLower().Trim()))
-                            && (string.IsNullOrEmpty(SearchPhoneString) || customer.Phone.Contains(SearchPhoneString.Trim()))
-                            select customer;
+            var query = _context.Customer.OrderByDescending(c => c.Id).AsQueryable();
+            if (!string.IsNullOrEmpty(SearchNameString))
+                query = query.Where(c => c.Name.Contains(SearchNameString));
+            if (!string.IsNullOrEmpty(SearchPhoneString))
+                query = query.Where(c => c.Phone.Contains(SearchPhoneString));
+            if (!string.IsNullOrEmpty(SearchCommentString))
+                query = query.Include(c => c.Cars).Where(c => c.Cars.Any(c => c.Comments.Contains(SearchCommentString)));
 
-                if (!string.IsNullOrEmpty(SearchCommentString))
-                    query = query.Include(c => c.Cars).Where(c => c.Cars.Any(c => c.Comments.Contains(SearchCommentString)));
-                
-                query = query.OrderByDescending(c => c.Id);
-
-                Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);
-                Count = await _customerService.GetCount(query);
-            }
+            Customers = await _customerService.GetPaginatedResult(query, CurrentPage, PageSize);
+            Count = await _customerService.GetCount(query);
         }
 
     }

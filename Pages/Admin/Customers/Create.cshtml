@@ -4,11 +4,10 @@
 @{
     ViewData["Title"] = "Create";
 }
-<input type="hidden" asp-for="CustomerId" />
+<input type="hidden" asp-for="CustomerId" id="customerId" />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-check mb-2">
                 <input class="form-check-input" style="width:22px;height:22px;" id="used" type="checkbox" asp-for="vm.HasUsed" checked>
                 داغی دارد
@@ -24,12 +23,12 @@
             </div>
             <div class="form-group mb-2">
                 نام
-                <input asp-for="vm.Name" class="form-control" />
+                <input asp-for="vm.Name" class="form-control" id="name" />
                 <span asp-validation-for="vm.Name" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
                 آدرس
-                <textarea asp-for="vm.Address" class="form-control"></textarea>
+                <textarea asp-for="vm.Address" class="form-control" id="address"></textarea>
                 <span asp-validation-for="vm.Address" class="text-danger"></span>
             </div>
             <div class="form-group mb-2" id="car">
@@ -37,6 +36,7 @@
                 <select asp-for="vm.VehicleId" class="form-select" asp-items="ViewBag.Vehicles" id="vehicleSelect">
                     <option value=""></option>
                 </select>
+                <span asp-validation-for="vm.VehicleId" class="text-danger"></span>
 
             </div>
             <div class="form-group mb-2">
@@ -44,6 +44,8 @@
                 <select id="company" asp-for="vm.CompanyId" class="form-select" asp-items="ViewBag.Companies">
                     <option value=""></option>
                 </select>
+                <span asp-validation-for="vm.CompanyId" class="text-danger"></span>
+
             </div>
             <div class="form-group mb-2">
                 آمپر
@@ -59,6 +61,8 @@
 
                     </div>
                 </div>
+                <span asp-validation-for="vm.AmperId" class="text-danger"></span>
+
             </div>
             <div class="form-group mb-2">
                 گارانتی
@@ -85,8 +89,9 @@
             <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-info mt-2" />
                 <a asp-page="./Index" class="btn btn-success mt-2">بازگشت</a>
-
             </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+
         </form>
     </div>
 </div>
@@ -150,14 +155,9 @@
                     if (phoneNo) {
                         $.getJSON('@Url.Page("Create", "phoneNo")', { phoneNo: phoneNo }, function (data) {
                             if (data != null) {
-                            // attempt to read either camelCase or PascalCase id
-                            var customerId = data.id || data.Id;
-                            if (customerId) {
-                                var carsUrl = '@Url.Page("/Admin/Cars/Index")';
-                                window.location.href = carsUrl + '?customerId=' + encodeURIComponent(customerId);
-                            } else {
-                                console.log('Phone lookup returned a customer object without an Id:', data);
-                            }
+                            let customerId = data.id || data.Id;
+                             var carsUrl = '@Url.Page("/Admin/Cars/Index")';
+                             window.location.href = carsUrl + '?customerId=' + encodeURIComponent(customerId);
                         }
                         })
                     }
@@ -167,7 +167,7 @@
              $('#vehicleSelect').select2({
                         placeholder: "",
                         allowClear: true,
-                        width: '100%' 
+                        width: '100%'
                     });
         </script>
     }

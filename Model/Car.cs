@@ -9,7 +9,7 @@ namespace BatteryPeykCustomers.Model
         public int Id { get; set; }
 
         public int CustomerId { get; set; }
-        
+
         [ForeignKey("CustomerId")]
         public Customer? Customer { get; set; }
 
@@ -28,7 +28,7 @@ namespace BatteryPeykCustomers.Model
         public string? Comments { get; set; }
         public int Sms { get; set; }
 
-        //public int? VehicleId { get; set; }
+        public int? VehicleId { get; set; }
         //public int? CompanyId { get; set; }
         //public int? AmperId { get; set; }
 

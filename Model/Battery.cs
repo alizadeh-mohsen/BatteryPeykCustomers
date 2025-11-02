@@ -7,15 +7,15 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "سود را وارد کنید")]
         public int Profit { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage ="این فیلد اجباری است")]
         public int Quantity { get; set; }
-        
+
         public int AlertQuantity { get; set; }
-        
+
         public int AmperId { get; set; }
         public int CompanyId { get; set; }
 

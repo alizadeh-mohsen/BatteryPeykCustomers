@@ -29,9 +29,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
             CustomerId = customerId;
             vm = new CarAndCustomerViewModel
             {
-
                 Cars = await _context.Car.Where(c => c.CustomerId == customerId).ToListAsync(),
-                Customer = await _context.Customer.FirstAsync(c => c.Id == customerId)
+                Customer = await _context.Customer.FindAsync(customerId)
             };
             return Page();
         }

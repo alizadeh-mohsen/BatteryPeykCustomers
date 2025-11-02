@@ -4,12 +4,10 @@ namespace BatteryPeykCustomers.Model.ViewModel
 {
     public class CustomerViewModel
     {
-        [MaxLength(20)]
-        [Required]
+        [Required(ErrorMessage = "شماره موبایل را وارد کنید")]
         public string Phone { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "نام را وارد کنید")]
         public string Name { get; set; }
 
         public string? Address { get; set; }
@@ -20,21 +18,21 @@ namespace BatteryPeykCustomers.Model.ViewModel
 
         public DateTime? PurchaseDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "گارانتی را وارد کنید")]
         public int Guaranty { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "عمر مفید را وارد کنید")]
         public int LifeExpectancy { get; set; }
 
         public string? Comments { get; set; }
 
         public DateTime? ReplaceDate { get; set; }
-        public int? VehicleId{ get; set; }
-        public int? CompanyId{ get; set; }
-        public int? AmperId{ get; set; }
-        public bool HasUsed{ get; set; }
-        public bool GuarrantyCustomer{ get; set; }
-        public int Profit{ get; set; }
+        public int? VehicleId { get; set; }
+        public int? CompanyId { get; set; }
+        public int? AmperId { get; set; }
+        public bool HasUsed { get; set; }
+        public bool GuarrantyCustomer { get; set; }
+        public int Profit { get; set; }
         public bool IsCompany { get; set; }
     }
 }

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using BatteryPeykCustomers.Model;
-using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Model.ViewModel;
-using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
+using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Model.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -37,31 +36,55 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGetAsync(int? customerId, int? carId)
         {
-            if (customerId != null)
+            int? vehicleId = null;
+
+            if (customerId != null && carId != null)
             {
-                var customer = await _context.Customer.FindAsync(customerId);
-                customerId = customer.Id;
-                carId = carId;
-                vm = new CustomerViewModel
+                CustomerId = customerId;
+                var car = await _context.Car.Include(c => c.Customer).FirstOrDefaultAsync(c => c.CustomerId == customerId && c.Id == carId);
+                vehicleId = car?.VehicleId;
+                if (car?.Customer != null)
                 {
-                    Address = customer.Address,
-                    Phone = customer.Phone,
-                    Name = customer.Name,
-                    IsCompany = customer.IsCompany
-                };
+                    vm = new CustomerViewModel
+                    {
+                        Address = car.Customer.Address,
+                        Phone = car.Customer.Phone,
+                        Name = car.Customer.Name,
+                        IsCompany = car.Customer.IsCompany,
+                        Make = car.Make,
+                        VehicleId = car.VehicleId
+                    };
+
+                }
+            }
+            else
+            {
+                CustomerId = customerId;
+                var customer = await _context.Customer.FindAsync(customerId);
+
+                if (customer != null)
+                {
+                    vm = new CustomerViewModel
+                    {
+                        Address = customer.Address,
+                        Phone = customer.Phone,
+                        Name = customer.Name,
+                        IsCompany = customer.IsCompany,
+                    };
+                }
             }
 
-            await PopulateData();
+            await PopulateData(vehicleId);
             return Page();
         }
 
-        private async Task PopulateData()
+        private async Task PopulateData(object? selectedVehicle = null)
         {
             var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
             var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
             var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
-            ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
+            ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make", selectedVehicle);
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
         }
 
@@ -79,8 +102,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     ModelState.AddModelError("vm.Phone", "شماره موبایل باید با 0 شروع شود");
                     return await OnGetAsync(CustomerId, CarId);
                 }
+                if (vm.Phone.Length != 11)
+                {
+                    ModelState.AddModelError("vm.Phone", "تعداد اعداد شماره موبایل باید 11 تا باشد");
+                    return await OnGetAsync(CustomerId, CarId);
+                }
 
-                var existingCustomer =await _context.Customer.FirstOrDefaultAsync(x => x.Phone == vm.Phone);
+                var existingCustomer = await _context.Customer.FirstOrDefaultAsync(x => x.Phone == vm.Phone);
                 if (existingCustomer != null && CustomerId == null)
                 {
                     ModelState.AddModelError("vm.Phone", "مشتری مورد نظر عضو باشگاه مشتریان است. بعد از جستجو و پیدا کردن مشتری از منوی ماشین ها اقدام کنید");
@@ -100,7 +128,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 if (battery == null)
                 {
-                    ModelState.AddModelError("vm.Phone", "باتری انتخاب شده در انبار ثبت نشده. ابتدا باتری مورد نظر را به انبار اضافه کنید");
+                    ModelState.AddModelError("vm.CompanyId", "باتری انتخاب شده در انبار ثبت نشده. ابتدا باتری مورد نظر را به انبار اضافه کنید");
                     return await OnGetAsync(CustomerId, CarId);
                 }
                 battery.Quantity -= 1;
@@ -161,7 +189,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     PurchaseDate = DateTime.Today,
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
                     Comments = vm.Comments,
-                    //BatteryId=battery.Id
+                    VehicleId = vm.VehicleId,
+
                 } };
                     Customer customer = new()
                     {
@@ -181,11 +210,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         var car = await _context.Car.FindAsync(CarId);
                         car.Battery = desc;
                         car.Guaranty = vm.Guaranty;
+                        car.Make = selectedVehicle?.Make;
                         car.LifeExpectancy = vm.LifeExpectancy;
                         car.PurchaseDate = DateTime.Today;
                         car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
                         car.Comments = vm.Comments;
                         car.Sms = 0;
+                        car.VehicleId = vm.VehicleId;
 
                         _context.Attach(car).State = EntityState.Modified;
 
@@ -202,7 +233,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                             ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
                             Comments = vm.Comments,
                             CustomerId = (int)CustomerId,
-                            Sms = 0
+                            Sms = 0,
+                            VehicleId = vm.VehicleId
                         };
 
                         _context.Car.Add(car);
@@ -250,6 +282,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 .FirstOrDefaultAsync(c => c.CompanyId == companyId && c.AmperId == amperId);
             return new JsonResult(battery);
         }
+
         public async Task<JsonResult> OnGetPhoneNoAsync(string phoneNo)
         {
             var customer = await _context.Customer.FirstOrDefaultAsync(c => c.Phone == phoneNo);

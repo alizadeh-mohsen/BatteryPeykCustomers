@@ -48,7 +48,7 @@ namespace BatteryPeykCustomers.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [BindProperty]
-            [Required]
+            [Required(ErrorMessage ="این فیلد اجباری است")]
             [DataType(DataType.Text)]
             [Display(Name = "Recovery Code")]
             public string RecoveryCode { get; set; }
