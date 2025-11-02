@@ -16,7 +16,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 5;
 
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 

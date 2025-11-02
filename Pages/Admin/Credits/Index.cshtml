@@ -5,54 +5,59 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a class="btn btn-info" asp-page="Create">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;اعتبار جدید
-    </a>
-    <span class="mx-4">
-    مجموع اعتبار خرید:
-    <strong>
-        @Model.TotalCredit.ToString("N0")
-    </strong>
-    تومان
-    </span>
-</p>
+<div class="d-flex flex-row mb-2">
+    <div class="ms-3">
+        <a class="btn btn-primary" asp-page="Create">
+            <i class="bi bi-plus-square ms-2"></i>اعتبار جدید
+        </a>
+    </div>
+    <div>
+        مجموع اعتبار خرید:
+        <strong class="text-success">
+            @Model.TotalCredit.ToString("N0")
+        </strong>
+        تومان
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="row">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        تاریخ
+                    </th>
+                    <th>
+                        مبلغ
+                    </th>
+                    <th>
+                        توضیحات
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Credit)
+                {
+                    <tr>
+                        <td>
+                            @item.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Amount.ToString("N0")
+                        </td>
 
-<table class="table table-sm table-striped">
-    <thead>
-        <tr>
-            <th>
-                تاریخ
-            </th>
-            <th>
-                مبلغ
-            </th>
-            <th>
-                توضیحات
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Credit)
-        {
-            <tr>
-                <td>
-                    @item.Date.ToShortDateString()
-                </td>
-                <td>
-                    @item.Amount.ToString("N0")
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td class="text-center">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td class="text-center">
+                            <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

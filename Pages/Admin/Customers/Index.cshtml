@@ -6,8 +6,8 @@
 }
 
 <p>
-    <a class="btn btn-info" asp-page="Create">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;مشتری جدید
+    <a class="btn btn-primary" asp-page="Create">
+        <i class="bi bi-plus-square ms-2"></i>ثبت مشتری 
     </a>
 </p>
 
@@ -28,13 +28,12 @@
                 <label for="Comments">توضیحات</label>
             </div>
 
-            <button type="submit" class="btn btn-info mt-2"><i class="bi bi-search"></i>&nbsp;&nbsp;جستجو</button>
-            <button type="reset" class="btn btn-info mt-2"><i class="bi bi-eraser"></i>&nbsp;&nbsp;ریست</button>
+            <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-search ms-2"></i>جستجو</button>
+            <button type="reset" class="btn btn-primary mt-2"><i class="bi bi-eraser ms-2"></i>ریست</button>
 
         </form>
     </div>
-
-    <table class="table table-sm table-striped">
+    <table class="table table-sm table-striped mt-3">
         <thead>
             <tr>
                 <th class="text-center">
@@ -48,16 +47,16 @@
             {
                 <tr>
                     <td class="text-center">
-                        <a asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none"> @item.Name </a>
+                        <a class="text-info" asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none"> @item.Name </a>
 
                     </td>
                     <td class="text-center">
                         @item.Phone
                     </td>
                     <td class="text-center">
-                        @* <a asp-page="./Create" asp-route-customerId="@item.Id" asp-route-old="true" style="text-decoration:none" class="text-info"><i class="bi bi-arrow-clockwise" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp; *@
-                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp;
-                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>&nbsp;&nbsp;
+                        @* <a asp-page="./Create" asp-route-customerId="@item.Id" asp-route-old="true" style="text-decoration:none" class="text-primary"><i class="bi bi-arrow-clockwise" style="font-size:1.5rem"></i> </a> *@
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
                         <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-car-front-fill" style="font-size:1.5rem"></i> </a>
 
                     </td>
@@ -68,26 +67,28 @@
 
     @if (Model.Count > 10)
     {
-        <div class="d-flex justify-content-center">
+        <nav class="d-flex justify-content-center">
             <ul class="pagination">
-                <li class=" page-item @(!Model.ShowFirst? "disabled":"")">
-                    <a asp-page="./Index" asp-route-CurrentPage="1" class="page-link bg-info"><i class="bi bi-skip-backward-fill" style="@(!Model.ShowFirst? "color:gray":"");font-size:1.3rem"></i></a>
+
+                <li class=" @(!Model.ShowLast ? "disabled" : "")">
+                    <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-primary"><span style="@(!Model.ShowLast ? "color:gray" : "color:white")">صفحه آخر</span></a>
+                </li>
+                <li class="page-item  @(!Model.ShowNext ? "disabled" : "")">
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link bg-primary"><span style="@(!Model.ShowNext ? "color:gray" : "color:white")">بعدی</span></a>
                 </li>
 
                 <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
-                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link bg-info"><i class="bi bi-skip-start-fill" style="@(!Model.ShowPrevious? "color:gray":"");font-size:1.3rem"></i></a>
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage - 1)" class="page-link bg-primary"><span style="@(!Model.ShowPrevious ? "color:gray" : "color:white")">قبلی</span></a>
                 </li>
-                <li class="page-item  @(!Model.ShowNext? "disabled":"")">
-                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link bg-info"><i class="bi bi-skip-end-fill" style="@(!Model.ShowNext? "color:gray":"");font-size:1.3rem"></i></a>
+                <li class="@(!Model.ShowFirst? "disabled":"")">
+                    <a asp-page="./Index" asp-route-CurrentPage="1" class="page-link bg-primary"><span style="@(!Model.ShowFirst ? "color:gray" : "color:white")">صفحه اول</span></a>
                 </li>
+                
 
-                <li class="page-item  @(!Model.ShowLast? "disabled":"")">
-                    <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link bg-info"><i class="bi bi-skip-forward-fill" style="@(!Model.ShowLast? "color:gray":"");font-size:1.3rem"></i></a>
-                </li>
             </ul>
 
-        </div>
-
-        <div class="d-flex justify-content-center">Page @Model.CurrentPage of @Model.TotalPages ( @Model.Count)</div>
+        </nav>
+        <div class="d-flex justify-content-center">  صفحه @Model.CurrentPage از @Model.TotalPages  </div>
+        <div class="d-flex justify-content-center"> تعداد کل مشتریان: @Model.Count  </div>
     }
 </div>

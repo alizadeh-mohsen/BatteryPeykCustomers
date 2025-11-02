@@ -8,12 +8,12 @@
 <div class="row">
     <div class="col">
         <p>
-            <a class="btn btn-info" asp-page="Create">
-                <i class="bi bi-plus-square"></i>&nbsp;&nbsp;باتری جدید
+            <a class="btn btn-primary mb-2" asp-page="Create">
+                <i class="bi bi-plus-square ms-2"></i>باتری جدید
             </a>
 
-            <a class="btn btn-info" asp-page="New">
-                <i class="bi bi-plus-square"></i>&nbsp;&nbsp;ورودی جدید
+            <a class="btn btn-primary" asp-page="New">
+                <i class="bi bi-plus-square ms-2"></i>ورودی جدید
             </a>
         </p>
     </div>
@@ -36,7 +36,7 @@
                 آمپر
                 <select asp-for="SelectedAmper" class="form-select" asp-items="Model.AmperList"><option value=""></option></select>
             </div>
-            <input class="btn btn-info" type="submit" value="جستجو" />
+            <input class="btn btn-primary" type="submit" value="جستجو" />
         </form>
     </div>
 </div>
@@ -83,9 +83,9 @@
                         @Html.DisplayFor(modelItem => item.AlertQuantity)
                     </td>
                     <td class="text-center">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
                     </td>
                 </tr>
             }

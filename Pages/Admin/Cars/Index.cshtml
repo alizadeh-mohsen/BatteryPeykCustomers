@@ -7,8 +7,8 @@
 }
 
 <p>
-    <a class="btn btn-info" asp-page="/Admin/Customers/Create" asp-route-customerid="@Model.vm.Customer.Id">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;اضافه کردن ماشین جدید
+    <a class="btn btn-primary" asp-page="/Admin/Customers/Create" asp-route-customerid="@Model.vm.Customer.Id">
+        <i class="bi bi-plus-square ms-2"></i>اضافه کردن ماشین جدید
     </a>
 </p>
 <div class="card">
@@ -18,54 +18,56 @@
                 @Model.vm.Customer.Name
             </a>
 
-            <a class="btn btn-outline-info mx-2 font-weight-light" href=tel:'@Model.vm.Customer.Phone'>
+            <a class="btn btn-outline-primary mx-2 font-weight-light" href=tel:'@Model.vm.Customer.Phone'>
                 @Model.vm.Customer.Phone
                 <i class="bi bi-telephone">
                 </i>
             </a>
     </div>
 </div>
+<div class="container mt-3">
+    <div class="row">
+        <table class="table table-sm table-striped mt-3">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        ماشین
+                    </th>
+                    <th class="text-center">
+                        باتری
+                    </th>
 
-
-<table class="table table-sm table-striped">
-    <thead>
-        <tr>
-            <th class="text-center">
-                ماشین
-            </th>
-            <th class="text-center">
-                باتری
-            </th>
-
-            <th class="text-center">تاریخ خرید</th>
-            <th class="text-center">توضیحات</th>
-            <th class="text-center">تعویض باتری ماشبن قبلی</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.vm.Cars)
-        {
-            <tr>
-                <td class="text-center">
-                    <a asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none"> @item.Make </a>
-                </td>
-                <td class="text-center">
-                    @item.Battery
-                </td>
-                <td class="text-center">
-                    @item.PurchaseDate.ToShortDateString()
-                </td>
-                <td class="text-center">
-                    @item.Comments
-                </td>
-                <td class="text-center">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success mx-1 "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> |
-                    <a asp-page="./Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger mx-1"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> |
-                    <a asp-page="/Admin/Customers/Create" asp-route-carId="@item.Id" asp-route-customerId="@Model.vm.Customer.Id" style="text-decoration:none" class="text-info mx-1"><i class="bi bi-tools" style="font-size:1.4rem"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<a class="btn btn-success ml-2" asp-page="/Admin/Customers/Index">بازگشت</a>
+                    <th class="text-center">تاریخ خرید</th>
+                    <th class="text-center">توضیحات</th>
+                    <th class="text-center">تعویض باتری ماشین قبلی</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.vm.Cars)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <a class="text-info" asp-page="Details" asp-route-id="@item.Id" style="text-decoration:none"> @item.Make </a>
+                        </td>
+                        <td class="text-center">
+                            @item.Battery
+                        </td>
+                        <td class="text-center">
+                            @item.PurchaseDate.ToShortDateString()
+                        </td>
+                        <td class="text-center">
+                            @item.Comments
+                        </td>
+                        <td class="text-center">
+                            <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success ms-1 "><i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="./Delete" asp-route-customerId="@item.Id" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger ms-1"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="/Admin/Customers/Create" asp-route-carId="@item.Id" asp-route-customerId="@Model.vm.Customer.Id" style="text-decoration:none" class="text-warning ms-1"><i class="bi bi-tools" style="font-size:1.4rem"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<a class="btn btn-primary ml-2" asp-page="/Admin/Customers/Index">بازگشت</a>
 

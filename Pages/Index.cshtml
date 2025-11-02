@@ -86,7 +86,7 @@
                                             var monthsPassed = Model.CalcLife();
                                             @if (monthsPassed < Model.Customer.LifeExpectancy / 2)
                                             {
-                        <span class="text-success">سالم</span>
+                        <span>سالم</span>
                                             }
                                             else if ((Model.Customer.LifeExpectancy / 2) < monthsPassed && monthsPassed < Model.Customer.LifeExpectancy - 2)
                                             {

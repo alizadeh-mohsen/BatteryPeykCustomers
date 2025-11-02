@@ -19,83 +19,46 @@
                 <input type="text" id="input2" class="form-control" />
                 <input style="display:none" type="text" id="to" asp-for="To" />
             </div>
-            <input class="btn btn-info" type="submit" value="گزارش" />
+            <input class="btn btn-primary" type="submit" value="گزارش" />
         </form>
     </div>
 </div>
-<div style="@(Model.To==null?"display:none;":"dispaly:block")">
-    <div class="mx-auto">
-        <p>
-            از تاریخ:
-            <strong>
-                @(@Model.From != null ? @Model.From.Value.ToShortDateString() : "")
-            </strong>
-        </p><p>
-            تا تاریخ:
-            <strong>
-                @(@Model.To != null ? @Model.To.Value.ToShortDateString() : "")
-            </strong>
-        </p>
+<div class="d-flex flex-row justify-content-center mb-3">
+    <div class="ms-3">
+        از تاریخ:
+        <span>
+            @(@Model.From != null ? @Model.From.Value.ToShortDateString() : "")
+        </span>
     </div>
-    <div class="row mx-auto mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">باتری ها</h5>
-                <p class="card-text">
-                    تعداد باتری فروخته شده:
-                    <strong>@Model.vm.TotalBatterySold</strong>
-                </p>
-
-            </div>
-        </div>
+    <div>
+        تا تاریخ:
+        <span>
+            @(@Model.To != null ? @Model.To.Value.ToShortDateString() : "")
+        </span>
     </div>
-    <div class="row mx-auto mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">
-                    <a asp-page="/Admin/Profits/Index" style="text-decoration:none">
-                        درآمد ها
-                    </a>
-                </h5>
-                <p class="card-text">
-                    مجموع درآمد:
-                    <strong>@Model.vm.TotalProfit.ToString("N0")</strong>
-                </p>
-
-            </div>
-        </div>
-    </div>
-    <div class="row mx-auto mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">
-                    <a asp-page="/Admin/Expenses/Index" style="text-decoration:none">
-                        هزینه ها
-                    </a>
-                </h5>
-
-                <p class="card-text">
-                    مجموع هزینه ها:
-                    <strong>  @Model.vm.TotalLoss.ToString("N0")</strong>
-                </p>
+</div>
+<div class="row mx-auto mb-3">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">
+                تعداد باتری فروخته شده:
+                <span>@Model.vm.TotalBatterySold</span>
+                
+            </p>
+            <p>
+                جمع درآمد:
+                <span>@Model.vm.TotalProfit.ToString("N0")</span>
+            </p>
+            <p>
+                جمع هزینه ها:
+                <span>@Model.vm.TotalLoss.ToString("N0")</span>
+            </p>
+            <p>
+                سود:
+                <span>@Model.vm.Profit.ToString("0,000")</span>
+            </p>
 
 
-            </div>
-        </div>
-    </div>
-
-    <div class="row mx-auto mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">سود</h5>
-
-                <p class="card-text">
-
-                    <strong>       @Model.vm.Profit.ToString("0,000")</strong>
-                </p>
-
-
-            </div>
         </div>
     </div>
 </div>

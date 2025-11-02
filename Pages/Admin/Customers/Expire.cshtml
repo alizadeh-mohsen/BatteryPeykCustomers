@@ -7,49 +7,48 @@
 }
 
 
-<div class="text-right">
+<div class="text-right mb-2">
     تعداد تعویضی ها : @Model.vm.count
 </div>
-    <div class="row">
+<div class="row">
 
-        @foreach (var item in Model.vm.Expires)
-        {
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.CustomerId" style="text-decoration:none">@item.Name</a>
-
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-center">
-                            <a class="btn btn-outline-info font-weight-light" href=tel:'@item.Phone'>
-                                @item.Phone
-                                <i class="bi bi-telephone">
-                                </i>
-                            </a>
-
-                        </h6>
-                        <div class="card-text mb-2">
-                            <div><strong> ماشین: </strong>@item.Make </div>
-                            <div><strong> باتری: </strong>@item.Battery </div>
-                            <div><strong> تاریخ خرید: </strong>@item.PurchaseDate.ToShortDateString() </div>
-                            <div><strong> طول عمر: </strong>@item.LifeExpectancy </div>
-                            <div><strong> تاریخ تعویض: </strong>@item.ReplaceDate.ToShortDateString() </div>
-                            <div><strong> گارانتی: </strong>@item.Guaranty</div>
-                            <div><strong> آدرس: </strong>@item.Address </div>
-                            <div><strong> توضیحات: </strong>@item.Comments </div>
-                        </div>
-                        <form method="post">
-                            <input type="text" hidden name="name" value="@item.Name" />
-                            <input type="text" hidden name="phone" value="@item.Phone" />
-                            <input type="text" hidden name="id" value="@item.Id" />
-                            <button class="btn btn-success" type="submit">ارسال پیامک</button>
-                        <a class="btn btn-outline-info font-weight-light" href=@item.VipLink>
-                                باشگاه مشتریان
+    @foreach (var item in Model.vm.Expires)
+    {
+        <div class="col-md-4 ">
+            <div class="card mb-3 shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">
+                        <a class="text-info" asp-page="/Admin/Cars/Index" asp-route-customerId="@item.CustomerId" style="text-decoration:none">@item.Name</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-center">
+                        <a class="btn btn-outline-primary font-weight-light" href=tel:'@item.Phone'>
+                            @item.Phone
+                            <i class="bi bi-telephone">
+                            </i>
                         </a>
-                        </form>
+
+                    </h6>
+                    <div class="card-text mb-3">
+                        <div><strong> ماشین: </strong>@item.Make </div>
+                        <div><strong> باتری: </strong>@item.Battery </div>
+                        <div><strong> تاریخ خرید: </strong>@item.PurchaseDate.ToShortDateString() </div>
+                        <div><strong> طول عمر: </strong>@item.LifeExpectancy </div>
+                        <div><strong> تاریخ تعویض: </strong>@item.ReplaceDate.ToShortDateString() </div>
+                        <div><strong> گارانتی: </strong>@item.Guaranty</div>
+                        <div><strong> آدرس: </strong>@item.Address </div>
+                        <div><strong> توضیحات: </strong>@item.Comments </div>
                     </div>
+                    <form method="post" >
+                        <input type="text" hidden name="name" value="@item.Name" />
+                        <input type="text" hidden name="phone" value="@item.Phone" />
+                        <input type="text" hidden name="id" value="@item.Id" />
+                        <button class="btn btn-primary" type="submit">ارسال پیامک</button>
+                        <a class="btn btn-outline-info font-weight-light" href=@item.VipLink>
+                            باشگاه مشتریان
+                        </a>
+                    </form>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>

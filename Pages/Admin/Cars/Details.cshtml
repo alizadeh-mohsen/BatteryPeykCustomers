@@ -23,35 +23,35 @@
         <p class="card-text">
             <table class="table table-sm">
                 <tr>
-                    <td class="text-center"><strong>تاریخ خرید</strong></td>
+                    <td class="text-center">تاریخ خرید</td>
                     <td class="text-center">
                         @Model.car.PurchaseDate.ToShortDateString()
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center"><strong>گارانتی</strong></td>
+                    <td class="text-center">گارانتی</td>
                     <td class="text-center">@Model.car.Guaranty</td>
                 </tr>
                 <tr>
-                    <td class="text-center"><strong>طول عمر</strong></td>
+                    <td class="text-center">طول عمر</td>
                     <td class="text-center">@Model.car.LifeExpectancy</td>
                 </tr>
                 <tr>
-                    <td class="text-center"><strong>زمان تعویض</strong></td>
+                    <td class="text-center">زمان تعویض</td>
                     <td class="text-center">
                         @Model.car.ReplaceDate.ToShortDateString()
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center"><strong>توضیحات</strong></td>
+                    <td class="text-center">توضیحات</td>
                     <td class="text-center">@Model.car.Comments</td>
                 </tr>
             </table>
 
         </p>
-        <a class="btn btn-Warning ml-2" asp-page="./Edit" asp-route-id="@Model.car.Id">ویرایش</a>
-        <a class="btn btn-success ml-2" href='javascript:history.go(-1)'>بازگشت</a>
+        <a class="btn btn-primary ml-2" asp-page="./Edit" asp-route-id="@Model.car.Id">ویرایش</a>
+        <a class="btn btn-primary ml-2" href='javascript:history.go(-1)'>بازگشت</a>
 
     </div>
 </div>

@@ -4,44 +4,47 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="row">
 <p>
-    <a class="btn btn-info" asp-page="Create">
-        <i class="bi bi-plus-square"></i>&nbsp;&nbsp;آمپر جدید
+    <a class="btn btn-primary" asp-page="Create">
+        <i class="bi bi-plus-square ms-2"></i>آمپر جدید
     </a>
 </p>
-<div class="row">
+</div>
+<div class="container">
+    <div class="row">
 
-    <table class="table table-sm table-striped">
+        <table class="table table-sm table-striped">
 
-        <thead>
-            <tr>
-                <th>
-                    عنوان
-                </th>
-                <th>
-                    آمپر
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Amper)
-            {
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amperage)
-                    </td>
-                    <td class="text-center">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none" class="text-success"> <i class="bi bi-pencil-square" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill" style="font-size:1.5rem"></i> </a> &nbsp;&nbsp;
-                        <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-info"><i class="bi bi-info-square-fill" style="font-size:1.5rem"></i> </a>
-                    </td>
+                    <th>
+                        عنوان
+                    </th>
+                    <th>
+                        آمپر
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Amper)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amperage)
+                        </td>
+                        <td class="text-center">
+                            <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
+                            <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
