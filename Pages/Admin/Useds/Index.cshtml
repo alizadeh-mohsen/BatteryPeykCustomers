@@ -31,12 +31,17 @@
                 <strong>
                     آمپر:
                 </strong>
-                    <span> @Model.Used.Amperage.ToString("N0")</span>
+                <span> @Model.Used.Amperage.ToString("N0")</span>
             </p>
             <div class="d-flex justify-content-end">
                 <a asp-page="./Edit" asp-route-id="@Model.Used.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a> &nbsp;
-                <a asp-page="./Delete" asp-route-id="@Model.Used.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a> &nbsp;
-                <a asp-page="./Details" asp-route-id="@Model.Used.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
+
+                <form method="post" asp-page-handler="Reset" class="ms-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Used.Id" />
+                    <button type="submit" class="btn btn-sm btn-danger" >ریست
+                    </button>
+                </form>
             </div>
         </div>
     </div>

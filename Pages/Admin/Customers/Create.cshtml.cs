@@ -240,6 +240,13 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                     _context.Car.Add(car);
 
+                    var customer = await _context.Customer
+                        .FindAsync(CustomerId);
+                    customer.Address = vm.Address;
+                    customer.Name = vm.Name;
+                    _context.Attach(customer).State = EntityState.Modified;
+
+
                     //}
                 }
                 await _context.SaveChangesAsync();
