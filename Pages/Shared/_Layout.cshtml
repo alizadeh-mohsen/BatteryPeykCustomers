@@ -30,48 +30,53 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light " asp-page="/Admin/Customers/Index">مشتریان</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Customers/Expire">تعویضی ها</a>
-                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Customers/Expire">تعویضی ها</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-page="/Admin/Batteries/Index">انبار</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Useds/Index">داغی ها</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Guaranties/Index">گارانتی ها</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Profits/Index">درآمد ها</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Expenses/Index">هزینه ها</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Debts/Index">بدهکاران</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Credits/Index">اعتبار خرید</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-page="/Admin/Report/Index">گزارش سود</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    اطلاعات پایه
-                                </a>
-                                <ul class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                            </li>  @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Useds/Index">داغی ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Guaranties/Index">گارانتی ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Profits/Index">درآمد ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Expenses/Index">هزینه ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Debts/Index">بدهکاران</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Credits/Index">اعتبار خرید</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-page="/Admin/Report/Index">گزارش سود</a>
+                                </li>
 
-                                    <li style="text-align:right">
-                                        <a class="dropdown-item text-light" asp-page="/Admin/Ampers/Index">آمپرها</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        اطلاعات پایه
+                                    </a>
+                                    <ul class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
 
-                                    </li>
-                                    <li style="text-align:right">
-                                        <a class="dropdown-item text-light" asp-page="/Admin/Brands/Index">برندها</a>
+                                        <li style="text-align:right">
+                                            <a class="dropdown-item text-light" asp-page="/Admin/Ampers/Index">آمپرها</a>
 
-                                    </li>
-                                    @* <li style="text-align:right">
+                                        </li>
+                                        <li style="text-align:right">
+                                            <a class="dropdown-item text-light" asp-page="/Admin/Brands/Index">برندها</a>
+
+                                        </li>
+                                        @* <li style="text-align:right">
                                 <a class="dropdown-item text-light" asp-page="/Admin/Counterparties/Index">طرف حسابها</a>
 
                                 </li>
@@ -79,15 +84,13 @@
                                 <a class="dropdown-item text-light" asp-page="/Admin/Reasons/Index">بابت ها</a>
 
                                 </li> *@
-                                    <li style="text-align:right">
-                                        <a class="dropdown-item text-light" asp-page="/Admin/Vehicles/Index">ماشین ها</a>
+                                        <li style="text-align:right">
+                                            <a class="dropdown-item text-light" asp-page="/Admin/Vehicles/Index">ماشین ها</a>
 
-                                    </li>
-                                </ul>
-                            </li>
-
-
-
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                         }
                     </ul>
                     <partial name="_LoginPartial" />
@@ -105,11 +108,11 @@
 
     <footer class="border-top footer text-light bg-primary text-center">
         <div class="container">
-           
+
             <a class="ms-2 text-decoration-none" href="https://BatteryPeyk.com">باتری پیک </a>
             -
             <span class="me-2 text-light">با مدیریت علیرضا رنجبر</span>
-            
+
         </div>
     </footer>
 

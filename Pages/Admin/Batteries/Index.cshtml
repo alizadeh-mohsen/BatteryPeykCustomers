@@ -6,17 +6,21 @@
 }
 
 <div class="row">
-    <div class="col">
-        <p>
-            <a class="btn btn-primary mb-2" asp-page="Create">
-                <i class="bi bi-plus-square ms-2"></i>باتری جدید
-            </a>
 
-            <a class="btn btn-primary" asp-page="New">
-                <i class="bi bi-plus-square ms-2"></i>ورودی جدید
-            </a>
-        </p>
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col">
+            <p>
+                <a class="btn btn-primary mb-2" asp-page="Create">
+                    <i class="bi bi-plus-square ms-2"></i>باتری جدید
+                </a>
+
+                <a class="btn btn-primary" asp-page="New">
+                    <i class="bi bi-plus-square ms-2"></i>ورودی جدید
+                </a>
+            </p>
+        </div>
+    }
     <div class="col">
         موجودی کل انبار:
         <span>@Model.Total</span>
@@ -40,54 +44,57 @@
         </form>
     </div>
 </div>
-    <table class="table table-sm table-striped">
-        <thead>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>
+                باتری
+            </th>
+            <th>
+                آمپر
+            </th>
+            <th class="text-center">
+                موجودی
+            </th>
+            <th>
+                سود
+            </th>
+            <th class="text-center">
+                تعداد هشدار
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Battery)
+        {
             <tr>
-                <th>
-                    باتری
-                </th>
-                <th>
-                    آمپر
-                </th>
-                <th class="text-center">
-                    موجودی
-                </th>
-                <th>
-                    سود
-                </th>
-                <th class="text-center">
-                    تعداد هشدار
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amper.Title)
+                </td>
+                <td class="text-center">
+                    <span class="@(item.Quantity <= item.AlertQuantity ? "text-danger" : "text-success")">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </span>
+                </td>
+                <td>
+                    @item.Profit.ToString("N0")
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.AlertQuantity)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td class="text-center">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
+                    </td>
+                }
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Battery)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Company.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amper.Title)
-                    </td>
-                    <td class="text-center">
-                        <span class="@(item.Quantity <= item.AlertQuantity? "text-danger":"text-success")">
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </span>
-                    </td>
-                    <td>
-                        @item.Profit.ToString("N0")
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.AlertQuantity)
-                    </td>
-                    <td class="text-center">
-                    <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a>
-                    <a asp-page="./Delete" asp-route-id="@item.Id" style="text-decoration:none" class="text-danger"><i class="bi bi-trash-fill ms-2" style="font-size:1.5rem"></i> </a>
-                    <a asp-page="./Details" asp-route-id="@item.Id" style="text-decoration:none" class="text-primary"><i class="bi bi-primary-square-fill" style="font-size:1.5rem"></i> </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

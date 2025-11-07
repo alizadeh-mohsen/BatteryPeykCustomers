@@ -26,6 +26,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         [BindProperty]
         public int? CarId { get; set; }
 
+        // Expose whether the current user is in the Admin role
 
         public CreateModel(ApplicationDbContext context, IConfiguration configuration)
         {
@@ -36,6 +37,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGetAsync(int? customerId, int? carId)
         {
+            // set role info for the page
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
+
             int? vehicleId = null;
 
             if (customerId != null && carId != null)
@@ -90,6 +96,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             try
             {
                 if (!ModelState.IsValid)
@@ -205,24 +214,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else //always add new car to keep the history
                 {
-                    //if (CarId != null)
-                    //{
-                    //    var car = await _context.Car.FindAsync(CarId);
-                    //    car.Battery = desc;
-                    //    car.Guaranty = vm.Guaranty;
-                    //    car.Make = selectedVehicle?.Make;
-                    //    car.LifeExpectancy = vm.LifeExpectancy;
-                    //    car.PurchaseDate = DateTime.Today;
-                    //    car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
-                    //    car.Comments = vm.Comments;
-                    //    car.Sms = 0;
-                    //    car.VehicleId = vm.VehicleId;
-
-                    //    _context.Attach(car).State = EntityState.Modified;
-
-                    //}
-                    //else
-                    //{
                     var car = new Car()
                     {
 
@@ -245,9 +236,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     customer.Address = vm.Address;
                     customer.Name = vm.Name;
                     _context.Attach(customer).State = EntityState.Modified;
-
-
-                    //}
                 }
                 await _context.SaveChangesAsync();
 

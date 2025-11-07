@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
@@ -28,6 +28,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             try
             {
                 if (!ModelState.IsValid)

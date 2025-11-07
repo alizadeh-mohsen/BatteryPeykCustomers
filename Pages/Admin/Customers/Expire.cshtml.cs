@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using BatteryPeykCustomers.Data;
-using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Model.ViewModel;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
+using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Model.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -25,6 +25,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task OnGetAsync()
         {
+            if (!User.IsInRole("Admin"))
+                return;
+
             if (_context.Customer != null)
             {
                 var result = await _context.Car.Include(c => c.Customer).
@@ -43,7 +46,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         Address = c.Customer.Address,
                         Comments = c.Comments,
                         Guaranty = c.Guaranty,
-                        VipLink = "https://batterypeyk.com/vip.html?m="+c.Customer.Phone
+                        VipLink = "https://batterypeyk.com/vip.html?m=" + c.Customer.Phone
 
 
                     })

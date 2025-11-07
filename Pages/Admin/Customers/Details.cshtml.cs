@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -21,7 +21,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null )
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
+            if (id == null)
             {
                 return NotFound();
             }
@@ -31,7 +34,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Customer = customer;
             }

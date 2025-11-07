@@ -22,12 +22,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
 
             if (customer == null)
             {
@@ -48,6 +51,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             try
             {
                 if (!ModelState.IsValid)
@@ -62,10 +68,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
 
                 var customerOld = _context.Customer.FirstOrDefault(c => c.Id != Customer.Id && c.Phone == Customer.Phone);
-               if(customerOld != null)
+                if (customerOld != null)
                 {
                     ModelState.AddModelError("Customer.Phone", "مشتری دیگری با این شماره تماس قبلا ثبت شده.");
-                    return Page() ;
+                    return Page();
 
                 }
 
@@ -104,7 +110,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 return RedirectToPage("./Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -112,7 +118,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         private bool CustomerExists(int id)
         {
-          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
@@ -24,6 +20,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             if (id == null)
             {
                 return NotFound();
@@ -45,6 +44,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
+            if (!User.IsInRole("Admin"))
+                return RedirectToPage("./Index");
+
             if (id == null)
             {
                 return NotFound();

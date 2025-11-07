@@ -1,9 +1,9 @@
 using BatteryPeykCustomers.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +15,12 @@ CultureInfo.DefaultThreadCurrentCulture
 builder.Services.AddRazorPages();
 builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
-    builder.Configuration.GetConnectionString("defaultConnection")    ));
+    builder.Configuration.GetConnectionString("defaultConnection")));
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>() // <-- enable roles
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Identity/Account/Login";
@@ -26,6 +28,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 var app = builder.Build();
+
+// Seed roles and admin user
+SeedDatabase();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -55,10 +60,7 @@ app.UseCors(x => x
                .AllowAnyHeader()
                .AllowAnyOrigin()); // allow credentials
 
-//SeedDatabase();
 app.UseAuthorization();
-
-
 
 app.MapRazorPages();
 app.MapControllers();
