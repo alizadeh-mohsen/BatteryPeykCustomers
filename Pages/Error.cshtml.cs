@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
@@ -13,6 +14,8 @@ namespace BatteryPeykCustomers.Pages
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         private readonly ILogger<ErrorModel> _logger;
+        public string ErrorMessage { get; private set; }
+
 
         public ErrorModel(ILogger<ErrorModel> logger)
         {
@@ -22,6 +25,13 @@ namespace BatteryPeykCustomers.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            if (exceptionFeature != null)
+            {
+                ErrorMessage = exceptionFeature.Error.Message;
+            }
+
+
         }
     }
 }
