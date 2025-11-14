@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251113230422_usedBatteryReoprttable")]
+    partial class usedBatteryReoprttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -339,8 +342,6 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("UsedHistory");
                 });
 
@@ -602,17 +603,6 @@ namespace BatteryPeykCustomers.Migrations
                     b.Navigation("Amper");
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("BatteryPeykCustomers.Model.UsedHistory", b =>
-                {
-                    b.HasOne("BatteryPeykCustomers.Model.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

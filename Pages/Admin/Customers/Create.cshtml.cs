@@ -133,23 +133,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 battery.Quantity -= 1;
 
-                if (vm.HasUsed)
-                {
-                    if (used == null)
-                    {
-                        used = new Used
-                        {
-                            Quantity = 1,
-                            Amperage = battery.Amper.Amperage
-                        };
-                        _context.Used.Add(used);
-                    }
-                    else
-                    {
-                        used.Quantity += 1;
-                        used.Amperage += battery.Amper.Amperage;
-                    }
-                }
+
+
                 if (vm.GuarrantyCustomer)
                 {
                     var guarranty = new Guarranty
@@ -177,7 +162,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 };
 
                 _context.Profit.Add(profit);
-
+                Customer? customer = null;
                 if (CustomerId == null)
                 {
                     var Cars = new List<Car> { new()
@@ -190,9 +175,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
                     Comments = vm.Comments,
                     VehicleId = vm.VehicleId,
+                    UsedBattery = vm.UsedBatteryBrand +" " + vm.UsedBatteryAmper
 
                 } };
-                    Customer customer = new()
+                    customer = new()
                     {
                         Address = vm.Address,
                         Name = vm.Name,
@@ -205,24 +191,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else //always add new car to keep the history
                 {
-                    //if (CarId != null)
-                    //{
-                    //    var car = await _context.Car.FindAsync(CarId);
-                    //    car.Battery = desc;
-                    //    car.Guaranty = vm.Guaranty;
-                    //    car.Make = selectedVehicle?.Make;
-                    //    car.LifeExpectancy = vm.LifeExpectancy;
-                    //    car.PurchaseDate = DateTime.Today;
-                    //    car.ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy);
-                    //    car.Comments = vm.Comments;
-                    //    car.Sms = 0;
-                    //    car.VehicleId = vm.VehicleId;
-
-                    //    _context.Attach(car).State = EntityState.Modified;
-
-                    //}
-                    //else
-                    //{
                     var car = new Car()
                     {
 
@@ -235,21 +203,49 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         Comments = vm.Comments,
                         CustomerId = (int)CustomerId,
                         Sms = 0,
-                        VehicleId = vm.VehicleId
+                        VehicleId = vm.VehicleId,
+                        UsedBattery = vm.UsedBatteryBrand + " " + vm.UsedBatteryAmper
                     };
 
                     _context.Car.Add(car);
 
-                    var customer = await _context.Customer
-                        .FindAsync(CustomerId);
+                    customer = await _context.Customer.FindAsync(CustomerId);
                     customer.Address = vm.Address;
                     customer.Name = vm.Name;
                     _context.Attach(customer).State = EntityState.Modified;
-
-
-                    //}
                 }
+
                 await _context.SaveChangesAsync();
+
+                if (vm.HasUsed)
+                {
+                    if (used == null)
+                    {
+                        used = new Used
+                        {
+                            Quantity = 1,
+                            Amperage = vm.UsedBatteryAmper
+                        };
+                        _context.Used.Add(used);
+                    }
+                    else
+                    {
+                        used.Quantity += 1;
+                        used.Amperage += vm.UsedBatteryAmper;
+                    }
+
+                    var usedHistory = new UsedHistory
+                    {
+                        Amper = vm.UsedBatteryAmper,
+                        Brand = vm.UsedBatteryBrand,
+                        CustomerId = CustomerId != null ? CustomerId.Value : customer.Id,
+                        Date = DateTime.Now
+                    };
+                    _context.UsedHistory.Add(usedHistory);
+                }
+
+                await _context.SaveChangesAsync();
+
 
                 //}
 

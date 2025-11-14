@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251113230221_usedBatteryReoprt")]
+    partial class usedBatteryReoprt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -318,32 +321,6 @@ namespace BatteryPeykCustomers.Migrations
                     b.ToTable("Used");
                 });
 
-            modelBuilder.Entity("BatteryPeykCustomers.Model.UsedHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Amper")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("UsedHistory");
-                });
-
             modelBuilder.Entity("BatteryPeykCustomers.Model.Vehicle", b =>
                 {
                     b.Property<int>("Id")
@@ -602,17 +579,6 @@ namespace BatteryPeykCustomers.Migrations
                     b.Navigation("Amper");
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("BatteryPeykCustomers.Model.UsedHistory", b =>
-                {
-                    b.HasOne("BatteryPeykCustomers.Model.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

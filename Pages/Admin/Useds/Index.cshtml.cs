@@ -35,6 +35,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
             used.Amperage = 0;
 
             _context.Update(used);
+            var usedHistories = await _context.UsedHistory.ToListAsync();
+            _context.UsedHistory.RemoveRange(usedHistories);
             await _context.SaveChangesAsync();
 
             return RedirectToPage();

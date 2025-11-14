@@ -34,5 +34,7 @@ namespace BatteryPeykCustomers.Model.ViewModel
         public bool GuarrantyCustomer { get; set; }
         public int Profit { get; set; }
         public bool IsCompany { get; set; }
+        public byte UsedBatteryAmper { get; set; }
+        public string UsedBatteryBrand { get; set; }
     }
 }

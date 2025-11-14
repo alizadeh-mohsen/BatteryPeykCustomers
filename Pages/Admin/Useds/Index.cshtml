@@ -8,15 +8,15 @@
 
 
 
-<p>
+@* <p>
     <a class="btn btn-primary" asp-page="Create">
         <i class="bi bi-plus-square ms-2"></i> داغی جدید
     </a>
 </p>
-
+ *@
 
 <div class="d-flex justify-content-center">
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 22rem;">
         <div class="card-body">
             <h5 class="card-title text-center">داغی ها</h5>
             <p class="card-text">
@@ -27,22 +27,26 @@
                     @Model.Used.Quantity
                 </span>
             </p>
-            <p>
+            <p class="mb-5">
                 <strong>
                     آمپر:
                 </strong>
                 <span> @Model.Used.Amperage.ToString("N0")</span>
             </p>
             <div class="d-flex justify-content-end">
-                <a asp-page="./Edit" asp-route-id="@Model.Used.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a> &nbsp;
+                <a asp-page="./Edit" asp-route-id="@Model.Used.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:2rem"></i> </a> &nbsp;
 
-                <form method="post" asp-page-handler="Reset" class="ms-2">
+                <form method="post" asp-page-handler="Reset">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@Model.Used.Id" />
-                    <button type="submit" class="btn btn-sm btn-danger" >ریست
-                    </button>
+                    <button type="submit" class="btn btn-danger ms-2">ریست</button>
+                    <a class="btn btn-primary ms-2" asp-page="ExportUsedPdf">
+                        <i class="bi bi-file-earmark-pdf-fill text-danger ms-2"></i>گزارش داغی ها
+                    </a>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+

@@ -1,0 +1,83 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Report.UsedModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container pt-3">
+    <div class="row d-flex justify-content-center mb-5">
+        <div class="col-4">
+            تعداد:
+            @Model.Count
+        </div>
+        <div class="col-4">
+            آمپر:
+
+            @Model.TotalAmper
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-sm table-striped mx-2">
+
+            <thead>
+                <tr>
+                    <th>
+                        باتری
+                    </th>
+                    <th>
+                        آمپر
+                    </th>
+                    <th>
+                        مشتری
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UsedHistories)
+                {
+                    <tr>
+                        <td>
+                            @item.Brand
+                        </td>
+                        <td>
+                            @item.Amper
+                        </td>
+                        <td>
+                            <a asp-page="/Admin/Cars/Index" asp-route-customerId="@item.CustomerId" class="text-decoration-none text-info">@item.Customer.Name </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script src="~/js/persianDatepicker.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#input1, #input2").persianDatepicker(
+                    {
+                        cellWidth: 30,
+                        cellHeight: 30,
+                        fontSize: 14,
+
+                        onSelect: function () {
+
+                            let from = $("#input1").attr("data-gdate");
+                            let to = $("#input2").attr("data-gdate");
+                            $("#from").val(from);
+                            $("#to").val(to);
+                        }
+                    }
+                );
+            });
+        </script>
+
+    }
+}
+
+

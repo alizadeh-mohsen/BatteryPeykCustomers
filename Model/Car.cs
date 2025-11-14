@@ -29,6 +29,7 @@ namespace BatteryPeykCustomers.Model
         public int Sms { get; set; }
 
         public int? VehicleId { get; set; }
+        public string? UsedBattery { get; set; }
         //public int? CompanyId { get; set; }
         //public int? AmperId { get; set; }
 
