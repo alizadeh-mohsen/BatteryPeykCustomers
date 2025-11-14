@@ -68,14 +68,12 @@ app.MapRazorPages();
 app.MapControllers();
 app.Run();
 
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
-    }
-}
+//void SeedDatabase()
+//{
+//    using (var scope = app.Services.CreateScope())
+//    {
+//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+//        dbInitializer.Initialize();
+//    }
+//}
 
-//MASTER 1
-//MASTER 2

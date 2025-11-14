@@ -1,5 +1,6 @@
 ﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Pages.Admin.Report;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                 .Include(b => b.Company)
                 .Include(b => b.Amper)
                 .Where(b => b.Quantity > 0)
+                .Select(g => new Battery
+                {
+                    Company = g.Company,
+                    Amper = g.Amper,
+                    Quantity = g.Quantity
+                })
                 .OrderBy(b => b.Company!.Title)
                 .ThenBy(b => b.Amper.Title)
                 .ToListAsync();
@@ -57,7 +64,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     {
                         column.Item().Text(DateTime.Now.ToString("yyyy/MM/dd HH:mm")).FontSize(12).AlignLeft();
                         column.Item().Text("گزارش انبار").SemiBold().FontSize(16).AlignCenter();
-                        column.Item().Text("موجودی: " + _batteries.Count).FontSize(12).AlignCenter();
+                        column.Item().Text("موجودی: " + _batteries.Sum(b=>b.Quantity)).FontSize(12).AlignCenter();
                     });
 
                     page.Content().PaddingVertical(10).Element(ComposeContent);
