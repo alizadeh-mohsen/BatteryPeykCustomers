@@ -22,6 +22,9 @@
             <thead>
                 <tr>
                     <th>
+                        تاریخ
+                    </th>
+                    <th>
                         باتری
                     </th>
                     <th>
@@ -36,6 +39,9 @@
                 @foreach (var item in Model.UsedHistories)
                 {
                     <tr>
+                        <td>
+                            @item.Date.ToShortDateString()
+                        </td>
                         <td>
                             @item.Brand
                         </td>

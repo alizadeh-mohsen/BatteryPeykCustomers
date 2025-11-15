@@ -8,12 +8,12 @@
 
 
 
-@* <p>
+<p>
     <a class="btn btn-primary" asp-page="Create">
         <i class="bi bi-plus-square ms-2"></i> داغی جدید
     </a>
 </p>
- *@
+
 
 <div class="d-flex justify-content-center">
     <div class="card" style="width: 22rem;">
@@ -23,7 +23,7 @@
                 <strong>
                     تعداد:
                 </strong>
-                <span>
+                <span style="font-size:1.3rem">
                     @Model.Used.Quantity
                 </span>
             </p>
@@ -31,17 +31,29 @@
                 <strong>
                     آمپر:
                 </strong>
-                <span> @Model.Used.Amperage.ToString("N0")</span>
+                <span style="font-size:1.3rem"> @Model.Used.Amperage.ToString("N0")</span>
             </p>
-            <div class="d-flex justify-content-end">
-                <a asp-page="./Edit" asp-route-id="@Model.Used.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:2rem"></i> </a> &nbsp;
+
+            <div class="d-flex justify-content-evenly ">
+                <a asp-page="./Edit" asp-route-id="@Model.Used.Id" style="text-decoration:none">
+                    <i class="bi bi-pencil-square" style="font-size:2rem"></i>
+                </a>
+                
+                <a asp-page="./Delete" asp-route-id="@Model.Used.Id" style="text-decoration:none"
+                   class="btn btn-danger">
+                   
+                   @* <i class="bi bi-trash-fill mx-3" style="font-size:1.5rem"></i> *@
+                    ریست
+                   
+               </a>
+
 
                 <form method="post" asp-page-handler="Reset">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@Model.Used.Id" />
-                    <button type="submit" class="btn btn-danger ms-2">ریست</button>
-                    <a class="btn btn-primary ms-2" asp-page="ExportUsedPdf">
-                        <i class="bi bi-file-earmark-pdf-fill text-danger ms-2"></i>گزارش داغی ها
+                    @* <button type="submit" class="btn btn-danger ms-2">ریست</button> *@
+                    <a class="btn btn-primary" asp-page="ExportUsedPdf">
+                        <i class="bi bi-file-earmark-pdf-fill text-danger"></i>گزارش داغی ها
                     </a>
                 </form>
             </div>

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Useds
 {
@@ -46,12 +46,18 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
             }
 
             var used = await _context.Used.FindAsync(id);
+            var usedHistories = await _context.UsedHistory.ToListAsync();
+
             if (used != null)
             {
                 Used = used;
-                _context.Used.Remove(Used);
-                await _context.SaveChangesAsync();
+                used.Quantity = 0;
+                used.Amperage = 0;
+
             }
+
+            _context.UsedHistory.RemoveRange(usedHistories);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

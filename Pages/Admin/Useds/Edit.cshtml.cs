@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
-using BatteryPeykCustomers.Data;
 
 namespace BatteryPeykCustomers.Pages.Admin.Useds
 {
@@ -25,7 +25,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
                 return NotFound();
             }
 
-            var used =  await _context.Used.FirstOrDefaultAsync(m => m.Id == id);
+            var used = await _context.Used.FirstOrDefaultAsync(m => m.Id == id);
             if (used == null)
             {
                 return NotFound();
@@ -34,8 +34,6 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

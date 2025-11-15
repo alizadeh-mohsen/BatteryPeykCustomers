@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using BatteryPeykCustomers.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Useds
 {
@@ -21,15 +22,29 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
         [BindProperty]
         public Used Used { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
+        [BindProperty]
+        public string UsedBrand { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var existingUsed = await _context.Used.FirstOrDefaultAsync();
+            if (existingUsed == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Used.Add(Used);
+            existingUsed.Amperage += Used.Amperage;
+            existingUsed.Quantity += Used.Quantity;
+
+            var usedHistory = new UsedHistory
+            {
+                Amper = Used.Amperage,
+                Brand = UsedBrand + " - دستی",
+                CustomerId = 435,
+                Date = DateTime.UtcNow
+            };
+
+            _context.UsedHistory.Add(usedHistory);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

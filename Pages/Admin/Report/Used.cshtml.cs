@@ -22,7 +22,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
         public async Task<IActionResult> OnGetAsync()
         {
 
-            UsedHistories = await _context.UsedHistory.Include(c => c.Customer)
+            UsedHistories = await _context.UsedHistory.Include(c => c.Customer).OrderByDescending(b => b.Id)
                 .ToListAsync();
 
             Count = UsedHistories.Count;
