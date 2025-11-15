@@ -163,6 +163,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 _context.Profit.Add(profit);
                 Customer? customer = null;
+                var usedBattery = vm.HasUsed ? vm.UsedBatteryBrand + " " + vm.UsedBatteryAmper :
+                    "بدون داغی";
                 if (CustomerId == null)
                 {
                     var Cars = new List<Car> { new()
@@ -175,7 +177,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
                     Comments = vm.Comments,
                     VehicleId = vm.VehicleId,
-                    UsedBattery = vm.UsedBatteryBrand +" " + vm.UsedBatteryAmper
+                    UsedBattery = usedBattery
 
                 } };
                     customer = new()
@@ -204,7 +206,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         CustomerId = (int)CustomerId,
                         Sms = 0,
                         VehicleId = vm.VehicleId,
-                        UsedBattery = vm.UsedBatteryBrand + " " + vm.UsedBatteryAmper
+                        UsedBattery = usedBattery
                     };
 
                     _context.Car.Add(car);
