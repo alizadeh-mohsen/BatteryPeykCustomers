@@ -33,12 +33,14 @@
         </form>
     </div>
 </div>
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped mt-3">
 
     <thead>
         <tr>
             <th>
-                تاریخ
+                <a asp-page="./index" asp-route-sortOrder="@ViewData["DateSort"]" class="text-info">
+                 تاریخ
+                </a>
             </th>
             @*  <th>
                 طرف حساب
@@ -47,7 +49,10 @@
                 بابت
                 </th> *@
             <th>
+                <a asp-page="./index" asp-route-sortOrder="@ViewData["AmountSort"]" class="text-info">
+
                 مبلغ
+                </a>
             </th>
             <th>
                 توضیحات

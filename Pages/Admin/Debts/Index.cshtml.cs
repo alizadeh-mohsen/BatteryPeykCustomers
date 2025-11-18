@@ -23,12 +23,35 @@ namespace BatteryPeykCustomers.Pages.Admin.Debts
 
         public IList<Debt> Debts { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder = "date_asc")
         {
-            var query = _context.Debt.OrderBy(C => C.Id).AsQueryable();
+            var query = _context.Debt.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchCommentString))
                 query = query.Where(c => c.Description.Contains(SearchCommentString));
+
+            ViewData["DateSort"] = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewData["AmountSort"] = sortOrder == "amount_asc" ? "amount_desc" : "amount_asc";
+
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    query = query.OrderByDescending(c => c.Date);
+                    break;
+                case "date_asc":
+                    query = query.OrderBy(c => c.Date);
+                    break;
+                case "amount_desc":
+                    query = query.OrderByDescending(c => c.Amount);
+                    break;
+                case "amount_asc":
+                    query = query.OrderBy(c => c.Amount);
+                    break;
+                default:
+                    query = query.OrderBy(c => c.Date);
+                    break;
+            }
+
 
             Debts = await query.ToListAsync();
 
