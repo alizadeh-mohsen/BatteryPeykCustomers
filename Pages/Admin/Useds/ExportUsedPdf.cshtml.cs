@@ -22,6 +22,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         public async Task<IActionResult> OnGetAsync()
         {
             var history = await _context.UsedHistory
+                .Include(b => b.Customer)
                 .OrderBy(b => b.Date)
                 .ToListAsync();
 
@@ -77,18 +78,25 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     {
                         columns.RelativeColumn(3);
                         columns.RelativeColumn(3);
+                        columns.RelativeColumn(2);
+                        columns.RelativeColumn(2);
                     });
 
                     table.Header(header =>
                     {
+                        header.Cell().Element(CellStyle).AlignCenter().Text("مشتری").Bold();
+                        header.Cell().Element(CellStyle).AlignCenter().Text("باتری").Bold();
                         header.Cell().Element(CellStyle).AlignCenter().Text("آمپر").Bold();
-                        header.Cell().Element(CellStyle).AlignRight().Text("باتری").Bold();
+                        header.Cell().Element(CellStyle).AlignCenter().Text("تاریخ").Bold();
+
                     });
 
                     foreach (var b in _usedHistories)
                     {
-                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Amper);
-                        table.Cell().Element(CellStyle).AlignRight().Text(b.Brand);
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Customer.Name);
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Brand);
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Amper.ToString());
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Date.ToShortDateString());
                     }
                 });
             }
