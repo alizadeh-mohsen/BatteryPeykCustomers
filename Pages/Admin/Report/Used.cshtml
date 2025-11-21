@@ -4,8 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container pt-3">
-    <div class="row d-flex justify-content-center mb-5">
+<div class="container pt-2">
+    <div class="row d-flex justify-content-center mb-3">
         <div class="col-4">
             تعداد:
             @Model.Count
@@ -25,12 +25,20 @@
                         تاریخ
                     </th>
                     <th class="text-center">
-                        باتری
+                        <a asp-page="./used" asp-route-sortOrder="@ViewData["BrandSort"]" class="text-info">
+
+                            باتری
+                        </a>
+
                     </th>
                     <th class="text-center ps-3">
-                        آمپر
+                        <a asp-page="./used" asp-route-sortOrder="@ViewData["AmperSort"]" class="text-info">
+
+                            آمپر
+                        </a>
+
                     </th>
-                    <th >
+                    <th>
                         مشتری
                     </th>
                 </tr>
@@ -56,7 +64,53 @@
             </tbody>
         </table>
     </div>
+    <div class="row mt-4">
+        <div>
+            <p class="text-center text-danger">گزارش تعدا داغی ها بر اساس آمپر/برند</p>
+            @* <hr /> *@
+        </div>
+        <div>
+            <table class="table table-sm table-striped mx-2">
 
+                <thead>
+                    <tr>
+                        <th class="text-center ps-3">
+                            <a asp-page="./used" asp-route-groupOrder="@ViewData["BrandGroupSort"]" class="text-info">
+
+                                آمپر
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            <a asp-page="./used" asp-route-groupOrder="@ViewData["AmperGroupSort"]" class="text-info">
+
+                                باتری
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            تعداد
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.UsedReportGrouped)
+                    {
+                        <tr>
+
+                            <td class="text-center ps-3">
+                                @item.Amper
+                            </td>
+                            <td class="text-center">
+                                @item.Brand
+                            </td>
+                            <td class="text-center">
+                                @item.Count
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 @section Scripts {
     @{
