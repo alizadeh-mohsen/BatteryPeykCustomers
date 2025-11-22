@@ -1,5 +1,5 @@
 ﻿using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Pages.Admin.Report;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,6 @@ using QuestPDF.Infrastructure;
 
 namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
-    // This page returns a PDF file (no visible HTML needed).
     public class ExportUsedPdfModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -21,10 +20,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var history = await _context.UsedHistory
-                .Include(b => b.Customer)
-                .OrderBy(b => b.Date)
-                .ToListAsync();
+            IQueryable<UsedReportGrouped> historyQuery = _context.UsedHistory.GroupBy(u => new { u.Amper })
+      .Select(g => new UsedReportGrouped
+      {
+          Amper = g.Key.Amper,
+          //Brand = g.Key.Brand,
+          Count = g.Count()
+      }).OrderBy(c => c.Amper);
+
+            var history = await historyQuery.ToListAsync();
 
             var document = new UsedBatteriesReportDocument(history);
             byte[] pdfBytes = document.GeneratePdf();
@@ -35,8 +39,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         // Simple QuestPDF document that lists Company.Title, Amper.Title and Battery.Quantity
         private class UsedBatteriesReportDocument : IDocument
         {
-            private readonly List<UsedHistory> _usedHistories;
-            public UsedBatteriesReportDocument(List<UsedHistory> used) => _usedHistories = used;
+            private readonly List<UsedReportGrouped> _usedHistories;
+            public UsedBatteriesReportDocument(List<UsedReportGrouped> used) => _usedHistories = used;
 
             public DocumentMetadata GetMetadata() => new DocumentMetadata { Title = "Daghi Report: " + DateTime.Today.ToString("yyyy-MM-dd") };
 
@@ -53,8 +57,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     {
                         column.Item().Text(DateTime.Now.ToString("yyyy/MM/dd HH:mm")).FontSize(12).AlignLeft();
                         column.Item().Text("گزارش داغی ها").SemiBold().FontSize(16).AlignCenter();
-                        column.Item().Text("تعداد: " + _usedHistories.Count).FontSize(12).AlignCenter();
-                        column.Item().Text("آمپر: " + _usedHistories.Sum(b => b.Amper)).FontSize(12).AlignCenter();
+                        column.Item().Text("تعداد: " + _usedHistories.Sum(c => c.Count)).FontSize(12).AlignCenter();
+                        column.Item().Text("آمپر: " + _usedHistories.Sum(b => b.Count * b.Amper)).FontSize(12).AlignCenter();
                     });
 
                     page.Content().PaddingVertical(10).Element(ComposeContent);
@@ -76,27 +80,25 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     // three columns: Company, Amper, Quantity
                     table.ColumnsDefinition(columns =>
                     {
-                        columns.RelativeColumn(3);
-                        columns.RelativeColumn(3);
                         columns.RelativeColumn(2);
+                        //columns.RelativeColumn(2);
                         columns.RelativeColumn(2);
                     });
 
                     table.Header(header =>
                     {
-                        header.Cell().Element(CellStyle).AlignCenter().Text("مشتری").Bold();
-                        header.Cell().Element(CellStyle).AlignCenter().Text("باتری").Bold();
+                        header.Cell().Element(CellStyle).AlignCenter().Text("تعداد").Bold();
+                        //header.Cell().Element(CellStyle).AlignCenter().Text("برند").Bold();
                         header.Cell().Element(CellStyle).AlignCenter().Text("آمپر").Bold();
-                        header.Cell().Element(CellStyle).AlignCenter().Text("تاریخ").Bold();
+
 
                     });
 
                     foreach (var b in _usedHistories)
                     {
-                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Customer.Name);
-                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Brand);
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Count.ToString());
+                        //table.Cell().Element(CellStyle).AlignCenter().Text(b.Brand);
                         table.Cell().Element(CellStyle).AlignCenter().Text(b.Amper.ToString());
-                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Date.ToShortDateString());
                     }
                 });
             }
