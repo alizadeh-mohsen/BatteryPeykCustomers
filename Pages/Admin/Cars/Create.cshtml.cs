@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Data;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +32,13 @@ namespace BatteryPeykCars.Pages.Admin.Cars
         {
             Car = new Car { CustomerId = customerId };
 
-            var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
-            var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
-            var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
+
+            var companies = await companiesQuery.ToListAsync();
+            var vehicles = await vehiclesQuery.ToListAsync();
+            var ampers = await ampersQuery.ToListAsync();
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
             ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make");
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");
@@ -56,7 +60,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 var selectedBattery = await _context.Company.FindAsync(SelectedBatteryId);
                 var selectedCar = await _context.Vehicle.FindAsync(SelectedCarId);
                 var selectedAmper = await _context.Amper.FindAsync(SelectedAmperId);
-                
+
                 Car.Make = selectedCar.Make;
                 Car.Battery = selectedBattery.Title + " " + selectedAmper.Title;
 

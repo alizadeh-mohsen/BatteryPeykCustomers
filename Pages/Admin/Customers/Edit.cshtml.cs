@@ -27,7 +27,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 return NotFound();
             }
 
-            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
 
             if (customer == null)
             {
@@ -36,9 +36,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             Customer = customer;
 
 
-            var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
-            var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
-            var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
+
+            var companies = await companiesQuery.ToListAsync();
+            var vehicles = await vehiclesQuery.ToListAsync();
+            var ampers = await ampersQuery.ToListAsync();
+
             ViewData["CompanyId"] = new SelectList(companies, "Id", "Title");
             ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Make");
             ViewData["AmperId"] = new SelectList(ampers, "Id", "Title");
@@ -62,10 +67,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
 
                 var customerOld = _context.Customer.FirstOrDefault(c => c.Id != Customer.Id && c.Phone == Customer.Phone);
-               if(customerOld != null)
+                if (customerOld != null)
                 {
                     ModelState.AddModelError("Customer.Phone", "مشتری دیگری با این شماره تماس قبلا ثبت شده.");
-                    return Page() ;
+                    return Page();
 
                 }
 
@@ -104,7 +109,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
                 return RedirectToPage("./Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -112,7 +117,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         private bool CustomerExists(int id)
         {
-          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

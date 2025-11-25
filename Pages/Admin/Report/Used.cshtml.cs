@@ -51,39 +51,39 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             Count = UsedHistories.Count;
             TotalAmper = UsedHistories.Sum(b => b.Amper);
 
-            IQueryable<UsedReportGrouped> queryGroup = _context.UsedHistory.GroupBy(u => new { u.Amper, u.Brand })
-        .Select(g => new UsedReportGrouped
-        {
-            Amper = g.Key.Amper,
-            Brand = g.Key.Brand,
-            Count = g.Count()
-        });
+            //    IQueryable<UsedReportGrouped> queryGroup = _context.UsedHistory.GroupBy(u => new { u.Amper, u.Brand })
+            //.Select(g => new UsedReportGrouped
+            //{
+            //    Amper = g.Key.Amper,
+            //    Brand = g.Key.Brand,
+            //    Count = g.Count()
+            //});
 
-            ViewData["BrandGroupSort"] = groupOrder == "g_amper_asc" ? "g_amper_desc" : "g_amper_asc";
-            ViewData["AmperGroupSort"] = groupOrder == "g_barnd_asc" ? "g_barnd_desc" : "g_barnd_asc";
-
-
-            switch (groupOrder)
-            {
-                case "g_amper_desc":
-                    queryGroup = queryGroup.OrderByDescending(c => c.Amper);
-                    break;
-                case "g_amper_asc":
-                    queryGroup = queryGroup.OrderBy(c => c.Amper);
-                    break;
-                case "g_barnd_desc":
-                    queryGroup = queryGroup.OrderByDescending(c => c.Brand);
-                    break;
-                case "g_barnd_asc":
-                    queryGroup = queryGroup.OrderBy(c => c.Brand);
-                    break;
-                default:
-                    queryGroup = queryGroup.OrderByDescending(c => c.Amper);
-                    break;
-            }
+            //    ViewData["BrandGroupSort"] = groupOrder == "g_amper_asc" ? "g_amper_desc" : "g_amper_asc";
+            //    ViewData["AmperGroupSort"] = groupOrder == "g_barnd_asc" ? "g_barnd_desc" : "g_barnd_asc";
 
 
-            UsedReportGrouped = await queryGroup.ToListAsync();
+            //    switch (groupOrder)
+            //    {
+            //        case "g_amper_desc":
+            //            queryGroup = queryGroup.OrderByDescending(c => c.Amper);
+            //            break;
+            //        case "g_amper_asc":
+            //            queryGroup = queryGroup.OrderBy(c => c.Amper);
+            //            break;
+            //        case "g_barnd_desc":
+            //            queryGroup = queryGroup.OrderByDescending(c => c.Brand);
+            //            break;
+            //        case "g_barnd_asc":
+            //            queryGroup = queryGroup.OrderBy(c => c.Brand);
+            //            break;
+            //        default:
+            //            queryGroup = queryGroup.OrderByDescending(c => c.Amper);
+            //            break;
+            //    }
+
+
+            //    UsedReportGrouped = await queryGroup.ToListAsync();
 
             return Page();
 

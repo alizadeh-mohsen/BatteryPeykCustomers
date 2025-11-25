@@ -33,9 +33,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             TimeSpan ts = new TimeSpan(11, 59, 59);
             To = To.Value.Date + ts;
 
-            Cars = await _context.Car.Include(c => c.Customer)
+            var carsQuery = _context.Car.Include(c => c.Customer)
                 .Where(c => c.PurchaseDate >= From && c.PurchaseDate <= To)
-                .ToListAsync();
+                .AsQueryable();
+            Cars = await carsQuery.ToListAsync();
 
             TotalBatteries = Cars.Count;
 

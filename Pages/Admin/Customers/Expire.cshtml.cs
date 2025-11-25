@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using BatteryPeykCustomers.Data;
-using Microsoft.AspNetCore.Authorization;
-using BatteryPeykCustomers.Model.ViewModel;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Model;
+﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Helpers;
+using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Model.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Customers
 {
@@ -27,7 +27,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         {
             if (_context.Customer != null)
             {
-                var result = await _context.Car.Include(c => c.Customer).
+                var resultQuery = _context.Car.Include(c => c.Customer).
                     Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today && c.Sms == 0).OrderBy(c => c.PurchaseDate).Select(
                     c => new Expire
                     {
@@ -43,11 +43,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         Address = c.Customer.Address,
                         Comments = c.Comments,
                         Guaranty = c.Guaranty,
-                        VipLink = "https://batterypeyk.com/vip.html?m="+c.Customer.Phone
+                        VipLink = "https://batterypeyk.com/vip.html?m=" + c.Customer.Phone
 
 
-                    })
-                    .ToListAsync();
+                    });
+
+                var result = await resultQuery.ToListAsync();
 
 
                 vm = new ExpireViewModel

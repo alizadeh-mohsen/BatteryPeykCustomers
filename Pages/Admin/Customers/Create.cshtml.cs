@@ -80,9 +80,14 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         private async Task PopulateData(object? selectedVehicle = null)
         {
-            var companies = await _context.Company.OrderBy(c => c.Title).ToListAsync();
-            var vehicles = await _context.Vehicle.OrderBy(c => c.Make).ToListAsync();
-            var ampers = await _context.Amper.OrderBy(c => c.Amperage).ToListAsync();
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
+
+            var companies = await companiesQuery.ToListAsync();
+            var vehicles = await vehiclesQuery.ToListAsync();
+            var ampers = await ampersQuery.ToListAsync();
+
             ViewData["Companies"] = new SelectList(companies, "Id", "Title");
             ViewData["Vehicles"] = new SelectList(vehicles, "Id", "Make", selectedVehicle);
             ViewData["Ampers"] = new SelectList(ampers, "Id", "Title");

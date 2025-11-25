@@ -87,18 +87,18 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
                     table.Header(header =>
                     {
-                        header.Cell().Element(CellStyle).AlignCenter().Text("تعداد").Bold();
                         //header.Cell().Element(CellStyle).AlignCenter().Text("برند").Bold();
                         header.Cell().Element(CellStyle).AlignCenter().Text("آمپر").Bold();
+                        header.Cell().Element(CellStyle).AlignCenter().Text("تعداد").Bold();
 
 
                     });
 
                     foreach (var b in _usedHistories)
                     {
-                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Count.ToString());
                         //table.Cell().Element(CellStyle).AlignCenter().Text(b.Brand);
                         table.Cell().Element(CellStyle).AlignCenter().Text(b.Amper.ToString());
+                        table.Cell().Element(CellStyle).AlignCenter().Text(b.Count.ToString());
                     }
                 });
             }

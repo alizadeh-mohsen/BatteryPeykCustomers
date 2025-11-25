@@ -1,6 +1,5 @@
 ﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
-using BatteryPeykCustomers.Pages.Admin.Report;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var batteries = await _context.Battery
+            var batteriesQuery = _context.Battery
                 .Include(b => b.Company)
                 .Include(b => b.Amper)
                 .Where(b => b.Quantity > 0)
@@ -33,8 +32,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     Quantity = g.Quantity
                 })
                 .OrderBy(b => b.Company!.Title)
-                .ThenBy(b => b.Amper.Title)
-                .ToListAsync();
+                .ThenBy(b => b.Amper.Title) as IQueryable<Battery>;
+            var batteries = await batteriesQuery.ToListAsync();
+
 
             var document = new BatteriesReportDocument(batteries);
             byte[] pdfBytes = document.GeneratePdf();
@@ -64,7 +64,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
                     {
                         column.Item().Text(DateTime.Now.ToString("yyyy/MM/dd HH:mm")).FontSize(12).AlignLeft();
                         column.Item().Text("گزارش انبار").SemiBold().FontSize(16).AlignCenter();
-                        column.Item().Text("موجودی: " + _batteries.Sum(b=>b.Quantity)).FontSize(12).AlignCenter();
+                        column.Item().Text("موجودی: " + _batteries.Sum(b => b.Quantity)).FontSize(12).AlignCenter();
                     });
 
                     page.Content().PaddingVertical(10).Element(ComposeContent);

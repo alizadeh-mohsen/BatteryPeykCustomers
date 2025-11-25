@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Diagnostics.Metrics;
+using Microsoft.EntityFrameworkCore;
 
 namespace BatteryPeykCustomers.Pages.Admin.Batteries
 {
@@ -39,15 +34,17 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
         public async Task OnGetAsync()
         {
+            var amperQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
+            var titleQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
 
-            AmperList = new SelectList(await _context.Amper.OrderBy(c => c.Amperage).ToListAsync(), "Id", "Title");
-            CompanyList = new SelectList(await _context.Company.OrderBy(c => c.Title).ToListAsync(), "Id", "Title");
+            AmperList = new SelectList(await amperQuery.ToListAsync(), "Id", "Title");
+            CompanyList = new SelectList(await titleQuery.ToListAsync(), "Id", "Title");
             Total = (await _context.Battery.SumAsync(b => b.Quantity)).ToString();
 
             IQueryable<Battery> result = _context.Battery
                             .Include(b => b.Amper)
                             .Include(b => b.Company)
-                            .OrderByDescending(c => c.Quantity<= c.AlertQuantity ).ThenBy(c=>c.Quantity);
+                            .OrderByDescending(c => c.Quantity <= c.AlertQuantity).ThenBy(c => c.Quantity);
 
             if (!string.IsNullOrEmpty(SelectedCompany))
                 result = result.Where(t => t.CompanyId == int.Parse(SelectedCompany));

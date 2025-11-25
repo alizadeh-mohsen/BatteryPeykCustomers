@@ -27,9 +27,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
         public async Task<IActionResult> OnGetAsync(int customerId)
         {
             CustomerId = customerId;
+            var carsQuery = _context.Car.Where(c => c.CustomerId == customerId).OrderByDescending(c => c.PurchaseDate) as IQueryable<Model.Car>;
+
             vm = new CarAndCustomerViewModel
             {
-                Cars = await _context.Car.Where(c => c.CustomerId == customerId).OrderByDescending(c => c.PurchaseDate).ToListAsync(),
+                Cars = await carsQuery.ToListAsync(),
                 Customer = await _context.Customer.FindAsync(customerId)
             };
             return Page();

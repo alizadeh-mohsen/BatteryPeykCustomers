@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Ampers
 {
@@ -19,11 +14,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Ampers
             _context = context;
         }
 
-        public IList<Amper> Amper { get;set; } = default!;
+        public IList<Amper> Amper { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Amper = await _context.Amper.OrderBy(c=>c.Amperage).ToListAsync();
+            var query = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
+            Amper = await query.ToListAsync();
         }
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Guaranties
 {
@@ -23,9 +18,10 @@ namespace BatteryPeykCustomers.Pages.Admin.Guaranties
 
         public async Task OnGetAsync()
         {
-            Guarranty = await _context.Guarranty
+            var guarantyQuery = _context.Guarranty
                 .Include(g => g.Amper)
-                .Include(g => g.Company).OrderBy(c => c.Id).ToListAsync();
+                .Include(g => g.Company).OrderBy(c => c.Id).AsQueryable();
+            Guarranty = await guarantyQuery.ToListAsync();
         }
     }
 }

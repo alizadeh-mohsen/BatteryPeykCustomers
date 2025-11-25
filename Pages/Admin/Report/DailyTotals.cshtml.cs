@@ -35,16 +35,17 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             var toInclusive = To.Value.Date.AddDays(1).AddTicks(-1);
 
             // Group by date portion of PurchaseDate and count
-            DailyTotals = await _context.Car
-                .Where(c => c.PurchaseDate >= From.Value.Date && c.PurchaseDate <= toInclusive)
-                .GroupBy(c => c.PurchaseDate.Date)
-                .Select(g => new DailyTotalDto
-                {
-                    Date = g.Key,
-                    Count = g.Count()
-                })
-                .OrderBy(d => d.Date)
-                .ToListAsync();
+            var dailyTotalsQuery = _context.Car
+                 .Where(c => c.PurchaseDate >= From.Value.Date && c.PurchaseDate <= toInclusive)
+                 .GroupBy(c => c.PurchaseDate.Date)
+                 .Select(g => new DailyTotalDto
+                 {
+                     Date = g.Key,
+                     Count = g.Count()
+                 })
+                 .OrderBy(d => d.Date);
+
+            DailyTotals = await dailyTotalsQuery.ToListAsync();
             SumTotals = DailyTotals.Sum(d => d.Count);
             return Page();
         }
