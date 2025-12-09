@@ -1,0 +1,24 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Batteries.DiscountModel
+
+@{
+    ViewData["Title"] = "Discount";
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label for="discount">درصد تخفیف:</label>
+                <input class="form-control" asp-for="Discount" required />
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" asp-page-handler="ApplyDiscount" value="اعمال تخفیف" class="btn btn-primary mt-2" />
+                <input type="submit" asp-page-handler="RemoveDiscount" value="حذف تخفیف" class="btn btn-primary mt-2" />
+                <a asp-page="./Index" class="btn btn-primary mt-2">بازگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+
