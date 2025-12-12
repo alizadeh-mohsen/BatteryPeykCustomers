@@ -1,5 +1,6 @@
 ﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Pages.Admin.Report;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +16,20 @@ namespace BatteryPeykCustomers.Pages.Admin.Useds
         }
 
         public Used? Used { get; set; } = default!;
+        public List<UsedReportGrouped> Report { get; set; } = default;
 
         public async Task OnGetAsync()
         {
             Used = await _context.Used.FirstOrDefaultAsync();
+            IQueryable<UsedReportGrouped> historyQuery = _context.UsedHistory.GroupBy(u => new { u.Amper })
+            .Select(g => new UsedReportGrouped
+            {
+                Amper = g.Key.Amper,
+                //Brand = g.Key.Brand,
+                Count = g.Count()
+            }).OrderBy(c => c.Amper);
+
+            Report = await historyQuery.ToListAsync();
         }
 
         // Handler invoked when the reset button is clicked.
