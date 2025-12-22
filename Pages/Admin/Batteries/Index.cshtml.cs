@@ -44,7 +44,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
             IQueryable<Battery> result = _context.Battery
                             .Include(b => b.Amper)
                             .Include(b => b.Company)
-                            .OrderByDescending(c => c.Quantity <= c.AlertQuantity).ThenBy(c => c.Quantity);
+                            .OrderBy(c => c.Quantity).ThenBy(c => c.Company.Title);
 
             if (!string.IsNullOrEmpty(SelectedCompany))
                 result = result.Where(t => t.CompanyId == int.Parse(SelectedCompany));
