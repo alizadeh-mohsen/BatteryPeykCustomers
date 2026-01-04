@@ -31,6 +31,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         [BindProperty(SupportsGet = true)]
         public string Total { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public bool HideZeroQuantity { get; set; } = true;
+
 
         public async Task OnGetAsync()
         {
@@ -51,6 +54,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
 
             if (!string.IsNullOrEmpty(SelectedAmper))
                 result = result.Where(t => t.AmperId == int.Parse(SelectedAmper));
+
+            if (HideZeroQuantity)
+                result = result.Where(t => t.Quantity > 0);
 
             Battery = await result.ToListAsync();
         }

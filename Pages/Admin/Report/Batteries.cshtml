@@ -1,0 +1,56 @@
+﻿@page
+@model BatteryPeykCustomers.Pages.Admin.Report.BatteriesModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-2">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="col-6">
+            تاریخ:
+            @DateTime.Today.ToShortDateString()
+        </div>
+        <div class="col-6">
+            موجودی:
+            @Model.Count
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr class="mx-5">
+                    <th class="text-end">
+
+                        برند
+                    </th>
+                    <th  class="text-center">
+                        آمپر
+                    </th>
+                    <th class="text-start">
+                        موجودی
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Batteries)
+                {
+                    <tr >
+                        <td class="text-end">
+                            @item.Company?.Title
+                        </td>
+                        <td class="text-center">
+
+                            @item.Amper?.Title
+                        </td >
+                        <td class="text-start">
+                            @item.Quantity
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

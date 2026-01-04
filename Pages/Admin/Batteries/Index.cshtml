@@ -47,6 +47,14 @@
                 آمپر
                 <select asp-for="SelectedAmper" class="form-select" asp-items="Model.AmperList"><option value=""></option></select>
             </div>
+            <div class="form-check my-3 form-check-reverse">
+                <label for="ZeroQuantity">عدم نمایش موجودی صفر</label>
+
+                <input class="form-check-input" 
+                
+                id="ZeroQuantity" type="checkbox" asp-for="HideZeroQuantity" checked>
+                
+            </div>
             <input class="btn btn-primary" type="submit" value="جستجو" />
         </form>
     </div>
