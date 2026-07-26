@@ -5,9 +5,14 @@
     ViewData["Title"] = "Details";
 }
 <script type="text/javascript">
-    function copy(phone) {
-        navigator.clipboard.writeText("https://BatteryPeyk.com/vip.html?m=" + phone);
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('copyLinkButton');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            var phone = btn.dataset.phone || '';
+            navigator.clipboard.writeText("https://BatteryPeyk.com/vip.html?m=" + phone);
+        });
+    });
 </script>
 
 <div class="card">
@@ -20,7 +25,6 @@
             </a>
         </h6>
         <p class="card-text">
-
             لینک باشگاه مشتریان:
         <p>
             <input style="direction:ltr" class="form-control" disabled value="https://BatteryPeyk.com/vip.html?m=@Model.Customer.Phone" />
@@ -32,6 +36,6 @@
         </p>
         <a class="btn btn-primary ml-2" asp-page="./Edit" asp-route-id="@Model.Customer.Id">ویرایش</a>
         <a class="btn btn-primary ml-2" asp-page="./Index">بازگشت</a>
-        <button class="btn btn-primary ml-2" onclick="copy('@Model.Customer.Phone')"> کپی لینک</button>
+        <button id="copyLinkButton" class="btn btn-primary ml-2" type="button" data-phone="@Model.Customer.Phone">کپی لینک</button>
     </div>
 </div>
