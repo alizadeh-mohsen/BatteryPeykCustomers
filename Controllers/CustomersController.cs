@@ -32,7 +32,7 @@ namespace BatteryPeykCustomers.Controllers
 
             var customerDto = new CustomerDto
             {
-                Address = customer.Address?.Length > 20 ? (customer.Address?.Substring(0, 20) + "***") : customer.Address,
+                Address = customer.Address,
                 Name = customer.Name,
                 Phone = customer.Phone
             };
