@@ -18,7 +18,7 @@ CultureInfo.DefaultThreadCurrentCulture
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddCors();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("defaultConnection")));
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -59,7 +59,7 @@ app.UseCors(x => x
                .AllowAnyHeader()
                .AllowAnyOrigin()); // allow credentials
 
-//SeedDatabase();
+SeedDatabase();
 app.UseAuthorization();
 
 
@@ -68,12 +68,12 @@ app.MapRazorPages();
 app.MapControllers();
 app.Run();
 
-//void SeedDatabase()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-//        dbInitializer.Initialize();
-//    }
-//}
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
 

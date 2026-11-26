@@ -3,6 +3,7 @@ using System;
 using BatteryPeykCustomers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -11,26 +12,33 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BatteryPeykCustomers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240825171717_ab")]
-    partial class ab
+    [Migration("20261125160110_sql")]
+    partial class sql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "10.0.15")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Amper", b =>
                 {
-                    b.Property<byte>("Id")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<byte>("Amperage")
-                        .HasColumnType("INTEGER");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amperage")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -41,22 +49,24 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AlertQuantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<byte>("AmperId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("AmperId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Profit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -71,37 +81,42 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Battery")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Guaranty")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("LifeExpectancy")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Make")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ReplaceDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Sms")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsedBattery")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("VehicleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -114,17 +129,19 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("Guarranty")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("LifeTime")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -135,35 +152,65 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Counterparty");
                 });
 
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Credit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Credit");
+                });
+
             modelBuilder.Entity("BatteryPeykCustomers.Model.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCompany")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -176,34 +223,21 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("INTEGER");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CounterpartyId")
-                        .HasColumnType("INTEGER");
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ReasonId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Settled")
-                        .HasColumnType("INTEGER");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CounterpartyId");
-
-                    b.HasIndex("ReasonId");
 
                     b.ToTable("Debt");
                 });
@@ -212,56 +246,151 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Amount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CounterpartyId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ReasonId")
-                        .HasColumnType("INTEGER");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CounterpartyId");
-
-                    b.HasIndex("ReasonId");
-
                     b.ToTable("Expense");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Guarranty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AmperId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AmperId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Guarranty");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Profit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profit");
                 });
 
             modelBuilder.Entity("BatteryPeykCustomers.Model.Reason", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Reason");
                 });
 
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Used", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amperage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Used");
+                });
+
+            modelBuilder.Entity("BatteryPeykCustomers.Model.UsedHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amper")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("UsedHistory");
+                });
+
             modelBuilder.Entity("BatteryPeykCustomers.Model.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -271,25 +400,26 @@ namespace BatteryPeykCustomers.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -298,17 +428,19 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -320,54 +452,54 @@ namespace BatteryPeykCustomers.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -376,7 +508,8 @@ namespace BatteryPeykCustomers.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -385,17 +518,19 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -408,18 +543,18 @@ namespace BatteryPeykCustomers.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -431,10 +566,10 @@ namespace BatteryPeykCustomers.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -446,18 +581,18 @@ namespace BatteryPeykCustomers.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -494,42 +629,34 @@ namespace BatteryPeykCustomers.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("BatteryPeykCustomers.Model.Debt", b =>
+            modelBuilder.Entity("BatteryPeykCustomers.Model.Guarranty", b =>
                 {
-                    b.HasOne("BatteryPeykCustomers.Model.Counterparty", "Counterparty")
+                    b.HasOne("BatteryPeykCustomers.Model.Amper", "Amper")
                         .WithMany()
-                        .HasForeignKey("CounterpartyId")
+                        .HasForeignKey("AmperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatteryPeykCustomers.Model.Reason", "Reason")
+                    b.HasOne("BatteryPeykCustomers.Model.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("ReasonId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Counterparty");
+                    b.Navigation("Amper");
 
-                    b.Navigation("Reason");
+                    b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("BatteryPeykCustomers.Model.Expense", b =>
+            modelBuilder.Entity("BatteryPeykCustomers.Model.UsedHistory", b =>
                 {
-                    b.HasOne("BatteryPeykCustomers.Model.Counterparty", "Counterparty")
+                    b.HasOne("BatteryPeykCustomers.Model.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CounterpartyId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BatteryPeykCustomers.Model.Reason", "Reason")
-                        .WithMany()
-                        .HasForeignKey("ReasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Counterparty");
-
-                    b.Navigation("Reason");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

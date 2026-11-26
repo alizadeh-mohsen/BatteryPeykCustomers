@@ -30,19 +30,5 @@ namespace BatteryPeykCustomers.Model
 
         public int? VehicleId { get; set; }
         public string? UsedBattery { get; set; }
-        //public int? CompanyId { get; set; }
-        //public int? AmperId { get; set; }
-
-        //[ForeignKey("VehicleId")]
-        //public Vehicle? Vehicle { get; set; }
-
-        //[ForeignKey("CompanyId")]
-        //public Company? Company { get; set; }
-
-        //[ForeignKey("AmperId")]
-        //public Amper? Amper { get; set; }
-
-
-
     }
 }
