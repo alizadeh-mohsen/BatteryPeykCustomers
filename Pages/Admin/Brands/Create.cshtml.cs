@@ -25,7 +25,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
         }
 
         [BindProperty]
-        public Company Company { get; set; } = default!;
+        public BatteryBrand Company { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

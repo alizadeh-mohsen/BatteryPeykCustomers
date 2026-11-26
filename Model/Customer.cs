@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BatteryPeykCustomers.Helpers.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace BatteryPeykCustomers.Model
@@ -10,17 +11,17 @@ namespace BatteryPeykCustomers.Model
         public int Id { get; set; }
 
         [MaxLength(20)]
-        [Required(ErrorMessage ="این فیلد اجباری است")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage ="این فیلد اجباری است")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(50)]
         public string Name { get; set; }
 
         public string? Address { get; set; }
-        public ICollection<Car>? Cars { get; set; }
+        public ICollection<Sale>? Sales { get; set; }
 
-        public bool IsCompany { get; set; }
+        public OwnerType CustomerType { get; set; }
 
     }
 }

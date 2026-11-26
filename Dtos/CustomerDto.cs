@@ -1,4 +1,4 @@
-﻿namespace BatteryPeykCustomers.Model
+﻿namespace BatteryPeykCustomers.Dtos
 {
     public class CustomerDto
     {

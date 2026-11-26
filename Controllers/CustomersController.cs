@@ -1,5 +1,5 @@
 ﻿using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

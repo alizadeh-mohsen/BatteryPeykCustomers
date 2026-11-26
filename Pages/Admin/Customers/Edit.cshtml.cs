@@ -36,8 +36,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             Customer = customer;
 
 
-            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
-            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<BatteryBrand>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Name) as IQueryable<Vehicle>;
             var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
 
             var companies = await companiesQuery.ToListAsync();

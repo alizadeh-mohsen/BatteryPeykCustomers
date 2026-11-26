@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BatteryPeykCustomers.Helpers.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BatteryPeykCustomers.Model
@@ -7,24 +8,21 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "سود را وارد کنید")]
-        public int Profit { get; set; }
-
-        [Required(ErrorMessage ="این فیلد اجباری است")]
-        public int Quantity { get; set; }
-
-        public int AlertQuantity { get; set; }
-
         public int AmperId { get; set; }
-        public int CompanyId { get; set; }
+        public int BatteryBrandId { get; set; }
 
         [ForeignKey("AmperId")]
         public Amper? Amper { get; set; }
 
-        [ForeignKey("CompanyId")]
-        public Company? Company { get; set; }
+        [ForeignKey("BatteryBrandId")]
+        public BatteryBrand? BatteryBrand { get; set; }
+        public BatteryType BatteryType { get; set; }
+        public string Title
+        {
+            get { return $"{BatteryType} {Amper?.Title}"; }
+        }
 
-
+        public int Guaranty { get; set; }
+        public int LifeExpectancy { get; set; }
     }
 }

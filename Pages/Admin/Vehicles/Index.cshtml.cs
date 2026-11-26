@@ -29,7 +29,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Vehicles
             IQueryable<Vehicle> query = _context.Vehicle;
 
             if (!string.IsNullOrWhiteSpace(SearchNameString))
-                query = query.Where(v => v.Make.Contains(SearchNameString));
+                query = query.Where(v => v.Name.Contains(SearchNameString));
 
             Vehicle = await query.ToListAsync();
             return Page();

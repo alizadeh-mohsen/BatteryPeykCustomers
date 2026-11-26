@@ -10,7 +10,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
     [Authorize]
     public class DetailsModel : PageModel
     {
-        public Car car { get; set; } = default!;
+        public Sale car { get; set; } = default!;
         private readonly ApplicationDbContext _context;
 
         public DetailsModel(ApplicationDbContext context)

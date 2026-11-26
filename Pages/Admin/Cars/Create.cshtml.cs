@@ -13,7 +13,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
     public class CreateModel : PageModel
     {
         [BindProperty]
-        public Car Car { get; set; }
+        public Sale Car { get; set; }
         [BindProperty]
         public int SelectedCarId { get; set; }
         [BindProperty]
@@ -30,10 +30,10 @@ namespace BatteryPeykCars.Pages.Admin.Cars
 
         public async Task<IActionResult> OnGet(int customerId)
         {
-            Car = new Car { CustomerId = customerId };
+            Car = new Sale { CustomerId = customerId };
 
-            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
-            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<BatteryBrand>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Name) as IQueryable<Vehicle>;
             var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
 
             var companies = await companiesQuery.ToListAsync();
@@ -61,7 +61,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 var selectedCar = await _context.Vehicle.FindAsync(SelectedCarId);
                 var selectedAmper = await _context.Amper.FindAsync(SelectedAmperId);
 
-                Car.Make = selectedCar.Make;
+                Car.Make = selectedCar.Name;
                 Car.Battery = selectedBattery.Title + " " + selectedAmper.Title;
 
                 Car.PurchaseDate = DateTime.Today;

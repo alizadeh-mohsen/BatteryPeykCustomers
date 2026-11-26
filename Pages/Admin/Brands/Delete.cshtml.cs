@@ -20,7 +20,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
         }
 
         [BindProperty]
-        public Company Company { get; set; } = default!;
+        public BatteryBrand Company { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

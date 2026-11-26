@@ -80,8 +80,8 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
 
         private async Task PopulateData(object? selectedVehicle = null)
         {
-            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
-            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Make) as IQueryable<Vehicle>;
+            var companiesQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<BatteryBrand>;
+            var vehiclesQuery = _context.Vehicle.OrderBy(c => c.Name) as IQueryable<Vehicle>;
             var ampersQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
 
             var companies = await companiesQuery.ToListAsync();
@@ -172,11 +172,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                     "بدون داغی";
                 if (CustomerId == null)
                 {
-                    var Cars = new List<Car> { new()
+                    var Cars = new List<Sale> { new()
                 {
                     Battery = desc,
                     Guaranty = vm.Guaranty,
-                    Make = selectedVehicle?.Make,
+                    Make = selectedVehicle?.Name,
                     LifeExpectancy = vm.LifeExpectancy,
                     PurchaseDate = DateTime.Today,
                     ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),
@@ -198,12 +198,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else //always add new car to keep the history
                 {
-                    var car = new Car()
+                    var car = new Sale()
                     {
 
                         Battery = desc,
                         Guaranty = vm.Guaranty,
-                        Make = selectedVehicle?.Make,
+                        Make = selectedVehicle?.Name,
                         LifeExpectancy = vm.LifeExpectancy,
                         PurchaseDate = DateTime.Today,
                         ReplaceDate = DateTime.Today.AddMonths(vm.LifeExpectancy),

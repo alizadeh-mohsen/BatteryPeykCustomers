@@ -8,7 +8,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
 {
     public class SalesModel : PageModel
     {
-        public IList<Car> Cars { get; set; } = default!;
+        public IList<Sale> Cars { get; set; } = default!;
         public long TotalBatteries { get; set; }
 
         [BindProperty(SupportsGet = true)]

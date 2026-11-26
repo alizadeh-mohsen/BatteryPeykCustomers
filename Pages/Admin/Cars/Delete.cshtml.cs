@@ -9,7 +9,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
     public class DeleteModel : PageModel
     {
         [BindProperty]
-        public Car Car { get; set; } = default!;
+        public Sale Car { get; set; } = default!;
         private readonly ApplicationDbContext _context;
 
         public DeleteModel(ApplicationDbContext context)

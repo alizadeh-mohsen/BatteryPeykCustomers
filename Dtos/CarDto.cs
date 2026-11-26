@@ -1,4 +1,4 @@
-﻿namespace BatteryPeykCustomers.Model
+﻿namespace BatteryPeykCustomers.Dtos
 {
     public class CarDto
     {
@@ -10,6 +10,6 @@
         public string? BatteryAge { get; set; }
         public string? ReplacementDate { get; set; }
         public bool IsCompany { get; set; }
-        public string? Comment{ get; set; }
+        public string? Comment { get; set; }
     }
 }

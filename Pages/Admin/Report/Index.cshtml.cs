@@ -1,13 +1,9 @@
 using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Helpers;
 using BatteryPeykCustomers.Model.ViewModel;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Runtime.Intrinsics.X86;
-using System.Text.RegularExpressions;
 
 namespace BatteryPeykCustomers.Pages.Admin.Report
 {

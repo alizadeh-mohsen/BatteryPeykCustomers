@@ -13,7 +13,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
     public class EditModel : PageModel
     {
         [BindProperty]
-        public Car Car { get; set; } = default!;
+        public Sale Car { get; set; } = default!;
 
         private readonly ApplicationDbContext _context;
 

@@ -15,7 +15,7 @@ namespace BatteryPeykCustomers.Model
         public Amper? Amper { get; set; }
 
         [ForeignKey("CompanyId")]
-        public Company? Company { get; set; }
+        public BatteryBrand? Company { get; set; }
 
         public int Amount{ get; set; }
         

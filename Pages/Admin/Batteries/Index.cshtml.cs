@@ -38,7 +38,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Batteries
         public async Task OnGetAsync()
         {
             var amperQuery = _context.Amper.OrderBy(c => c.Amperage) as IQueryable<Amper>;
-            var titleQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<Company>;
+            var titleQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<BatteryBrand>;
 
             AmperList = new SelectList(await amperQuery.ToListAsync(), "Id", "Title");
             CompanyList = new SelectList(await titleQuery.ToListAsync(), "Id", "Title");

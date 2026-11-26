@@ -4,6 +4,6 @@
     {
         public  Customer Customer { get; set; }
 
-        public IEnumerable<Car>? Cars { get; set; }
+        public IEnumerable<Sale>? Cars { get; set; }
     }
 }
