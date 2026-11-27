@@ -1,0 +1,60 @@
+@page
+@model BatteryPeykCustomers.Pages.Admin.Staffs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">
+        <i class="bi bi-plus-square ms-2"></i>پرسنل جدید
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                نام
+            </th>
+            <th>
+                نوع پرسنل
+            </th>
+            <th>
+حقوق ماهیانه
+            </th>
+            <th>
+دستمزد عادی
+            </th>
+            <th>
+                دستمزد اضافه کاری
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Employee) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Stafftype)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FixedSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FeePerdelivery)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.OvertimeFeePerDelivery)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

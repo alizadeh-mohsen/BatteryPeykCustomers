@@ -1,0 +1,65 @@
+@page
+@model BatteryPeykCustomers.Pages.Admin.Staffs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.Name" class="control-label">نام</label>
+                <input asp-for="Employee.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.Stafftype" class="control-label">نوع پرسنل</label>
+                <select asp-for="Employee.Stafftype"
+                        asp-items="Html.GetEnumSelectList<BatteryPeykCustomers.Helpers.Enums.StaffType>()"
+                        class="form-select"
+                        aria-required="true">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="Employee.Stafftype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.FixedSalary" class="control-label">حقوق ثابت</label>
+                <input asp-for="Employee.FixedSalary" class="form-control" inputmode="numeric" type="text" aria-required="true" />
+                <span asp-validation-for="Employee.FixedSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.FeePerdelivery" class="control-label">دستمزد ارسال باتری - عادی</label>
+                <input asp-for="Employee.FeePerdelivery" class="form-control" inputmode="numeric" type="text" aria-required="true" />
+                <span asp-validation-for="Employee.FeePerdelivery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.OvertimeFeePerDelivery" class="control-label">دستمزد ارسال باتری - اضافه کاری</label>
+                <input asp-for="Employee.OvertimeFeePerDelivery" class="form-control" inputmode="numeric" type="text" aria-required="true" />
+                <span asp-validation-for="Employee.OvertimeFeePerDelivery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}

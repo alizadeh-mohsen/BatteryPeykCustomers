@@ -19,7 +19,6 @@
     <Compile Remove="Pages\Admin\Profits\**" />
     <Compile Remove="Pages\Admin\Report\**" />
     <Compile Remove="Pages\Admin\Sms\**" />
-    <Compile Remove="Pages\Admin\Staffs\**" />
     <Compile Remove="Pages\Admin\Useds\**" />
     <Compile Remove="Pages\Admin\Vehicles\**" />
     <Content Remove="Pages\Admin\Batteries\**" />
@@ -33,7 +32,6 @@
     <Content Remove="Pages\Admin\Profits\**" />
     <Content Remove="Pages\Admin\Report\**" />
     <Content Remove="Pages\Admin\Sms\**" />
-    <Content Remove="Pages\Admin\Staffs\**" />
     <Content Remove="Pages\Admin\Useds\**" />
     <Content Remove="Pages\Admin\Vehicles\**" />
     <EmbeddedResource Remove="Pages\Admin\Batteries\**" />
@@ -47,7 +45,6 @@
     <EmbeddedResource Remove="Pages\Admin\Profits\**" />
     <EmbeddedResource Remove="Pages\Admin\Report\**" />
     <EmbeddedResource Remove="Pages\Admin\Sms\**" />
-    <EmbeddedResource Remove="Pages\Admin\Staffs\**" />
     <EmbeddedResource Remove="Pages\Admin\Useds\**" />
     <EmbeddedResource Remove="Pages\Admin\Vehicles\**" />
     <None Remove="Pages\Admin\Batteries\**" />
@@ -61,7 +58,6 @@
     <None Remove="Pages\Admin\Profits\**" />
     <None Remove="Pages\Admin\Report\**" />
     <None Remove="Pages\Admin\Sms\**" />
-    <None Remove="Pages\Admin\Staffs\**" />
     <None Remove="Pages\Admin\Useds\**" />
     <None Remove="Pages\Admin\Vehicles\**" />
   </ItemGroup>
@@ -86,6 +82,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Pages\EmployeePages\" />
     <Folder Include="Upgrade\Customers\" />
   </ItemGroup>
 
