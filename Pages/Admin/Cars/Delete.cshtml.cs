@@ -24,7 +24,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
                 return NotFound();
             }
 
-            var res = await _context.Car.FirstOrDefaultAsync(m => m.Id == id);
+            var res = await _context.Sale.FirstOrDefaultAsync(m => m.Id == id);
 
             if (res == null)
             {
@@ -43,12 +43,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Cars
             {
                 return NotFound();
             }
-            var res = await _context.Car.FindAsync(id);
+            var res = await _context.Sale.FindAsync(id);
 
             if (res != null)
             {
                 Car = res;
-                _context.Car.Remove(Car);
+                _context.Sale.Remove(Car);
                 await _context.SaveChangesAsync();
                 TempData["success"] = "Deleted Successfully";
 

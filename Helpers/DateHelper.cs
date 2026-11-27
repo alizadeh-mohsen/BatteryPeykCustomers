@@ -31,9 +31,9 @@ namespace BatteryPeykCustomers.Helpers
             return ToPersianDate(guarantyExpireDate);
         }
         
-        public static string CalcReplacementDate(this DateTime purchaseDate, int lifetime)
+        public static string CalcReplacementDate(this DateTime purchaseDate, int LifeExpectancy)
         {
-            DateTime replaceDate= purchaseDate.AddMonths(lifetime);
+            DateTime replaceDate= purchaseDate.AddMonths(LifeExpectancy);
             return ToPersianDate(replaceDate);
         }
     }

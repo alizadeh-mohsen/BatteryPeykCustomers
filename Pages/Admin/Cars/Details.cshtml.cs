@@ -21,12 +21,12 @@ namespace BatteryPeykCars.Pages.Admin.Cars
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null || _context.Car == null)
+            if (id == null || _context.Sale == null)
             {
                 return NotFound();
             }
 
-            var carRes = await _context.Car.FirstOrDefaultAsync(m => m.Id == id);
+            var carRes = await _context.Sale.FirstOrDefaultAsync(m => m.Id == id);
             if (carRes == null)
             {
                 return NotFound();

@@ -33,7 +33,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             TimeSpan ts = new TimeSpan(11, 59, 59);
             To = To.Value.Date + ts;
 
-            var carsQuery = _context.Car.Include(c => c.Customer)
+            var carsQuery = _context.Sale.Include(c => c.Customer)
                 .Where(c => c.PurchaseDate >= From && c.PurchaseDate <= To)
                 .AsQueryable();
             Cars = await carsQuery.ToListAsync();

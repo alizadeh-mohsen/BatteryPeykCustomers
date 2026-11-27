@@ -14,12 +14,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
             _context = context;
         }
 
-        public IList<BatteryBrand> Company { get; set; } = default!;
+        public IList<Brand> Brand { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            var CompanyQuery = _context.Company.OrderBy(c => c.Title) as IQueryable<BatteryBrand>;
-            Company = await CompanyQuery.ToListAsync();
+            var BrandQuery = _context.Brand.OrderBy(c => c.Title) as IQueryable<Brand>;
+            Brand = await BrandQuery.ToListAsync();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
             if (customerId != null && carId != null)
             {
                 CustomerId = customerId;
-                var car = await _context.Car.Include(c => c.Customer).FirstOrDefaultAsync(c => c.CustomerId == customerId && c.Id == carId);
+                var car = await _context.Sale.Include(c => c.Customer).FirstOrDefaultAsync(c => c.CustomerId == customerId && c.Id == carId);
                 vehicleId = car?.VehicleId;
                 if (car?.Customer != null)
                 {
@@ -214,7 +214,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                         UsedBattery = usedBattery
                     };
 
-                    _context.Car.Add(car);
+                    _context.Sale.Add(car);
 
                     customer = await _context.Customer.FindAsync(CustomerId);
                     customer.Address = vm.Address;

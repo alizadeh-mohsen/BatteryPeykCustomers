@@ -28,17 +28,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Company)
+            @foreach (var item in Model.Brand)
             {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Guarranty)
+                        @Html.DisplayFor(modelItem => item.Warranty)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LifeTime)
+                        @Html.DisplayFor(modelItem => item.LifeExpectancy)
                     </td>
                     <td class="text-center">
                     <a asp-page="./Edit" asp-route-id="@item.Id" style="text-decoration:none"> <i class="bi bi-pencil-square ms-2" style="font-size:1.5rem"></i> </a> 

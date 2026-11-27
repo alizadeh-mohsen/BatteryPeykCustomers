@@ -6,8 +6,12 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
+
         public int BatteryId { get; set; }
         public required Battery Battery { get; set; }
+
+        public int? BranchId { get; set; }
+        public Branch? Branch { get; set; }
 
         [Required(ErrorMessage = "سود را وارد کنید")]
         public int Profit { get; set; }

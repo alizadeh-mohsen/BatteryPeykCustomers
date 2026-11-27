@@ -10,18 +10,21 @@ namespace BatteryPeykCustomers.Model
         [Key]
         public int Id { get; set; }
 
+        public required string CustomerNumber { get; set; }
+
         [MaxLength(20)]
         [Required(ErrorMessage = "این فیلد اجباری است")]
-        public string Phone { get; set; }
+        public required string Phone { get; set; }
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         public string? Address { get; set; }
-        public ICollection<Sale>? Sales { get; set; }
 
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
         public OwnerType CustomerType { get; set; }
+
 
     }
 }

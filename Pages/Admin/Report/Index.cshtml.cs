@@ -38,7 +38,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             TimeSpan ts = new TimeSpan(11, 59, 59);
             To = To.Value.Date + ts;
 
-            var batteriesSold = await _context.Car
+            var batteriesSold = await _context.Sale
                 .Where(c => c.PurchaseDate >= From && c.PurchaseDate <= To)
                 .CountAsync();
 

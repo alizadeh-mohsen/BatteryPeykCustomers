@@ -1,29 +1,37 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BatteryPeykCustomers.Model
 {
-    public class Sale
+    public class Order
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public int CustomerId { get; set; }
+        public Customer Customer { get; set; } = null!;
+
         [Required]
         public int VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; } = null!;
+
         [Required]
         public int BatteryId { get; set; }
+        public Battery Battery { get; set; } = null!;
+
+        [Required]
+        public int TransactionId { get; set; }
+        public Transaction Transaction { get; set; } = null!;
+
         public DateTime PurchaseDate { get; set; }
+
         public DateTime ReplaceDate { get; set; }
+
         public string? Comments { get; set; }
+
         public int Sms { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public required Customer? Customer { get; set; }
-        [ForeignKey("VehicleId")]
-        public required Vehicle Vehicle { get; set; }
-        [ForeignKey("BatteryId")]
-        public required Battery Battery { get; set; }
+        public required string InvoiceNumber { get; set; }
 
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 
 namespace BatteryPeykCustomers.Model
 {
@@ -9,12 +7,12 @@ namespace BatteryPeykCustomers.Model
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="این فیلد اجباری است")]
-        public int Amount { get; set; }
+        [Required(ErrorMessage = "این فیلد اجباری است")]
+        public long Amount { get; set; }
 
-        public DateTime Date { get; set; } = DateTime.Today;
+        public DateTime Date { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage ="این فیلد اجباری است")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
         public string? Description { get; set; }
 
     }

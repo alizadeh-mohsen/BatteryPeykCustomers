@@ -2,12 +2,15 @@
 
 namespace BatteryPeykCustomers.Model
 {
-    public class GuarrantyBattery
+    public class WarrantyBattery
     {
         [Key]
         public int Id { get; set; }
         public int BatteryId { get; set; }
         public required Battery Battery { get; set; }
+
+        public int? BranchId { get; set; }
+        public Branch? Branch { get; set; }
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public int Quantity { get; set; }

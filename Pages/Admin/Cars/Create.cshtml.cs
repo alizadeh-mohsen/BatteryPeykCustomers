@@ -67,7 +67,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 Car.PurchaseDate = DateTime.Today;
                 Car.ReplaceDate = DateTime.Today.AddMonths(Car.LifeExpectancy);
 
-                _context.Car.Add(Car);
+                _context.Sale.Add(Car);
                 await _context.SaveChangesAsync();
 
                 TempData["success"] = "Created Successfully";

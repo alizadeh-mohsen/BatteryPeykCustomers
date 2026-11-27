@@ -27,7 +27,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
         {
             if (_context.Customer != null)
             {
-                var resultQuery = _context.Car.Include(c => c.Customer).
+                var resultQuery = _context.Sale.Include(c => c.Customer).
                     Where(c => c.ReplaceDate.AddDays(-30) <= DateTime.Today && c.Sms == 0).OrderBy(c => c.PurchaseDate).Select(
                     c => new Expire
                     {
@@ -76,7 +76,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Customers
                 }
                 else
                 {
-                    var car = await _context.Car.FindAsync(Id);
+                    var car = await _context.Sale.FindAsync(Id);
                     car.Sms = 1;
                     _context.Update(car);
                     var result = await _context.SaveChangesAsync();

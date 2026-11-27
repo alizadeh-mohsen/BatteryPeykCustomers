@@ -9,11 +9,11 @@ namespace BatteryPeykCustomers.Model
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(50)]
-        public string AccountNumber { get; set; }
+        public required string AccountNumber { get; set; }
 
     }
 }

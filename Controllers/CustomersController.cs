@@ -1,5 +1,6 @@
 ﻿using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Dtos;
+using BatteryPeykCustomers.Helpers.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@ namespace BatteryPeykCustomers.Controllers
             {
                 return NotFound();
             }
-            var customer = await _context.Customer.Include(c => c.Cars).FirstOrDefaultAsync(c => c.Phone == m);
+            var customer = await _context.Customer.Include(c => c.Orders).FirstOrDefaultAsync(c => c.Phone == m);
 
             if (customer == null)
             {
@@ -38,20 +39,20 @@ namespace BatteryPeykCustomers.Controllers
             };
 
             List<CarDto> carDtos = new List<CarDto>();
-            foreach (var car in customer.Cars)
+            foreach (var order in customer.Orders)
             {
                 carDtos.Add(new CarDto
                 {
-                    Battery = car.Battery,
-                    Make = car.Make,
-                    Expire = setExpire(car.PurchaseDate, car.Guaranty),
-                    PurchaseDate = car.PurchaseDate.ToShortDateString(),
-                    ReplacementDate = setReplacementDate(car.PurchaseDate, car.LifeExpectancy),
-                    Status = setStatus(car.PurchaseDate, car.Guaranty),
-                    BatteryAge = DateTime.Now.Date == car.PurchaseDate.Date ? "0"
-                    : DateTime.Today.Subtract(car.PurchaseDate).TotalDays.ToString(),
-                    IsCompany = customer.IsCompany,
-                    Comment = car.Comments
+                    Battery = order.Battery?.Brand?.Title,
+                    Make = order.Vehicle.Name,
+                    Expire = setExpire(order.PurchaseDate, order.Battery.Brand.Warranty),
+                    PurchaseDate = order.PurchaseDate.ToShortDateString(),
+                    ReplacementDate = setReplacementDate(order.PurchaseDate, order.Battery.Brand.LifeExpectancy),
+                    Status = setStatus(order.PurchaseDate, order.Battery.Brand.Warranty),
+                    BatteryAge = DateTime.Now.Date == order.PurchaseDate.Date ? "0"
+                    : DateTime.Today.Subtract(order.PurchaseDate).TotalDays.ToString(),
+                    IsCompany = customer.CustomerType == OwnerType.Company,
+                    Comment = order.Comments
 
                 });
             }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Brands
 {
@@ -21,7 +16,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
         }
 
         [BindProperty]
-        public BatteryBrand Company { get; set; } = default!;
+        public Brand Brand { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +25,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return NotFound();
             }
 
-            var company =  await _context.Company.FirstOrDefaultAsync(m => m.Id == id);
-            if (company == null)
+            var dbBrand = await _context.Brand.FirstOrDefaultAsync(m => m.Id == id);
+            if (dbBrand == null)
             {
                 return NotFound();
             }
-            Company = company;
+            Brand = dbBrand;
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,7 +41,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return Page();
             }
 
-            _context.Attach(Company).State = EntityState.Modified;
+            _context.Attach(Brand).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +49,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompanyExists(Company.Id))
+                if (!BrandExists(Brand.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +62,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
             return RedirectToPage("./Index");
         }
 
-        private bool CompanyExists(int id)
+        private bool BrandExists(int id)
         {
-            return _context.Company.Any(e => e.Id == id);
+            return _context.Brand.Any(e => e.Id == id);
         }
     }
 }

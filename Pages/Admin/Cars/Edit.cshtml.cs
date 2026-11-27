@@ -31,7 +31,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
                 return NotFound();
             }
 
-            var res = await _context.Car.FirstOrDefaultAsync(m => m.Id == id);
+            var res = await _context.Sale.FirstOrDefaultAsync(m => m.Id == id);
 
             if (res == null)
             {
@@ -95,7 +95,7 @@ namespace BatteryPeykCars.Pages.Admin.Cars
 
         private bool CarExists(int id)
         {
-            return (_context.Car?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Sale?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

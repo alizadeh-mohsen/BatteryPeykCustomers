@@ -7,18 +7,13 @@ namespace BatteryPeykCustomers.Model
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public required string Name { get; set; }
+        public required string Code { get; set; }
 
-        public int NewBatteryId { get; set; }
-        public int OldBatteryId { get; set; }
-        public int UsedBatteryId { get; set; }
-        public int GuarrantyBatteryId { get; set; }
-
-
-        public required NewBattery NewBattery { get; set; }
-        public required OldBattery OldBattery { get; set; }
-        public required UsedBattery UsedBattery { get; set; }
-        public required GuarrantyBattery GuarrantyBattery { get; set; }
+        public ICollection<NewBattery> NewBatteries { get; set; } = new List<NewBattery>();
+        public ICollection<OldBattery> OldBatteries { get; set; } = new List<OldBattery>();
+        public ICollection<UsedBattery> UsedBatteries { get; set; } = new List<UsedBattery>();
+        public ICollection<WarrantyBattery> WarrantyBatteries { get; set; } = new List<WarrantyBattery>();
 
 
     }

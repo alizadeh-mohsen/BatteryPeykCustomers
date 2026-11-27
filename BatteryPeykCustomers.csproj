@@ -8,14 +8,62 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admin\Batteries\**" />
+    <Compile Remove="Pages\Admin\Cars\**" />
     <Compile Remove="Pages\Admin\Counterparties\**" />
-    <Compile Remove="Pages\Admin\Reasons\**" />
+    <Compile Remove="Pages\Admin\Credits\**" />
+    <Compile Remove="Pages\Admin\Customers\**" />
+    <Compile Remove="Pages\Admin\Debts\**" />
+    <Compile Remove="Pages\Admin\Expenses\**" />
+    <Compile Remove="Pages\Admin\Guaranties\**" />
+    <Compile Remove="Pages\Admin\Profits\**" />
+    <Compile Remove="Pages\Admin\Report\**" />
+    <Compile Remove="Pages\Admin\Sms\**" />
+    <Compile Remove="Pages\Admin\Staffs\**" />
+    <Compile Remove="Pages\Admin\Useds\**" />
+    <Compile Remove="Pages\Admin\Vehicles\**" />
+    <Content Remove="Pages\Admin\Batteries\**" />
+    <Content Remove="Pages\Admin\Cars\**" />
     <Content Remove="Pages\Admin\Counterparties\**" />
-    <Content Remove="Pages\Admin\Reasons\**" />
+    <Content Remove="Pages\Admin\Credits\**" />
+    <Content Remove="Pages\Admin\Customers\**" />
+    <Content Remove="Pages\Admin\Debts\**" />
+    <Content Remove="Pages\Admin\Expenses\**" />
+    <Content Remove="Pages\Admin\Guaranties\**" />
+    <Content Remove="Pages\Admin\Profits\**" />
+    <Content Remove="Pages\Admin\Report\**" />
+    <Content Remove="Pages\Admin\Sms\**" />
+    <Content Remove="Pages\Admin\Staffs\**" />
+    <Content Remove="Pages\Admin\Useds\**" />
+    <Content Remove="Pages\Admin\Vehicles\**" />
+    <EmbeddedResource Remove="Pages\Admin\Batteries\**" />
+    <EmbeddedResource Remove="Pages\Admin\Cars\**" />
     <EmbeddedResource Remove="Pages\Admin\Counterparties\**" />
-    <EmbeddedResource Remove="Pages\Admin\Reasons\**" />
+    <EmbeddedResource Remove="Pages\Admin\Credits\**" />
+    <EmbeddedResource Remove="Pages\Admin\Customers\**" />
+    <EmbeddedResource Remove="Pages\Admin\Debts\**" />
+    <EmbeddedResource Remove="Pages\Admin\Expenses\**" />
+    <EmbeddedResource Remove="Pages\Admin\Guaranties\**" />
+    <EmbeddedResource Remove="Pages\Admin\Profits\**" />
+    <EmbeddedResource Remove="Pages\Admin\Report\**" />
+    <EmbeddedResource Remove="Pages\Admin\Sms\**" />
+    <EmbeddedResource Remove="Pages\Admin\Staffs\**" />
+    <EmbeddedResource Remove="Pages\Admin\Useds\**" />
+    <EmbeddedResource Remove="Pages\Admin\Vehicles\**" />
+    <None Remove="Pages\Admin\Batteries\**" />
+    <None Remove="Pages\Admin\Cars\**" />
     <None Remove="Pages\Admin\Counterparties\**" />
-    <None Remove="Pages\Admin\Reasons\**" />
+    <None Remove="Pages\Admin\Credits\**" />
+    <None Remove="Pages\Admin\Customers\**" />
+    <None Remove="Pages\Admin\Debts\**" />
+    <None Remove="Pages\Admin\Expenses\**" />
+    <None Remove="Pages\Admin\Guaranties\**" />
+    <None Remove="Pages\Admin\Profits\**" />
+    <None Remove="Pages\Admin\Report\**" />
+    <None Remove="Pages\Admin\Sms\**" />
+    <None Remove="Pages\Admin\Staffs\**" />
+    <None Remove="Pages\Admin\Useds\**" />
+    <None Remove="Pages\Admin\Vehicles\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,14 +85,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Upgrade\Customers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Admin\Cars\Create.cshtml" />
-    <None Include="Pages\Admin\Cars\Details.cshtml" />
-    <None Include="Pages\Admin\Cars\Edit.cshtml" />
-    <None Include="Pages\Admin\Cars\Index.cshtml" />
   </ItemGroup>
 
 </Project>

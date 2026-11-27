@@ -8,21 +8,19 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
+
         public int AmperId { get; set; }
+
         public int BatteryBrandId { get; set; }
 
-        [ForeignKey("AmperId")]
-        public Amper? Amper { get; set; }
-
-        [ForeignKey("BatteryBrandId")]
-        public BatteryBrand? BatteryBrand { get; set; }
         public BatteryType BatteryType { get; set; }
-        public string Title
-        {
-            get { return $"{BatteryType} {Amper?.Title}"; }
-        }
 
-        public int Guaranty { get; set; }
-        public int LifeExpectancy { get; set; }
+        public string Title => $"{BatteryType} {Amper?.Title}";
+
+        [ForeignKey("AmperId")]
+        public required Amper Amper { get; set; }
+
+        [ForeignKey("BrandId")]
+        public required Brand Brand { get; set; }
     }
 }

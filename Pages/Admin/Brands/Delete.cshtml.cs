@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Brands
 {
@@ -20,7 +16,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
         }
 
         [BindProperty]
-        public BatteryBrand Company { get; set; } = default!;
+        public Brand Brand { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +25,15 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return NotFound();
             }
 
-            var company = await _context.Company.FirstOrDefaultAsync(m => m.Id == id);
+            var dbBrand = await _context.Brand.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (company == null)
+            if (dbBrand == null)
             {
                 return NotFound();
             }
             else
             {
-                Company = company;
+                Brand = dbBrand;
             }
             return Page();
         }
@@ -49,11 +45,11 @@ namespace BatteryPeykCustomers.Pages.Admin.Brands
                 return NotFound();
             }
 
-            var company = await _context.Company.FindAsync(id);
-            if (company != null)
+            var Brand = await _context.Brand.FindAsync(id);
+            if (Brand != null)
             {
-                Company = company;
-                _context.Company.Remove(Company);
+                Brand = Brand;
+                _context.Brand.Remove(Brand);
                 await _context.SaveChangesAsync();
             }
 

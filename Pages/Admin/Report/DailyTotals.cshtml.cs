@@ -35,7 +35,7 @@ namespace BatteryPeykCustomers.Pages.Admin.Report
             var toInclusive = To.Value.Date.AddDays(1).AddTicks(-1);
 
             // Group by date portion of PurchaseDate and count
-            var dailyTotalsQuery = _context.Car
+            var dailyTotalsQuery = _context.Sale
                  .Where(c => c.PurchaseDate >= From.Value.Date && c.PurchaseDate <= toInclusive)
                  .GroupBy(c => c.PurchaseDate.Date)
                  .Select(g => new DailyTotalDto
