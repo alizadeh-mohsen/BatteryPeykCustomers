@@ -16,6 +16,11 @@
                 <span asp-validation-for="Vehicle.Name" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
+                نوع مالک
+                <select asp-for="Vehicle.OwnerType" asp-items="Html.GetEnumSelectList<BatteryPeykCustomers.Helpers.Enums.OwnerType>()" class="form-control"></select>
+                <span asp-validation-for="Vehicle.OwnerType" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-primary mt-2" />
                 <a asp-page="./Index" class="btn btn-primary mt-2">بازگشت</a>
 

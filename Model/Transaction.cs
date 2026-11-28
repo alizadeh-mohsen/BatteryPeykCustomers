@@ -8,17 +8,16 @@ namespace BatteryPeykCustomers.Model
         public int Id { get; set; }
 
         public int BankAccountId { get; set; }
-
-        [ForeignKey("BankAccountId")]
-        public required BankAccount BankAccount { get; set; }
+        public int? OrderId { get; set; }
+        public int? ReasonId { get; set; }
 
         public required DateTime Date { get; set; } = DateTime.Now;
         public long Amount { get; set; }
         public TransactionType TransactionType { get; set; }
 
         public Reason? Reason { get; set; }
-
-        public int? OrderId { get; set; }
+        [ForeignKey("BankAccountId")]
+        public required BankAccount BankAccount { get; set; }
 
     }
 }

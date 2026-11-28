@@ -1,77 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Data;
 
-namespace BatteryPeykCustomers.Pages.Admin.Counterparties
+namespace BatteryPeykCustomers.Pages.Admin.Counterparties;
+
+public class EditModel : PageModel
 {
-    public class EditModel : PageModel
-    {
-        private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-        public EditModel(ApplicationDbContext context)
+    public EditModel(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public Counterparty Counterparty { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id is null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Counterparty Counterparty { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var counterparty = await _context.Counterparty.FirstOrDefaultAsync(m => m.Id == id);
+        if (counterparty is null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        Counterparty = counterparty;
+        return Page();
+    }
 
-            var counterparty =  await _context.Counterparty.FirstOrDefaultAsync(m => m.Id == id);
-            if (counterparty == null)
-            {
-                return NotFound();
-            }
-            Counterparty = counterparty;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(Counterparty).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CounterpartyExists(Counterparty.Id))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Counterparty).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CounterpartyExists(Counterparty.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool CounterpartyExists(int id)
-        {
-            return _context.Counterparty.Any(e => e.Id == id);
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool CounterpartyExists(int id)
+    {
+        return _context.Counterparty.Any(e => e.Id == id);
     }
 }

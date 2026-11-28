@@ -15,6 +15,20 @@
                 <input asp-for="Vehicle.Name" class="form-control" />
                 <span asp-validation-for="Vehicle.Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Vehicle.OwnerType" class="control-label">نوع مالکیت</label>
+                <select asp-for="Vehicle.OwnerType"
+                        asp-items="Html.GetEnumSelectList<BatteryPeykCustomers.Helpers.Enums.OwnerType>()"
+                        class="form-select"
+                        aria-required="true">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="Vehicle.OwnerType" class="text-danger"></span>
+            </div>
+
+
+
             <div class="form-group mb-2">
                 <input type="submit" value="ذخیره" class="btn btn-primary mt-2" />
                 <a asp-page="./Index" class="btn btn-primary mt-2">بازگشت</a>

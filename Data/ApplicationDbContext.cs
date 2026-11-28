@@ -83,9 +83,6 @@ namespace BatteryPeykCustomers.Data
                     .HasIndex(x => x.Code)
                     .IsUnique();
 
-            builder.Entity<Counterparty>()
-                    .HasIndex(x => x.Code)
-                    .IsUnique();
             builder.Entity<Customer>()
                     .HasIndex(x => x.Phone)
                     .IsUnique();

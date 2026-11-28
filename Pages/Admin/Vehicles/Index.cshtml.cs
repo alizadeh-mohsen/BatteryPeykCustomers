@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BatteryPeykCustomers.Data;
+using BatteryPeykCustomers.Helpers.Enums;
+using BatteryPeykCustomers.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
-using BatteryPeykCustomers.Model;
 
 namespace BatteryPeykCustomers.Pages.Admin.Vehicles
 {
@@ -14,6 +11,9 @@ namespace BatteryPeykCustomers.Pages.Admin.Vehicles
     {
         [BindProperty(SupportsGet = true)]
         public string? SearchNameString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? SearchOwnerTypeString { get; set; }
 
         private readonly ApplicationDbContext _context;
 
@@ -30,6 +30,12 @@ namespace BatteryPeykCustomers.Pages.Admin.Vehicles
 
             if (!string.IsNullOrWhiteSpace(SearchNameString))
                 query = query.Where(v => v.Name.Contains(SearchNameString));
+
+            if (!string.IsNullOrWhiteSpace(SearchOwnerTypeString)
+                && Enum.TryParse<OwnerType>(SearchOwnerTypeString, true, out var ownerType))
+            {
+                query = query.Where(v => v.OwnerType == ownerType);
+            }
 
             Vehicle = await query.ToListAsync();
             return Page();

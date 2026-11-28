@@ -7,12 +7,11 @@ namespace BatteryPeykCustomers.Model
     {
         [Key]
         public int Id { get; set; }
+
         public DateTime Date { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public int Amount { get; set; }
-        [Required(ErrorMessage = "این فیلد اجباری است")]
-        public string? Description { get; set; }
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public int CounterpartyId { get; set; }
@@ -26,6 +25,6 @@ namespace BatteryPeykCustomers.Model
         [ForeignKey("CounterpartyId")]
         public Counterparty? Counterparty { get; set; }
 
-
+        public string? Description { get; set; }
     }
 }

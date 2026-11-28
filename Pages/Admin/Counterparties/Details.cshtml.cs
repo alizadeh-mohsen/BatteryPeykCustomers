@@ -1,43 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BatteryPeykCustomers.Data;
 using BatteryPeykCustomers.Model;
+using BatteryPeykCustomers.Data;
 
-namespace BatteryPeykCustomers.Pages.Admin.Counterparties
+namespace BatteryPeykCustomers.Pages.Admin.Counterparties;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly ApplicationDbContext _context;
+    public DetailsModel(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(ApplicationDbContext context)
+    public Counterparty Counterparty { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id is null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        public Counterparty Counterparty { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var counterparty = await _context.Counterparty.FirstOrDefaultAsync(m => m.Id == id);
+        if (counterparty is null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var counterparty = await _context.Counterparty.FirstOrDefaultAsync(m => m.Id == id);
-            if (counterparty == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Counterparty = counterparty;
-            }
-            return Page();
+            return NotFound();
         }
+        else
+        {
+            Counterparty = counterparty;
+        }
+
+        return Page();
     }
 }

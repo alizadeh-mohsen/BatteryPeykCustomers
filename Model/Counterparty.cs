@@ -9,6 +9,5 @@ namespace BatteryPeykCustomers.Model
 
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public required string Title { get; set; }
-        public required string Code { get; set; }
     }
 }
